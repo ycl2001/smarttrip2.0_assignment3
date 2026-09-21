@@ -120,13 +120,13 @@ Instead of copying the information into a group chat and manually entering it in
 
 Share → SmartTrip
 
-The shared URL is captured as a Saved Place associated with the selected trip.
+The shared URL is captured as a SavedPlace associated with the selected Trip.
 
 #### Initial Supported Content
 
 - Web URLs
 - Map URLs
-- Plain text if practical
+- Plain text may be considered as a future enhancement.
 
 ## Widget Extension
 
@@ -146,7 +146,7 @@ Displays:
 
 Displays:
 
-- Next two or three activities
+- Next two or three activities for the current day
 - Start times
 - Locations
 
@@ -168,9 +168,11 @@ The data model will contain relationships between trips and their related Saved 
 
 ### CaptureSharedPlaceUseCase
 
-Captures trip-related information shared from another application and stores it as a Saved Place.
+Purpose:
 
-Business rules:
+Capture content discovered outside SmartTrip as a Saved Place.
+
+Planned business rules:
 
 - A trip must be selected.
 - Shared content must be supported.
@@ -178,27 +180,38 @@ Business rules:
 
 ### ScheduleSavedPlaceUseCase
 
-Converts a Saved Place into a confirmed itinerary activity.
+Purpose:
 
-Business rules:
+Convert a Saved Place into a confirmed Itinerary Item.
 
-- The activity must fall within the trip dates.
-- The Saved Place must not already be scheduled.
-- Required scheduling information must be provided.
+Planned business rules:
+
+- The scheduled activity must fall within the trip dates.
+- The Saved Place cannot already be scheduled.
+- Required scheduling information must exist.
 
 ### AttachTripMemoryUseCase
 
-Associates a memory with an existing trip activity.
+Purpose:
 
-Business rules:
+Associate a memory with a trip or itinerary activity.
 
-- The itinerary activity must exist.
-- The memory must belong to the selected trip.
-- Only supported content should be saved.
+Planned business rules:
+
+- The referenced trip or activity must exist.
+- The memory must belong to the correct trip.
+- Only supported content should be stored.
 
 ### Optional: CreateTripUseCase
 
-Creates a new trip while validating trip dates and required information.
+Purpose:
+
+Create a valid trip.
+
+Planned business rules:
+
+- Required trip information must exist.
+- End date cannot be before start date.
 
 ## Meaningful Database Query
 
