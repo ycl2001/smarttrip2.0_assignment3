@@ -17,7 +17,7 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="statusRawValue" attributeType="String"/>
         <attribute name="urlString" optional="YES" attributeType="String"/>
-        <relationship name="trip" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="savedPlaces" inverseEntity="TripEntity"/>
+        <relationship name="trip" maxCount="1" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="savedPlaces" inverseEntity="TripEntity"/>
     </entity>
     <entity name="ItineraryItemEntity" representedClassName="ItineraryItemEntity" syncable="YES" codeGenerationType="class">
         <attribute name="categoryRawValue" attributeType="String"/>
@@ -28,6 +28,6 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="trip" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="itineraryItems" inverseEntity="TripEntity"/>
+        <relationship name="trip" maxCount="1" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="itineraryItems" inverseEntity="TripEntity"/>
     </entity>
 </model>
