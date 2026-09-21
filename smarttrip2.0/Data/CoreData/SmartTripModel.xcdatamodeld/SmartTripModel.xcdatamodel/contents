@@ -20,6 +20,14 @@
         <relationship name="trip" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="savedPlaces" inverseEntity="TripEntity"/>
     </entity>
     <entity name="ItineraryItemEntity" representedClassName="ItineraryItemEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="categoryRawValue" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="location" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
         <relationship name="trip" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="itineraryItems" inverseEntity="TripEntity"/>
     </entity>
 </model>
