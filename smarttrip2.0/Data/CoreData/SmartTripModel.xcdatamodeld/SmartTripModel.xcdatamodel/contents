@@ -11,6 +11,12 @@
         <relationship name="savedPlaces" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavedPlaceEntity" inverseName="trip" inverseEntity="SavedPlaceEntity"/>
     </entity>
     <entity name="SavedPlaceEntity" representedClassName="SavedPlaceEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateSaved" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="statusRawValue" attributeType="String"/>
+        <attribute name="urlString" optional="YES" attributeType="String"/>
         <relationship name="trip" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="savedPlaces" inverseEntity="TripEntity"/>
     </entity>
     <entity name="ItineraryItemEntity" representedClassName="ItineraryItemEntity" syncable="YES" codeGenerationType="class">
