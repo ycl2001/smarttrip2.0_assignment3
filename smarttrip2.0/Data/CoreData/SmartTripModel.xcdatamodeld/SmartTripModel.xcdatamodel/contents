@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="26600" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="TripEntity" representedClassName="TripEntity" syncable="YES" codeGenerationType="class"/>
-    <entity name="SavedPlaceEntity" representedClassName="SavedPlaceEntity" syncable="YES" codeGenerationType="class"/>
-    <entity name="ItineraryItemEntity" representedClassName="ItineraryItemEntity" syncable="YES" codeGenerationType="class"/>
+    <entity name="TripEntity" representedClassName="TripEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="coverImageName" optional="YES" attributeType="String"/>
+        <attribute name="destination" attributeType="String"/>
+        <attribute name="endDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="startDate" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="itineraryItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ItineraryItemEntity" inverseName="trip" inverseEntity="ItineraryItemEntity"/>
+        <relationship name="savedPlaces" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavedPlaceEntity" inverseName="trip" inverseEntity="SavedPlaceEntity"/>
+    </entity>
+    <entity name="SavedPlaceEntity" representedClassName="SavedPlaceEntity" syncable="YES" codeGenerationType="class">
+        <relationship name="trip" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="savedPlaces" inverseEntity="TripEntity"/>
+    </entity>
+    <entity name="ItineraryItemEntity" representedClassName="ItineraryItemEntity" syncable="YES" codeGenerationType="class">
+        <relationship name="trip" deletionRule="Nullify" destinationEntity="TripEntity" inverseName="itineraryItems" inverseEntity="TripEntity"/>
+    </entity>
 </model>
