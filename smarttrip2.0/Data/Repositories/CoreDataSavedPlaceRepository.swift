@@ -21,6 +21,16 @@ final class CoreDataSavedPlaceRepository: SavedPlaceRepository {
         return try entities.map(SavedPlaceMapper.toDomain)
     }
 
+    func fetchSavedPlace(
+        id: UUID
+    ) throws -> SavedPlace? {
+        guard let entity = try fetchSavedPlaceEntity(id: id) else {
+            return nil
+        }
+
+        return try SavedPlaceMapper.toDomain(entity)
+    }
+
     func saveSavedPlace(
         _ place: SavedPlace
     ) throws {
