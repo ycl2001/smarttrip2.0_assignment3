@@ -9,7 +9,7 @@ struct Trip: Identifiable, Equatable {
     let endDate: Date
     let coverImageName: String?
 
-    init(
+    nonisolated init(
         id: UUID = UUID(),
         name: String,
         destination: String,

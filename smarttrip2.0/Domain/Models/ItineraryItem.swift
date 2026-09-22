@@ -13,7 +13,7 @@ struct ItineraryItem: Identifiable, Equatable {
     let notes: String?
     let category: ItineraryCategory
 
-    init(
+    nonisolated init(
         id: UUID = UUID(),
         tripID: UUID,
         sourceSavedPlaceID: UUID? = nil,
