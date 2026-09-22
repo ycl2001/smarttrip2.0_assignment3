@@ -2,7 +2,7 @@ import CoreData
 import Foundation
 
 enum TripMapper {
-    static func toDomain(
+    nonisolated static func toDomain(
         _ entity: TripEntity
     ) throws -> Trip {
         let id: UUID = try requiredValue(entity, field: "id")
@@ -21,7 +21,7 @@ enum TripMapper {
         )
     }
 
-    static func apply(
+    nonisolated static func apply(
         _ trip: Trip,
         to entity: TripEntity
     ) {
@@ -33,7 +33,7 @@ enum TripMapper {
         entity.setValue(trip.coverImageName, forKey: "coverImageName")
     }
 
-    private static func requiredValue<T>(
+    nonisolated private static func requiredValue<T>(
         _ entity: NSManagedObject,
         field: String
     ) throws -> T {

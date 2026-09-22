@@ -2,7 +2,7 @@ import CoreData
 import Foundation
 
 enum SavedPlaceMapper {
-    static func toDomain(
+    nonisolated static func toDomain(
         _ entity: SavedPlaceEntity
     ) throws -> SavedPlace {
         let id: UUID = try requiredValue(entity, field: "id")
@@ -36,7 +36,7 @@ enum SavedPlaceMapper {
         )
     }
 
-    static func apply(
+    nonisolated static func apply(
         _ place: SavedPlace,
         to entity: SavedPlaceEntity
     ) {
@@ -48,7 +48,7 @@ enum SavedPlaceMapper {
         entity.setValue(place.dateSaved, forKey: "dateSaved")
     }
 
-    static func apply(
+    nonisolated static func apply(
         _ place: SavedPlace,
         to entity: SavedPlaceEntity,
         trip: TripEntity
@@ -57,7 +57,7 @@ enum SavedPlaceMapper {
         entity.setValue(trip, forKey: "trip")
     }
 
-    private static func requiredTrip(
+    nonisolated private static func requiredTrip(
         from entity: SavedPlaceEntity
     ) throws -> TripEntity {
         guard let trip = entity.value(forKey: "trip") as? TripEntity else {
@@ -69,7 +69,7 @@ enum SavedPlaceMapper {
         return trip
     }
 
-    private static func requiredValue<T>(
+    nonisolated private static func requiredValue<T>(
         _ entity: NSManagedObject,
         field: String,
         entityName: String = "SavedPlaceEntity"

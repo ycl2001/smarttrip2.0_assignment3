@@ -2,7 +2,7 @@ import CoreData
 import Foundation
 
 enum ItineraryItemMapper {
-    static func toDomain(
+    nonisolated static func toDomain(
         _ entity: ItineraryItemEntity
     ) throws -> ItineraryItem {
         let id: UUID = try requiredValue(entity, field: "id")
@@ -31,7 +31,7 @@ enum ItineraryItemMapper {
         )
     }
 
-    static func apply(
+    nonisolated static func apply(
         _ item: ItineraryItem,
         to entity: ItineraryItemEntity
     ) {
@@ -45,7 +45,7 @@ enum ItineraryItemMapper {
         entity.setValue(item.category.rawValue, forKey: "categoryRawValue")
     }
 
-    static func apply(
+    nonisolated static func apply(
         _ item: ItineraryItem,
         to entity: ItineraryItemEntity,
         trip: TripEntity
@@ -54,7 +54,7 @@ enum ItineraryItemMapper {
         entity.setValue(trip, forKey: "trip")
     }
 
-    private static func requiredTrip(
+    nonisolated private static func requiredTrip(
         from entity: ItineraryItemEntity
     ) throws -> TripEntity {
         guard let trip = entity.value(forKey: "trip") as? TripEntity else {
@@ -66,7 +66,7 @@ enum ItineraryItemMapper {
         return trip
     }
 
-    private static func requiredValue<T>(
+    nonisolated private static func requiredValue<T>(
         _ entity: NSManagedObject,
         field: String,
         entityName: String = "ItineraryItemEntity"

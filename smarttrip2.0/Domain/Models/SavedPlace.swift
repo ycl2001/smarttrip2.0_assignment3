@@ -10,7 +10,7 @@ struct SavedPlace: Identifiable, Equatable {
     let status: SavedPlaceStatus
     let dateSaved: Date
 
-    init(
+    nonisolated init(
         id: UUID = UUID(),
         tripID: UUID,
         name: String,
