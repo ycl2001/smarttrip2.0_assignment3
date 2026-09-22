@@ -55,7 +55,16 @@ final class CoreDataItineraryRepository: ItineraryRepository {
         for tripID: UUID,
         from date: Date
     ) throws -> [ItineraryItem] {
-        throw CoreDataRepositoryError.upcomingItineraryQueryNotConfigured
+        let request = ItineraryItemEntity.fetchRequest()
+        request.predicate = NSPredicate(
+            format: "trip.id == %@ AND startTime >= %@",
+            tripID as CVarArg,
+            date as NSDate
+        )
+        request.sortDescriptors = chronologicalSortDescriptors
+
+        let entities = try context.fetch(request)
+        return try entities.map(ItineraryItemMapper.toDomain)
     }
 
     private var chronologicalSortDescriptors: [NSSortDescriptor] {
