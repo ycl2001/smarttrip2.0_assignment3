@@ -234,6 +234,23 @@ Views
 
 Views and ViewModels will not access Core Data directly.
 
+## Phase 2 Completion
+
+Phase 2 established the Core Data and Repository layer foundation.
+
+Completed scope:
+
+- Core Data model foundation
+- Trip, Saved Place, and Itinerary Item persistence entities
+- PersistenceController
+- Repository protocols
+- Domain to Core Data mappers
+- Core Data repository implementations for Trips, Saved Places, and Itinerary Items
+- Upcoming itinerary predicate query
+- App-level repository dependency wiring
+
+Use Cases, ViewModel refactoring, WidgetKit, Share Extension, and App Groups remain outside Phase 2.
+
 ## Development Notes
 
 Throughout implementation, record:
