@@ -35,6 +35,10 @@ struct ScheduleSavedPlaceUseCase {
             throw ScheduleSavedPlaceError.savedPlaceNotFound
         }
 
+        guard savedPlace.tripID == tripID else {
+            throw ScheduleSavedPlaceError.savedPlaceNotFound
+        }
+
         guard savedPlace.status != .scheduled else {
             throw ScheduleSavedPlaceError.alreadyScheduled
         }
