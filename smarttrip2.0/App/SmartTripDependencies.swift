@@ -6,6 +6,8 @@ struct SmartTripDependencies {
     let savedPlaceRepository: any SavedPlaceRepository
     let itineraryRepository: any ItineraryRepository
     let createTripUseCase: CreateTripUseCase
+    let captureSharedPlaceUseCase: CaptureSharedPlaceUseCase
+    let scheduleSavedPlaceUseCase: ScheduleSavedPlaceUseCase
 
     init(context: NSManagedObjectContext) {
         let tripRepository = CoreDataTripRepository(context: context)
@@ -18,12 +20,29 @@ struct SmartTripDependencies {
         self.createTripUseCase = CreateTripUseCase(
             tripRepository: tripRepository
         )
+        self.captureSharedPlaceUseCase = CaptureSharedPlaceUseCase(
+            tripRepository: tripRepository,
+            savedPlaceRepository: savedPlaceRepository
+        )
+        self.scheduleSavedPlaceUseCase = ScheduleSavedPlaceUseCase(
+            tripRepository: tripRepository,
+            savedPlaceRepository: savedPlaceRepository,
+            itineraryRepository: itineraryRepository
+        )
     }
 
     func makeTripViewModel() -> TripViewModel {
         TripViewModel(
             createTripUseCase: createTripUseCase,
             tripRepository: tripRepository
+        )
+    }
+
+    func makeSavedPlaceViewModel() -> SavedPlaceViewModel {
+        SavedPlaceViewModel(
+            captureSharedPlaceUseCase: captureSharedPlaceUseCase,
+            scheduleSavedPlaceUseCase: scheduleSavedPlaceUseCase,
+            savedPlaceRepository: savedPlaceRepository
         )
     }
 }
