@@ -5,6 +5,10 @@ protocol SavedPlaceRepository {
         for tripID: UUID
     ) throws -> [SavedPlace]
 
+    func fetchSavedPlace(
+        id: UUID
+    ) throws -> SavedPlace?
+
     func saveSavedPlace(
         _ place: SavedPlace
     ) throws
