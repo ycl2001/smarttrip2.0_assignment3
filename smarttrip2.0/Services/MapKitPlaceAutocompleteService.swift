@@ -5,6 +5,7 @@ import Observation
 @Observable
 final class MapKitPlaceAutocompleteService: NSObject, PlaceAutocompleteProviding {
     private let minimumQueryLength = 2
+    private static let maximumSuggestionCount = 5
     private let completer: MKLocalSearchCompleter
 
     private(set) var suggestions: [PlaceSuggestion] = []
@@ -27,6 +28,7 @@ final class MapKitPlaceAutocompleteService: NSObject, PlaceAutocompleteProviding
         }
 
         isUnavailable = false
+        suggestions = []
         completer.queryFragment = trimmedQuery
     }
 
@@ -38,7 +40,7 @@ final class MapKitPlaceAutocompleteService: NSObject, PlaceAutocompleteProviding
 
 extension MapKitPlaceAutocompleteService: MKLocalSearchCompleterDelegate {
     nonisolated func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        let suggestions = completer.results.map { result in
+        let suggestions = completer.results.prefix(Self.maximumSuggestionCount).map { result in
             PlaceSuggestion(
                 title: result.title,
                 subtitle: result.subtitle
