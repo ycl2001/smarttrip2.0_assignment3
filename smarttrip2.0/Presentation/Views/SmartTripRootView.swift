@@ -61,7 +61,12 @@ struct SmartTripRootView: View {
             }
             .navigationDestination(isPresented: isShowingRoutedJourneyCapsule) {
                 if let routedJourneyCapsuleTrip {
-                    JourneyCapsuleView(trip: routedJourneyCapsuleTrip)
+                    JourneyCapsuleView(
+                        trip: routedJourneyCapsuleTrip,
+                        viewModel: dependencies.makeJourneyCapsuleViewModel(
+                            tripID: routedJourneyCapsuleTrip.id
+                        )
+                    )
                 }
             }
             .onAppear {
@@ -148,7 +153,8 @@ struct SmartTripRootView: View {
             )
         case .capsules:
             JourneyCapsulesOverviewView(
-                viewModel: tripViewModel
+                viewModel: tripViewModel,
+                dependencies: dependencies
             )
         }
     }

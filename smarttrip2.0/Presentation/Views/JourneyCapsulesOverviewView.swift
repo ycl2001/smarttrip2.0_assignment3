@@ -2,9 +2,14 @@ import SwiftUI
 
 struct JourneyCapsulesOverviewView: View {
     @State private var viewModel: TripViewModel
+    let dependencies: SmartTripDependencies
 
-    init(viewModel: TripViewModel) {
+    init(
+        viewModel: TripViewModel,
+        dependencies: SmartTripDependencies
+    ) {
         _viewModel = State(initialValue: viewModel)
+        self.dependencies = dependencies
     }
 
     var body: some View {
@@ -64,7 +69,12 @@ struct JourneyCapsulesOverviewView: View {
             ) {
                 ForEach(viewModel.trips.sorted { $0.startDate > $1.startDate }) { trip in
                     NavigationLink {
-                        JourneyCapsuleView(trip: trip)
+                        JourneyCapsuleView(
+                            trip: trip,
+                            viewModel: dependencies.makeJourneyCapsuleViewModel(
+                                tripID: trip.id
+                            )
+                        )
                     } label: {
                         capsuleTile(for: trip)
                     }
