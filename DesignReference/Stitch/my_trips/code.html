@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface-container-lowest": "#ffffff",
+        "surface-container-low": "#f3f3f3",
+        "surface-container": "#eeeeee",
+        "surface-container-high": "#e8e8e8",
+        "surface-container-highest": "#e2e2e2",
+        "surface": "#f9f9f9",
+        "surface-bright": "#f9f9f9",
+        "surface-dim": "#dadada",
+        "background": "#f9f9f9",
+        "on-background": "#101010",
+        "on-surface": "#2b2b2b",
+        "on-surface-variant": "#666666",
+        "outline": "#707977",
+        "outline-variant": "#bfc9c6",
+        "primary": "#084d46",
+        "primary-container": "#084d46",
+        "on-primary": "#ffffff",
+        "on-primary-container": "#82bdb3",
+        "primary-variant": "#029b8d",
+        "secondary": "#a4612d",
+        "secondary-dark": "#321d0e",
+        "secondary-container": "#ffdcc6",
+        "on-secondary-container": "#703804",
+        "tertiary": "#ffc036",
+        "tertiary-container": "#ffe2a3",
+        "on-tertiary-container": "#5a4000",
+        "text-primary": "#2b2b2b",
+        "text-secondary": "#666666",
+        "text-tertiary": "#999999",
+        "presence-active": "#029b8d"
+      },
+      borderRadius: {
+        "DEFAULT": "1rem",
+        "lg": "2rem",
+        "xl": "3rem",
+        "full": "9999px"
+      },
+      spacing: {
+        "margin": "1rem",
+        "margin-mobile": "1rem",
+        "gutter": "1rem",
+        "gutter-mobile": "0.75rem",
+        "space-xs": "0.25rem",
+        "space-sm": "0.5rem",
+        "space-md": "1rem",
+        "space-lg": "1.5rem",
+        "space-xl": "2rem"
+      },
+      fontFamily: {
+        "label-sm": ["Inter"],
+        "label-md": ["Inter"],
+        "headline-lg": ["Inter"],
+        "headline-md": ["Inter"],
+        "body-md": ["Inter"],
+        "body-lg": ["Inter"],
+        "headline-sm": ["Inter"],
+        "display-lg": ["Inter"],
+        "body-sm": ["Inter"]
+      },
+      fontSize: {
+        "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "500" }],
+        "label-md": ["13px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "600" }],
+        "headline-lg": ["28px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }],
+        "headline-md": ["22px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "body-md": ["15px", { lineHeight: "20px", fontWeight: "400" }],
+        "body-lg": ["17px", { lineHeight: "24px", fontWeight: "400" }],
+        "headline-sm": ["17px", { lineHeight: "22px", letterSpacing: "-0.005em", fontWeight: "600" }],
+        "display-lg": ["34px", { lineHeight: "41px", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }]
+      }
+    }
+  }
+};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body><header class="fixed top-0 w-full z-50 pt-safe bg-[#f4f4f4]/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Otterra SmartTrip Logo" class="h-8 w-8 object-contain rounded-xl flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug9YKrkDxJX9TYrupTWLJmTHhlV2oLkppjIkfHsr2dbRNHGmPKinJorOkzvwOjV1lEnPDFBbpx9AzFXxc7zJd0YU48lJ8zeG5if1SVMWOAjk4fB3-PC6-1E044v_FBiSz1gSYrlpd57V0c0OE-ZVSSewu2SZK_ssAllhTEZIf6X8OgInaRfcvDweJXWl4USPNRJvkieFL1jtEzKYaG1K0efFpH80HmV4vn53t900RcuPuNNUo60sUDbrA"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-[#084d46] font-bold tracking-wide uppercase">SmartTrip 2.0</span><h1 class="font-headline-sm text-headline-sm text-[#171717] truncate">Trips</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full text-[#545454] hover:text-[#171717] transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span></button><div class="relative flex items-center pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYXyml_zzMPzFt36O2QRCa4Mxr3xlTqSsg6GlSCFmBE30gpIkDB8YBwXuYShvV95zlObzFKTUxHbOOcXX912uVnhxeMqrk8AlsXw7PC0vplRy6vBpCqZDfSb1c5yDx1kebT_cotc7JDQn_cFYMbG90hmwMtX_gWzooLqa0T5gNFaPm7QhGZBGs26q7jEs2ZvMEcWdYRrkOxUVTsM3ulpBK8EazZ8GYuau4OOTr0SuOBjPgoW08rCV1"><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#084d46] ring-2 ring-white"></span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-[#f4f4f4]"><div class="flex flex-col w-full">
+<div class="px-margin-mobile pt-space-md pb-space-sm flex items-center justify-between gap-space-sm">
+<div class="bg-[#e8e8e8] p-1 rounded-full flex items-center shadow-inner max-w-[240px] flex-1">
+<button class="flex-1 py-1.5 px-3 rounded-full bg-[#171717] text-white shadow-sm font-label-md text-label-md text-center transition-all duration-200" id="tab-upcoming" onclick="switchTripTab('upcoming')">
+        Upcoming <span class="ml-1 opacity-70">2</span>
+</button>
+<button class="flex-1 py-1.5 px-3 rounded-full text-[#545454] hover:text-[#171717] font-label-md text-label-md text-center transition-all duration-200" id="tab-past" onclick="switchTripTab('past')">
+        Past <span class="ml-1 opacity-70">4</span>
+</button>
+</div>
+<button class="h-10 px-4 rounded-full bg-[#084d46] hover:bg-[#029b8d] text-white font-label-md text-label-md flex items-center gap-1.5 shadow-md active:scale-95 transition-all duration-150">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="font-medium">New Trip</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-md px-margin-mobile pb-space-lg" id="content-upcoming">
+<div class="relative w-full rounded-[24px] overflow-hidden bg-white shadow-md flex flex-col group transition-all duration-200">
+<div class="relative h-56 w-full overflow-hidden">
+<div class="bg-cover bg-center w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Vibrant autumn scene in Kyoto Japan with red maple momiji leaves framing a traditional wooden pagoda temple and serene Zen gravel path, golden hour sunlight warm amber tones boutique travel photography" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBW2oM2dkqLj6uKSUjbP0xxafvCnH_wjSheICXgR5ijlVgmpmF6aX4GY1FgApouhsMDsUiL5IGxwx0A52fW9f-VV-dDCXHKaWHr7IpVWAzQQyXOMrFb4LDxxcO2zodAb8Iz6r-vXPoQu7yzA-KWxjbiSoqpiOwXwL2y2UfMVc6-442BaTise1xNcwW-ecYPdIfNe1CCYWmE-M6DWg-Gyj1YyxPdhs2ExvjlDGSqpjXuDZeoOJn_Yarn')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+<div class="absolute top-space-md left-space-md right-space-md flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-[#084d46] animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-[#171717] font-medium">7 days away</span>
+</div>
+<button aria-label="Trip Options" class="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-[#171717] hover:bg-white transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="absolute bottom-space-md left-space-md right-space-md text-white">
+<span class="inline-block px-2.5 py-0.5 rounded-full bg-[#a4612d] text-white font-label-sm text-label-sm mb-1.5 uppercase tracking-wide font-medium">Featured Journey</span>
+<h2 class="font-headline-md text-headline-md text-white font-bold leading-tight drop-shadow-sm">Kyoto &amp; Tokyo Autumn Tour</h2>
+<div class="flex items-center gap-2 mt-1 text-white/90 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="">Oct 14 – Oct 24 (10 days)</span>
+</div>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center">
+<div class="flex -space-x-2 overflow-hidden items-center pr-1">
+<img class="w-8 h-8 rounded-full object-cover ring-2 ring-white" data-alt="Portrait of Chloe, smiling woman in light linen shirt outdoors in natural warm sunlight, candid travel style profile photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi7o5oiSpOUfYgNKkpkYMC_V88uWM05no3WsM3lBF0DdAtbyXcr2vBGWdLaSWAEqooXA0ysIVAEx9ZF6aXqYy9F1e8u0zy58SIFen4MxMvoA9nisJMj9HKGZzbak2D7Q6smXb-wK-507gXZkDDtc7QVhIrg5NGtJ1Nl9Rgg6ctrP0WMdixrGHJ6SmMFy5aYzuda5kXzWH6aG4o3yRL2m-NiRdeEzutbxtgXG97BK6nWbZ0LQ7OufA1">
+<img class="w-8 h-8 rounded-full object-cover ring-2 ring-white" data-alt="Portrait of Alex, young man with sunglasses smiling against coastal cityscape, friendly and relaxed travel photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ8s5KEOQcRQHlzLZbrNDLbTCND3ij_7BhMvXFd10mYbXD4h0fXmNvqyIQ6SI3EIpUl_VuFvZAoYOw98ODlR2tVbgHrOoKExWczpeXmwbxv3mdwOeFI5N3w4HpUkUgHK2uDdS03XG4hEAxCEkM12kBLmtu0uEt8kbAdNpUVuPL_BOpCb4GoMMDjlrJibA2AF64sE_SIt7iIJ2iYTrgaVxfr45CAMabtHQCS5cC0FRoo59HcZp_OvcH">
+<img class="w-8 h-8 rounded-full object-cover ring-2 ring-white" data-alt="Portrait of Kenji, Japanese man with stylish glasses and scarf outdoors in Tokyo autumn street photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhdae0W1zvYlT3M0vtqgXbHXN3LWYk-3YlRQKZnDcpzQbMfFGVwt6Q8R-blGE1RMVr91FFBIXY591fDy_eEuyu2ZPjH3tRzRh1I7ZGmTrNXlIcOAzayUBNBC1i-UjiQwcYqPjhsVn_yGl-FgJD6TA8qNLs9gSW38MBAO-Rh2ZaxzH7ShW-OrnWLlV3EQYNvb6LpDFbfH8U71-0llr3wVUrCssEp6UCR3Joh1fo_daC62zRPmvxy4IX">
+<div class="w-8 h-8 rounded-full bg-[#f2f4f2] flex items-center justify-center ring-2 ring-white text-[#545454] font-label-sm text-label-sm">
+                +1
+              </div>
+</div>
+<button class="ml-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f4f2] hover:bg-[#e7e9e7] text-[#545454] font-label-sm text-label-sm transition-colors">
+<span class="material-symbols-outlined text-[14px]">person_add</span>
+<span class="">Invite</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#084d46]/10 text-[#084d46] font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">checklist</span>
+<span class="">18 planned</span>
+</div>
+</div>
+<div class="bg-[#f4f4f4] p-space-sm rounded-xl flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-[#084d46]/10 text-[#084d46] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">flight_takeoff</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-[#545454] truncate">Next Milestone</span>
+<span class="font-label-md text-label-md text-[#171717] truncate font-medium">Flight NH106 • Haneda Airport</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-[#084d46] font-semibold flex-shrink-0">In 7d</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm pt-1">
+<button class="py-2.5 px-4 rounded-full bg-[#084d46] hover:bg-[#029b8d] text-white font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">grid_view</span><span class="">Open Hub</span></button>
+<button class="py-2.5 px-4 rounded-full bg-[#084d46] hover:bg-[#084d46]/90 text-white font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all"><span class="material-symbols-outlined text-[18px]">calendar_month</span><span class="">Itinerary</span></button>
+</div>
+</div>
+</div>
+<div class="w-full rounded-2xl bg-white border border-black/5 shadow-sm p-space-md flex flex-col gap-space-md transition-all">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex gap-space-sm min-w-0">
+<div class="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="Vibrant aerial perspective of colorful cliffside houses in Positano Amalfi Coast overlooking turquoise Mediterranean sea with small sailboats" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlO2a5bQprnbp1vHbzHQAF1Uw1B82a98kZSEHH6t5LG77XrnJ8RTg1YCJVEe_pldD6xIDySmKjxnYC-oVH7ZSXiMsF_doS2D5UTnc_rsYScYpZQjSEWXpo7wtUjES8bGHD7I2i-5jWxGJ262yHsPkZ6QnAdFyXgtPYiC1D7L8cw44vBChZFHVWJdO_I7QFryL9UVAnrqKldbDLT4L2Vif8VbbHu4Lo4tjou6bt3GK_8JSIep_R86zR">
+</div>
+<div class="flex flex-col justify-between py-0.5 min-w-0">
+<div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#ffe2a3] text-[#5a4000] font-label-sm text-label-sm mb-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#ffc036]"></span>
+                Planning phase
+              </span>
+<h3 class="font-headline-sm text-headline-sm text-[#171717] truncate font-semibold">Amalfi Coast Summer Sailing</h3>
+</div>
+<div class="flex items-center gap-1 text-[#545454] font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px]">date_range</span>
+<span class="">Jul 12 – Jul 19</span>
+</div>
+</div>
+</div>
+<button aria-label="Trip actions" class="text-[#545454] hover:text-[#171717] p-1">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-1.5 items-center">
+<div class="w-6 h-6 rounded-full bg-[#084d46] text-white font-label-sm text-label-sm flex items-center justify-center ring-2 ring-white">
+              M
+            </div>
+<div class="w-6 h-6 rounded-full bg-[#a4612d] text-white font-label-sm text-label-sm flex items-center justify-center ring-2 ring-white">
+              D
+            </div>
+<div class="w-6 h-6 rounded-full bg-[#f2f4f2] text-[#171717] font-label-sm text-label-sm flex items-center justify-center ring-2 ring-white">
+              +3
+            </div>
+</div>
+<span class="font-label-sm text-label-sm text-[#545454]">5 crew members</span>
+</div>
+<div class="flex items-center gap-1 text-[#084d46] font-label-md text-label-md font-semibold"><span class="">6 ideas pinned</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></div>
+</div>
+</div>
+<div class="w-full rounded-2xl bg-white p-space-md flex items-center justify-between gap-space-md border border-black/5 shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative w-14 h-14 flex-shrink-0">
+<div class="absolute left-0 top-0 w-10 h-10 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Snowy alpine peaks in Zermatt Switzerland with majestic Matterhorn during crisp sunny winter day with blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCREP454f-OZyEg1oQh5luHAymb4evepLlfJvnuBMutz_Bu4Sgwy9SJhk10xdi-Lw_b70Gkxg1MKc6-zTX8SIY2pN5ZLceqP8KKaVAa7Md6zjv2_o2gwZ65LsjqW7qfcCKAqlyZDzYujEJ_xvkGXwXU3fPtI0hqkIXNmid1ho47coRBLek7gtNNWJobs1x-8CaLdDWl6-hwKlnfg_xvNO5xAjANlFftRQdSaaw_cmlMRzN7ZDFyKmTu">
+</div>
+<div class="absolute right-0 bottom-0 w-10 h-10 rounded-xl overflow-hidden shadow-md">
+<img class="w-full h-full object-cover" data-alt="Vibrant tapas bar in Barcelona with delicious pintxos tapas plates wine glasses and rustic Spanish tavern ambiance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRoEgWpe-w-1DC-yvUzR1tl1wS9QEgtWZXs51l954aS340-rantXownOY_NXPaRz_k62INdFDMQZYBvA1G9ssZz-hZGM2NcATVk3S-EpThXgrOe6VsHl66itDGCQaT3OK5ImD9DRt6F0tpjNTOEM23Q6OJNCrtVw_P48W-wNZ-yM3MHLw9es1ysCTYf9A1DWLBFY6DCEMWmm4dh2mE3In1o-FSgMZoPuzJpII4HAH7V9cLdIhvmbx7">
+</div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-[#171717] font-semibold">Archive &amp; Past Journeys</span>
+<span class="font-body-sm text-body-sm text-[#545454] truncate">Swiss Alps Winter '24, Barcelona, and 2 more</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-[#f4f4f4] shadow-sm flex items-center justify-center text-[#171717] hover:bg-[#e8e8e8] transition-colors flex-shrink-0" onclick="switchTripTab('past')">
+<span class="material-symbols-outlined text-[20px]">history</span>
+</button>
+</div>
+</div>
+<div class="hidden flex-col gap-space-md px-margin-mobile pb-space-lg" id="content-past">
+<div class="w-full rounded-2xl bg-white shadow-sm overflow-hidden flex flex-col border border-black/5">
+<div class="relative h-36 w-full">
+<div class="bg-cover bg-center w-full h-full" data-alt="Snowy alpine peaks in Zermatt Switzerland with majestic Matterhorn during crisp sunny winter day with blue sky" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIhZ-DY9fqIsc7zOLZcwiMZILofrR1t6y5AnTMfn8blw1q9K_t4wBLUxIcmYDCrzBC8j4hf-Rkp1WqJWqrATu5c1XfCoZdOoCwVd03zAeo3bjYLxMARpqzGfqbiauXUMsNR0k8S8W6D38R3ujtxmj2p1fzPV5L5Nr2-yMUOaYbP3aWBJrsuIIY3O4IvjhDDW37W9znOr67Vj7NsXu-xm-VLALbCgU12oUH7P35CwHw9Lply5J9CuIL')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+<div class="absolute bottom-space-sm left-space-md right-space-md text-white">
+<h3 class="font-headline-sm text-headline-sm font-bold">Swiss Alps Winter '24</h3>
+<span class="font-body-sm text-body-sm text-white/90">Jan 10 – Jan 18 • 6 travellers</span>
+</div>
+</div>
+<div class="p-space-md flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-[#545454] font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-[#029b8d]">verified</span>
+<span class="">14 memories • 9 split expenses settled</span>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-[#f4f4f4] hover:bg-[#e8e8e8] text-[#171717] font-label-sm text-label-sm font-medium">
+          Relive
+        </button>
+</div>
+</div>
+<div class="w-full rounded-2xl bg-white shadow-sm overflow-hidden flex flex-col border border-black/5">
+<div class="relative h-36 w-full">
+<div class="bg-cover bg-center w-full h-full" data-alt="Vibrant tapas bar in Barcelona with delicious pintxos tapas plates wine glasses and rustic Spanish tavern ambiance" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3pPS3e8-PFoqXjxSd8TmD8VjM5EJbJ-jlC0eLo-xS5vtQ_TodebUOhheEZ8o32I8itjeegmV76QtAuCz-8n5gVzyqkXOD2unmCLNG0CtUN3TDDLrNBcUiAeETlzUCIk8DeFSTGq2awcZHfFjlg6ivEa3VX3sUpvRU0nc90ZZRyZhvrm8qlsnKelrqMQJU4a4ZCUIyFuSq5wvhbtUjHI_9n-wMMnZNqGVhk61FYrYaLPczEWeqm2fS')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+<div class="absolute bottom-space-sm left-space-md right-space-md text-white">
+<h3 class="font-headline-sm text-headline-sm font-bold">Barcelona Tapas Trail</h3>
+<span class="font-body-sm text-body-sm text-white/90">Sep 2 – Sep 8 • 4 travellers</span>
+</div>
+</div>
+<div class="p-space-md flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-[#545454] font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-[#029b8d]">verified</span>
+<span class="">22 spots explored • Scrapbook complete</span>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-[#f4f4f4] hover:bg-[#e8e8e8] text-[#171717] font-label-sm text-label-sm font-medium">
+          Relive
+        </button>
+</div>
+</div>
+<div class="w-full rounded-2xl bg-white shadow-sm p-space-md flex items-center justify-between border border-black/5">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-[#f4f4f4] flex items-center justify-center text-[#545454]">
+<span class="material-symbols-outlined text-[24px]">folder_special</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-[#171717] font-semibold">Earlier Expeditions</span>
+<span class="font-body-sm text-body-sm text-[#545454]">Reykjavik &amp; Maui (2023)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#545454]">chevron_right</span>
+</div>
+</div>
+</div>
+<script>
+  function switchTripTab(tab) {
+    const upcomingBtn = document.getElementById('tab-upcoming');
+    const pastBtn = document.getElementById('tab-past');
+    const upcomingContent = document.getElementById('content-upcoming');
+    const pastContent = document.getElementById('content-past');
+
+    if (tab === 'upcoming') {
+      upcomingBtn.className = 'flex-1 py-1.5 px-3 rounded-full bg-[#171717] text-white shadow-sm font-label-md text-label-md text-center transition-all duration-200';
+      pastBtn.className = 'flex-1 py-1.5 px-3 rounded-full text-[#545454] hover:text-[#171717] font-label-md text-label-md text-center transition-all duration-200';
+      upcomingContent.classList.remove('hidden');
+      pastContent.classList.add('hidden');
+    } else {
+      pastBtn.className = 'flex-1 py-1.5 px-3 rounded-full bg-[#171717] text-white shadow-sm font-label-md text-label-md text-center transition-all duration-200';
+      upcomingBtn.className = 'flex-1 py-1.5 px-3 rounded-full text-[#545454] hover:text-[#171717] font-label-md text-label-md text-center transition-all duration-200';
+      pastContent.classList.remove('hidden');
+      upcomingContent.classList.add('hidden');
+    }
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#f4f4f4]/85 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border-t border-black/5"><div class="flex items-center justify-around h-16 px-space-sm"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] transition-colors group text-[#084d46] font-semibold" data-path="trips" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full bg-[#084d46]/10 transition-all"><span class="material-symbols-outlined text-[24px]">explore</span></div><span class="font-label-sm text-label-sm">Trips</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#545454] hover:text-[#171717] transition-colors group" data-path="hub" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">grid_view</span></div><span class="font-label-sm text-label-sm">Hub</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#545454] hover:text-[#171717] transition-colors group" data-path="saved" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">bookmark</span></div><span class="font-label-sm text-label-sm">Saved</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-[#545454] hover:text-[#171717] transition-colors group" data-path="itinerary" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">calendar_today</span></div><span class="font-label-sm text-label-sm">Itinerary</span></a></div></nav></body></html>

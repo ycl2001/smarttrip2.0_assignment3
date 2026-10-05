@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-lowest": "#ffffff", "border-subtle": "rgba(0, 0, 0, 0.06)", "on-tertiary-container": "#e3a81a", "on-tertiary-fixed-variant": "#5d4200", "on-background": "#1a1c1c", "background": "#f9f9f9", "outline-variant": "#bfc9c6", "tertiary-container": "#5a4000", "on-secondary-fixed-variant": "#703804", "surface-canvas": "#f9f9f9", "secondary": "#8d4e1c", "on-secondary-container": "#773e0a", "on-surface-variant": "#404947", "on-secondary": "#ffffff", "inverse-on-surface": "#f1f1f1", "surface-variant": "#e2e2e2", "surface-container-low": "#f3f3f3", "secondary-fixed": "#ffdcc6", "on-tertiary-fixed": "#271900", "error-container": "#ffdad6", "secondary-fixed-dim": "#ffb784", "surface-container": "#eeeeee", "on-error": "#ffffff", "on-primary": "#ffffff", "on-primary-fixed": "#00201c", "secondary-container": "#feac71", "on-primary-container": "#82bdb3", "primary-fixed-dim": "#96d2c8", "tertiary-fixed-dim": "#fbbc32", "surface-tint": "#2c6860", "primary": "#00352f", "on-secondary-fixed": "#301400", "outline": "#707977", "tertiary": "#3e2b00", "on-error-container": "#93000a", "primary-fixed": "#b2eee4", "surface-container-highest": "#e2e2e2", "text-primary": "#1a1c1c", "text-secondary": "#404947", "presence-active": "#10B981", "on-primary-fixed-variant": "#0d5049", "text-tertiary": "#707977", "inverse-surface": "#2f3131", "surface-card": "#FFFFFF", "on-tertiary": "#ffffff", "error": "#ba1a1a", "surface-dim": "#dadada", "tertiary-fixed": "#ffdea5", "surface-bright": "#f9f9f9", "surface-container-high": "#e8e8e8", "primary-container": "#084d46", "on-surface": "#1a1c1c", "inverse-primary": "#96d2c8", "surface": "#f9f9f9", "otter-teal": "#029b8d", "otter-teal-dark": "#084d46", "otter-teal-light": "#c6fcf7", "terra-brown": "#a4612d", "terra-brown-dark": "#321d0e", "sundown-gold": "#ffc036", "sundown-gold-light": "#ffe2a3" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "margin": "1.25rem", "gutter": "1rem", "space-sm": "0.5rem", "margin-mobile": "1rem", "space-xl": "2rem", "space-xs": "0.25rem", "space-md": "1rem", "gutter-mobile": "0.75rem", "space-lg": "1.5rem" }, fontFamily: { "label-sm": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "display-lg": ["Inter"], "body-sm": ["Inter"] }, fontSize: { "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "500" }], "label-md": ["13px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "600" }], "headline-lg": ["28px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" }], "body-md": ["15px", { lineHeight: "20px", fontWeight: "400" }], "body-lg": ["17px", { lineHeight: "24px", fontWeight: "400" }], "headline-sm": ["17px", { lineHeight: "22px", letterSpacing: "-0.005em", fontWeight: "600" }], "display-lg": ["34px", { lineHeight: "41px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Otterra SmartTrip Logo" class="h-8 w-auto rounded-lg object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug9YKrkDxJX9TYrupTWLJmTHhlV2oLkppjIkfHsr2dbRNHGmPKinJorOkzvwOjV1lEnPDFBbpx9AzFXxc7zJd0YU48lJ8zeG5if1SVMWOAjk4fB3-PC6-1E044v_FBiSz1gSYrlpd57V0c0OE-ZVSSewu2SZK_ssAllhTEZIf6X8OgInaRfcvDweJXWl4USPNRJvkieFL1jtEzKYaG1K0efFpH80HmV4vn53t900RcuPuNNUo60sUDbrA"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-[#084d46] font-semibold tracking-wide uppercase">SmartTrip 2.0</span><h1 class="font-headline-sm text-headline-sm text-text-primary truncate">Itinerary</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span></button><div class="relative flex items-center pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYXyml_zzMPzFt36O2QRCa4Mxr3xlTqSsg6GlSCFmBE30gpIkDB8YBwXuYShvV95zlObzFKTUxHbOOcXX912uVnhxeMqrk8AlsXw7PC0vplRy6vBpCqZDfSb1c5yDx1kebT_cotc7JDQn_cFYMbG90hmwMtX_gWzooLqa0T5gNFaPm7QhGZBGs26q7jEs2ZvMEcWdYRrkOxUVTsM3ulpBK8EazZ8GYuau4OOTr0SuOBjPgoW08rCV1"><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-presence-active ring-2 ring-surface"></span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-background"><div class="flex flex-col w-full pb-8">
+<!-- Interactive Day Selector Strip -->
+<div class="w-full overflow-x-auto no-scrollbar py-space-sm px-margin-mobile">
+<div class="flex items-center gap-space-xs min-w-max" id="day-strip">
+<button class="day-chip flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 bg-surface shadow-sm text-text-secondary active:scale-95" onclick="switchDay(this, 1)">
+<span class="font-label-sm text-label-sm uppercase opacity-75">Mon</span>
+<span class="font-headline-sm text-headline-sm text-text-primary">14</span>
+<span class="font-label-sm text-[10px] text-text-secondary">Day 1</span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 bg-[#084d46] text-white shadow-md active:scale-95 ring-2 ring-[#084d46]/30" onclick="switchDay(this, 2)">
+<span class="font-label-sm text-label-sm uppercase font-semibold">Tue</span>
+<span class="font-headline-sm text-headline-sm font-bold text-white">15</span>
+<span class="font-label-sm text-[10px] tracking-wide font-medium bg-white/20 px-1.5 py-0.5 rounded-full mt-0.5">Active</span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 bg-surface shadow-sm text-text-secondary active:scale-95" onclick="switchDay(this, 3)">
+<span class="font-label-sm text-label-sm uppercase opacity-75">Wed</span>
+<span class="font-headline-sm text-headline-sm text-text-primary">16</span>
+<span class="font-label-sm text-[10px] text-text-secondary">Day 3</span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 bg-surface shadow-sm text-text-secondary active:scale-95" onclick="switchDay(this, 4)">
+<span class="font-label-sm text-label-sm uppercase opacity-75">Thu</span>
+<span class="font-headline-sm text-headline-sm text-text-primary">17</span>
+<span class="font-label-sm text-[10px] text-text-secondary">Day 4</span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 bg-surface shadow-sm text-text-secondary active:scale-95" onclick="switchDay(this, 5)">
+<span class="font-label-sm text-label-sm uppercase opacity-75">Fri</span>
+<span class="font-headline-sm text-headline-sm text-text-primary">18</span>
+<span class="font-label-sm text-[10px] text-text-secondary">Day 5</span>
+</button>
+</div>
+</div>
+<!-- Day Header & Live Collaboration Mood -->
+<div class="px-margin-mobile mt-space-xs">
+<div class="bg-surface rounded-2xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-sm relative z-10">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="material-symbols-outlined text-[16px] text-[#084d46]">temple_buddhist</span>
+<span class="font-label-sm text-label-sm text-[#084d46] font-semibold tracking-wider uppercase">Day 2 • Kyoto Heritage</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-text-primary truncate">Historic Temples &amp; Lanes</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">4 curated stops • 1h 15m total transit</p>
+</div>
+<!-- Avatars planning live -->
+<div class="flex items-center -space-x-2 shrink-0 pt-1">
+<div class="relative group">
+<img class="w-8 h-8 rounded-full object-cover shadow-sm ring-2 ring-surface" data-alt="Portrait photo of a young man named Alex wearing a cozy linen shirt in soft morning light, looking friendly and stylish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx2ad2unfcHaM0HXdrkBkBurtHuChdvHSZMbM8Qg-JLB6b6zZWHhrl5jQmPtWGNoX_HxQFCevG_5o-yatAiEffSiLYxOrz5UvTaaKf3PYVU2EwRsC3GZMNX1_4S3aoGBGf0BoDdJSKwGpFfZ1kTQx8XBBhiZ1bBaP8DTzqCfem1QoAEpRJiT9O_mXIt55Fzu929K4Hp2a5PlQgOHuEAV46GNRS_2xOrpDX7SXQR6zgW5E9UmZcI1hV">
+<span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-presence-active ring-1 ring-surface"></span>
+</div>
+<div class="relative group">
+<img class="w-8 h-8 rounded-full object-cover shadow-sm ring-2 ring-surface" data-alt="Portrait photo of Kenji, a traveler in a stylish bucket hat smiling with vibrant Tokyo street blur background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjtSbliCy0PFtp0iVsi0wpNKFqNU0JxdmShR7LKC-cyYK0Nsfm6aXcYuuOjfJHK6XrrNrr71u19UrpsBMmsRzdVel9CEIQbnsF1XzzrkGfwqvfDW9Sb5MghxYDfFLMH5PCQ3z6XmbtT9Nl4WysQjo5iONWchiLYmijnMzdqy4x5sd-wGUbsehr9fqC4PZdo2RUu2XBxq8VYYjzx40b-j0WnjG2nSVHAGOWGpFryhMoTCZcouTUKMQN">
+<span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-presence-active ring-1 ring-surface"></span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center font-label-sm text-label-sm text-text-primary shadow-sm ring-2 ring-surface">
+            +2
+          </div>
+</div>
+</div>
+<!-- Quick stats bar -->
+<div class="grid grid-cols-3 gap-space-xs mt-space-md pt-space-sm bg-surface-subtle rounded-xl p-2.5">
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-text-secondary">Pace</span>
+<span class="font-label-md text-label-md text-text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-[#029b8d]">pace</span> Balanced
+          </span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-text-secondary">Weather</span>
+<span class="font-label-md text-label-md text-text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-[#a4612d]">sunny</span> 22°C Clear
+          </span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-text-secondary">Budget Track</span>
+<span class="font-label-md text-label-md text-[#084d46] font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">payments</span> Confirmed
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Section -->
+<div class="px-margin-mobile mt-space-md relative">
+<!-- TIMELINE ITEM 1 -->
+<div class="relative pl-7 pb-6 group">
+<!-- Vertical guide line -->
+<div class="absolute left-2.5 top-6 bottom-0 w-[2px] bg-surface-container-highest"></div>
+<!-- Timeline Node Marker -->
+<div class="absolute left-0 top-1.5 w-5 h-5 rounded-full bg-[#084d46] flex items-center justify-center shadow-md">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<!-- Event Card -->
+<div class="bg-surface rounded-2xl p-space-md shadow-sm transition-transform active:scale-[0.99]">
+<div class="flex items-start justify-between gap-space-xs mb-2">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-[#084d46] font-bold">06:30 AM</span>
+<span class="px-2 py-0.5 rounded-full bg-[#c6fcf7] text-[#084d46] font-label-sm text-[11px] font-semibold tracking-wide">Morning Hike</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#c6fcf7]/50 text-[#084d46] font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Confirmed
+          </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Fushimi Inari Sunrise Hike</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-secondary">location_on</span>
+          Meet at Main Senbon Torii Gate
+        </p>
+<!-- Media Peek Preview -->
+<div class="mt-space-sm relative rounded-xl overflow-hidden h-28 w-full">
+<img class="w-full h-full object-cover" data-alt="Vibrant vermillion orange Torii gates winding up mystical forest hill in Fushimi Inari Kyoto during golden dawn sunrise with soft god rays filtering through cypress trees." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3mw3C6SzFU-01d5tVVkwrJl8NNcTY4Kzp-rBQv6VozFy981Bn525u_tF6ZbCZ3bHQJGeb1w7mLrtGhEsDH8nMeMTdeuN5KyHa86oVDe5tuvq4WDItwRZri8EQW8Aj00TjcXIxC-x18vJVjlvTRG6NYKajDFEYeDd2e7iin0UmQtlrbHU3AQ5bBlocLVRJFRITfs2KMLwhytkvd4BHhfRYtEKcdvo1U6s8RM3wq_61JEa71pSUHIkS">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-2.5">
+<span class="font-label-sm text-label-sm text-white flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 2.5 hrs • Sunrise at 06:14 AM
+            </span>
+</div>
+</div>
+<!-- Note tag -->
+<div class="mt-2.5 flex items-center justify-between pt-2">
+<div class="flex items-center gap-1.5 text-text-secondary">
+<span class="material-symbols-outlined text-[16px] text-[#029b8d]">hiking</span>
+<span class="font-body-sm text-body-sm">Wear comfortable trail shoes</span>
+</div>
+<div class="flex items-center gap-1 text-[#084d46] cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">qr_code_2</span>
+<span class="font-label-sm text-label-sm font-semibold">4 Passes</span>
+</div>
+</div>
+</div>
+</div>
+<!-- LOGISTICS TRANSIT CONNECTOR 1 -->
+<div class="relative pl-7 pb-6">
+<div class="absolute left-2.5 top-0 bottom-0 w-[2px] border-l-2 border-dashed border-[#029b8d]/50"></div>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle text-text-primary shadow-xs text-left max-w-full">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#029b8d] text-white shrink-0">
+<span class="material-symbols-outlined text-[14px]">train</span>
+</span>
+<div class="flex items-center gap-1.5 min-w-0 pr-1">
+<span class="font-label-md text-label-md font-semibold text-[#084d46] truncate">JR Nara Line</span>
+<span class="font-body-sm text-body-sm text-text-secondary whitespace-nowrap">18 min</span>
+<span class="text-text-secondary text-[10px]">•</span>
+<span class="font-label-sm text-[11px] text-text-secondary truncate">Alex got group tickets</span>
+</div>
+</div>
+</div>
+<!-- TIMELINE ITEM 2 -->
+<div class="relative pl-7 pb-6 group">
+<div class="absolute left-2.5 top-6 bottom-0 w-[2px] bg-surface-container-highest"></div>
+<!-- Node marker -->
+<div class="absolute left-0 top-1.5 w-5 h-5 rounded-full bg-surface ring-2 ring-[#ffc036] flex items-center justify-center shadow-xs">
+<span class="w-2 h-2 rounded-full bg-[#ffc036]"></span>
+</div>
+<div class="bg-surface rounded-2xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-xs mb-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold">10:30 AM</span>
+<span class="px-2 py-0.5 rounded-full bg-[#ffe2a3] text-[#321d0e] font-label-sm text-[11px] font-semibold">Coffee Break</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#084d46]/10 text-[#084d46] font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">favorite</span>
+            Shortlisted
+          </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">% Arabica Kyoto Higashiyama</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-secondary">schedule</span>
+          45 min stop • Famous pour-over by Pagoda
+        </p>
+<!-- Collaborator Reaction bubble -->
+<div class="mt-3 flex items-center gap-2 bg-surface-subtle px-3 py-2 rounded-xl">
+<img class="w-6 h-6 rounded-full object-cover shrink-0" data-alt="Close up face profile of a woman smiling with sunglasses on her head enjoying iced latte in Kyoto." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRRomhT5T53QA_OZPfCn9M2HUDt8e1RWbGzHTgMihZcHoE03ISsV_D-FdHTGLd0TIC5s0kBWeDazXFobM6CnWVBVf_mu1-R0ilGso6fJaL034_6joUvCeKQwmGdFbqgCyDPc2vS3gUL3fI872R686okisBtt3TaBdFVaXyVUIGck4AQDkFcIyLvCV98xvMxr9d6iWTOfrf7zOKkKedg8GXW_E-fUaMcMrwOg7u3r3R0u8UMk_Ljygi">
+<p class="font-body-sm text-body-sm text-text-secondary truncate">
+<strong class="font-semibold text-text-primary">Maya:</strong> “Grab seat facing Hokan-ji temple!”
+          </p>
+</div>
+</div>
+</div>
+<!-- LOGISTICS TRANSIT CONNECTOR 2 -->
+<div class="relative pl-7 pb-6">
+<div class="absolute left-2.5 top-0 bottom-0 w-[2px] border-l-2 border-dashed border-[#029b8d]/50"></div>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle text-text-primary shadow-xs">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#029b8d] text-white shrink-0">
+<span class="material-symbols-outlined text-[14px]">directions_walk</span>
+</span>
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md font-medium text-text-primary">12 min stroll</span>
+<span class="font-body-sm text-body-sm text-text-secondary">via Sannenzaka stone alleys</span>
+</div>
+</div>
+</div>
+<!-- TIMELINE ITEM 3 -->
+<div class="relative pl-7 pb-6 group">
+<div class="absolute left-2.5 top-6 bottom-0 w-[2px] bg-surface-container-highest"></div>
+<!-- Node marker -->
+<div class="absolute left-0 top-1.5 w-5 h-5 rounded-full bg-[#a4612d] flex items-center justify-center shadow-md">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<div class="bg-surface rounded-2xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-xs mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-[#a4612d] font-bold">12:30 PM</span>
+<span class="px-2 py-0.5 rounded-full bg-[#ffdcc6] text-[#703804] font-label-sm text-[11px] font-semibold">Street Food</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#c6fcf7] text-[#084d46] font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">restaurant</span>
+            Reserved Table
+          </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Nishiki Market Culinary Walk</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-secondary">storefront</span>
+          400-year old lively marketplace • 1.5 hrs
+        </p>
+<!-- Bento mini items preview -->
+<div class="grid grid-cols-2 gap-2 mt-3">
+<div class="bg-surface-subtle rounded-xl p-2.5 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#a4612d] text-[20px]">lunch_dining</span>
+<div class="min-w-0">
+<span class="font-label-sm text-label-sm text-text-primary block truncate font-semibold">Tako Tamago</span>
+<span class="font-body-sm text-[11px] text-text-secondary">Seafood Skewers</span>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-xl p-2.5 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#029b8d] text-[20px]">local_cafe</span>
+<div class="min-w-0">
+<span class="font-label-sm text-label-sm text-text-primary block truncate font-semibold">Uji Matcha Parfait</span>
+<span class="font-body-sm text-[11px] text-text-secondary">Sweets Stop</span>
+</div>
+</div>
+</div>
+<div class="mt-3 pt-2 flex items-center justify-between text-text-secondary font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-presence-active">check_circle</span>
+            Confirmed by Kenji (Table for 4)
+          </span>
+<span class="font-label-md text-label-md text-text-primary font-semibold">¥8,400 split</span>
+</div>
+</div>
+</div>
+<!-- LOGISTICS TRANSIT CONNECTOR 3 -->
+<div class="relative pl-7 pb-6">
+<div class="absolute left-2.5 top-0 bottom-0 w-[2px] border-l-2 border-dashed border-[#029b8d]/50"></div>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle text-text-primary shadow-xs">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#029b8d] text-white shrink-0">
+<span class="material-symbols-outlined text-[14px]">directions_bus</span>
+</span>
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md font-semibold text-[#084d46]">City Bus #206</span>
+<span class="font-body-sm text-body-sm text-text-secondary">22 min • IC Card ready</span>
+</div>
+</div>
+</div>
+<!-- TIMELINE ITEM 4 -->
+<div class="relative pl-7 group">
+<!-- Node marker -->
+<div class="absolute left-0 top-1.5 w-5 h-5 rounded-full bg-[#ffc036] flex items-center justify-center shadow-md">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<div class="bg-surface rounded-2xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-xs mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-[#a4612d] font-bold">04:00 PM</span>
+<span class="px-2 py-0.5 rounded-full bg-[#ffdcc6] text-[#703804] font-label-sm text-[11px] font-semibold">Highlight</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#ffc036]/20 text-[#321d0e] font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">wb_twilight</span>
+            Golden Hour
+          </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Kiyomizu-dera Sunset View</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-secondary">landscape</span>
+          Historic wooden veranda overlooking city • 2.0 hrs
+        </p>
+<!-- Photo preview -->
+<div class="mt-space-sm relative rounded-xl overflow-hidden h-32 w-full">
+<img class="w-full h-full object-cover" data-alt="Spectacular sunset over Kiyomizu-dera temple in Kyoto with warm orange and pink sky, autumn maple trees in foreground and wooden temple balcony." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKurtGdb-BXu9__1a9Yc9NyJ8WZMerGX-4LTcFifP8uh7JvKoww8eopUd4iCHGLp9Mx-My27CO4Rbrm0QsdEirBJCodUhjczsZY7Qtnz2rIjIvt4rs6eozf_6tLEDMiWwS3ftFZdACwfYcgiy8fDrnC9CdUNFOaRzixrViyGj4lwzwB8TzJzOoWpgJWLABnu6VqIUy4VadcupIsZgq6HiXUfEQKHlb8QXniHDoc4nDPmEEigA73l-2">
+<div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-[#ffc036]">wb_sunny</span>
+            Sunset at 05:15 PM
+          </div>
+</div>
+<!-- Note footer -->
+<div class="mt-3 pt-2.5 flex items-center justify-between text-text-secondary">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-[#084d46]">group</span>
+<span class="font-body-sm text-body-sm">Alex &amp; Kenji coordinating photo spot</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-subtle flex items-center justify-center text-text-secondary hover:text-[#084d46] transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Collaborative Banner -->
+<div class="px-margin-mobile mt-space-lg">
+<div class="bg-gradient-to-r from-[#029b8d]/10 via-[#084d46]/10 to-transparent p-space-md rounded-2xl flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface flex items-center justify-center shadow-xs text-[#084d46]">
+<span class="material-symbols-outlined text-[22px]">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary font-semibold">Smart Transit Assistant</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Schedule is optimized for zero peak rush.</span>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-surface text-text-primary font-label-sm text-label-sm font-semibold shadow-xs hover:bg-surface-container transition-all active:scale-95">
+        Details
+      </button>
+</div>
+</div>
+<!-- Sticky Bottom Actions Container (Sits naturally above the fixed tab bar) -->
+<div class="sticky bottom-0 z-20 mt-space-lg px-margin-mobile py-space-sm backdrop-blur-md bg-background/80 flex items-center gap-space-sm">
+<button class="flex-1 h-12 rounded-full bg-surface shadow-sm flex items-center justify-center gap-2 text-text-primary font-headline-sm text-headline-sm transition-all active:scale-95" id="map-toggle-btn" onclick="toggleRouteMap()"><span class="material-symbols-outlined text-[#084d46] text-[20px]">map</span><span class="">Map View</span></button>
+<button class="flex-1 h-12 rounded-full bg-[#084d46] text-white shadow-md flex items-center justify-center gap-2 font-headline-sm text-headline-sm transition-all active:scale-95 hover:bg-[#073f39]" onclick="openAddActivityModal()"><span class="material-symbols-outlined text-[20px]">add_circle</span><span class="">Add Stop</span></button>
+</div>
+<!-- Interactive Floating Sheet Demo (Hidden by default, triggered by Add Stop) -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden items-end justify-center p-4" id="add-modal">
+<div class="bg-surface w-full max-w-md rounded-2xl p-6 shadow-xl transform transition-transform duration-300">
+<div class="w-12 h-1 bg-surface-container-highest rounded-full mx-auto mb-4"></div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-headline-md text-text-primary">Add to Day 2</h3>
+<button class="w-8 h-8 rounded-full bg-surface-subtle flex items-center justify-center text-text-primary" onclick="closeAddActivityModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="space-y-3">
+<button class="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-subtle hover:bg-surface-container text-left transition-colors">
+<div class="w-10 h-10 rounded-full bg-[#c6fcf7] text-[#084d46] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">explore</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-text-primary">Attraction or Landmark</div>
+<div class="font-body-sm text-body-sm text-text-secondary">Search temples, gardens, viewpoints</div>
+</div>
+</button>
+<button class="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-subtle hover:bg-surface-container text-left transition-colors">
+<div class="w-10 h-10 rounded-full bg-[#ffdcc6] text-[#a4612d] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">restaurant</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-text-primary">Dining &amp; Drinks</div>
+<div class="font-body-sm text-body-sm text-text-secondary">Reserve restaurants, cafes, street eats</div>
+</div>
+</button>
+<button class="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-subtle hover:bg-surface-container text-left transition-colors">
+<div class="w-10 h-10 rounded-full bg-[#ffe2a3] text-[#321d0e] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">directions_transit</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-text-primary">Custom Logistics Leg</div>
+<div class="font-body-sm text-body-sm text-text-secondary">Bullet train, chartered van, walking route</div>
+</div>
+</button>
+</div>
+</div>
+</div>
+<script>
+    function switchDay(element, dayNumber) {
+      const container = document.getElementById('day-strip');
+      const allButtons = container.querySelectorAll('.day-chip');
+      
+      allButtons.forEach(btn => {
+        btn.className = "day-chip flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 bg-surface shadow-sm text-text-secondary active:scale-95";
+        const sub = btn.querySelector('.font-headline-sm');
+        if (sub) {
+          sub.className = "font-headline-sm text-headline-sm text-text-primary";
+        }
+      });
+
+      element.className = "day-chip flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 bg-[#084d46] text-white shadow-md active:scale-95 ring-2 ring-[#084d46]/30";
+      const activeNumber = element.querySelector('.font-headline-sm');
+      if (activeNumber) {
+        activeNumber.className = "font-headline-sm text-headline-sm font-bold text-white";
+      }
+    }
+
+    function toggleRouteMap() {
+      const btn = document.getElementById('map-toggle-btn');
+      const isMap = btn.innerText.includes('Timeline');
+      if (isMap) {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[#029b8d] text-[20px]">map</span><span>Map View</span>';
+      } else {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[#029b8d] text-[20px]">view_timeline</span><span>Timeline View</span>';
+      }
+    }
+
+    function openAddActivityModal() {
+      const modal = document.getElementById('add-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAddActivityModal() {
+      const modal = document.getElementById('add-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)]" data-active-classes="text-[#084d46] [&amp;&gt;div]:bg-[#084d46]/10 font-label-md"><div class="flex items-center justify-around h-16 px-space-sm"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-text-secondary transition-colors group" data-path="trips" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">explore</span></div><span class="font-label-sm text-label-sm">Trips</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-text-secondary transition-colors group" data-path="hub" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">grid_view</span></div><span class="font-label-sm text-label-sm">Hub</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-text-secondary transition-colors group" data-path="saved" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">bookmark</span></div><span class="font-label-sm text-label-sm">Saved</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] transition-colors group text-[#084d46] [&amp;&gt;div]:bg-[#084d46]/10 font-label-md" data-path="itinerary" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">calendar_today</span></div><span class="font-label-sm text-label-sm font-semibold">Itinerary</span></a></div></nav></body></html>

@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.smartTripDependencies) private var dependencies
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if let dependencies {
+            SmartTripRootView(dependencies: dependencies)
+        } else {
+            EmptyStateView(
+                systemImage: "exclamationmark.triangle",
+                title: "SmartTrip is not ready",
+                message: "The app dependencies could not be loaded."
+            )
+            .tint(SmartTripColors.primary)
         }
-        .padding()
     }
 }
 

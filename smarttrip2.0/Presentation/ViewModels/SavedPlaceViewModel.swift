@@ -3,6 +3,40 @@ import Observation
 
 @Observable
 final class SavedPlaceViewModel {
+    struct ScheduleRequest {
+        let savedPlaceID: UUID
+        let scheduledDate: Date
+        let startTime: Date
+        let endTime: Date?
+        let notes: String?
+        let category: ItineraryCategory
+    }
+
+    struct ScheduleFailure: Identifiable, Equatable {
+        let id = UUID()
+        let savedPlaceID: UUID
+        let placeName: String
+        let message: String
+        let recoverySuggestion: String?
+    }
+
+    struct BulkScheduleResult {
+        let scheduledItems: [ItineraryItem]
+        let failures: [ScheduleFailure]
+
+        var scheduledCount: Int {
+            scheduledItems.count
+        }
+
+        var hasFailures: Bool {
+            !failures.isEmpty
+        }
+
+        var isCompleteSuccess: Bool {
+            !scheduledItems.isEmpty && failures.isEmpty
+        }
+    }
+
     var savedPlaces: [SavedPlace] = []
     var isLoading = false
     var errorMessage: String?
@@ -88,6 +122,48 @@ final class SavedPlaceViewModel {
         }
     }
 
+    @discardableResult
+    func scheduleSavedPlaces(
+        _ requests: [ScheduleRequest],
+        tripID: UUID
+    ) -> BulkScheduleResult {
+        clearPresentationError()
+
+        var scheduledItems: [ItineraryItem] = []
+        var failures: [ScheduleFailure] = []
+
+        for request in requests {
+            do {
+                let item = try scheduleSavedPlaceUseCase.execute(
+                    savedPlaceID: request.savedPlaceID,
+                    tripID: tripID,
+                    scheduledDate: request.scheduledDate,
+                    startTime: request.startTime,
+                    endTime: request.endTime,
+                    notes: request.notes,
+                    category: request.category
+                )
+                scheduledItems.append(item)
+            } catch {
+                failures.append(
+                    ScheduleFailure(
+                        savedPlaceID: request.savedPlaceID,
+                        placeName: placeName(for: request.savedPlaceID),
+                        message: presentationMessage(for: error),
+                        recoverySuggestion: presentationRecoverySuggestion(for: error)
+                    )
+                )
+            }
+        }
+
+        loadSavedPlaces(for: tripID)
+
+        return BulkScheduleResult(
+            scheduledItems: scheduledItems,
+            failures: failures
+        )
+    }
+
     func deleteSavedPlace(
         id: UUID,
         tripID: UUID
@@ -98,6 +174,10 @@ final class SavedPlaceViewModel {
         } catch {
             present(error)
         }
+    }
+
+    func clearPresentationError() {
+        clearError()
     }
 
     private func clearError() {
@@ -111,5 +191,25 @@ final class SavedPlaceViewModel {
         let localizedError = error as? any LocalizedError
         errorMessage = localizedError?.errorDescription ?? error.localizedDescription
         recoverySuggestion = localizedError?.recoverySuggestion
+    }
+
+    private func presentationMessage(
+        for error: Error
+    ) -> String {
+        let localizedError = error as? any LocalizedError
+        return localizedError?.errorDescription ?? error.localizedDescription
+    }
+
+    private func presentationRecoverySuggestion(
+        for error: Error
+    ) -> String? {
+        let localizedError = error as? any LocalizedError
+        return localizedError?.recoverySuggestion
+    }
+
+    private func placeName(
+        for id: UUID
+    ) -> String {
+        savedPlaces.first { $0.id == id }?.name ?? "Saved Place"
     }
 }

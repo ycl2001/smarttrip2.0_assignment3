@@ -45,6 +45,32 @@ struct SmartTripDependencies {
             savedPlaceRepository: savedPlaceRepository
         )
     }
+
+    func makeSavedPlacesOverviewViewModel() -> SavedPlacesOverviewViewModel {
+        SavedPlacesOverviewViewModel(
+            tripRepository: tripRepository,
+            savedPlaceRepository: savedPlaceRepository
+        )
+    }
+
+    func makeTripHubViewModel(
+        tripID: UUID
+    ) -> TripHubViewModel {
+        TripHubViewModel(
+            tripID: tripID,
+            savedPlaceRepository: savedPlaceRepository,
+            itineraryRepository: itineraryRepository
+        )
+    }
+
+    func makeItineraryViewModel(
+        tripID: UUID
+    ) -> ItineraryViewModel {
+        ItineraryViewModel(
+            tripID: tripID,
+            itineraryRepository: itineraryRepository
+        )
+    }
 }
 
 private struct SmartTripDependenciesKey: EnvironmentKey {
