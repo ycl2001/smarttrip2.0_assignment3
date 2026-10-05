@@ -5,7 +5,7 @@ struct PlaceSuggestion: Identifiable, Equatable, Sendable {
     let title: String
     let subtitle: String
 
-    init(
+    nonisolated init(
         id: String? = nil,
         title: String,
         subtitle: String = ""
