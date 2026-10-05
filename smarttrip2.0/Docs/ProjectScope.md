@@ -150,19 +150,46 @@ Displays:
 - Start times
 - Locations
 
-## Proposed Persistence
+## Production Persistence
 
-Core Data will be used for the initial implementation.
+SmartTrip uses Core Data as its production persistent database.
 
-Potential entities:
+Core Data fits the product because Trips, Saved Places, and Itinerary Items are structured relational planning data. Travellers need this information to remain available after relaunch, continue working with poor or unavailable network connectivity, and stay scoped to the correct Trip. Core Data also integrates naturally with the iOS application while allowing the rest of the app to depend on repository protocols instead of persistence implementation details.
 
-- Trip
-- SavedPlace
-- ItineraryItem
-- TripMemory
-- TripMember
+Cloud synchronization remains a possible future enhancement, but the core planning workflow is intentionally local-first and does not require network access.
 
-The data model will contain relationships between trips and their related Saved Places, itinerary items, members, and memories.
+### Persisted Entities
+
+The current production model persists:
+
+- TripEntity: the overall journey being planned.
+- SavedPlaceEntity: an idea, attraction, restaurant, or activity being considered for a Trip.
+- ItineraryItemEntity: a committed scheduled activity in a Trip itinerary.
+
+Conceptual relationships:
+
+- TripEntity 1 -> many SavedPlaceEntity
+- TripEntity 1 -> many ItineraryItemEntity
+- SavedPlaceEntity many -> 1 TripEntity
+- ItineraryItemEntity many -> 1 TripEntity
+
+Saved Places and Itinerary Items are intentionally separate concepts. A Saved Place is an idea being considered; an Itinerary Item is a scheduled commitment.
+
+### Repository Architecture
+
+Persistence access is defined by domain-facing repository protocols:
+
+- TripRepository
+- SavedPlaceRepository
+- ItineraryRepository
+
+Production implementations are:
+
+- CoreDataTripRepository
+- CoreDataSavedPlaceRepository
+- CoreDataItineraryRepository
+
+The protocols expose domain models rather than Core Data entities. Views and ViewModels never fetch Core Data directly. Use Case tests use mock repositories with in-memory domain collections, while persistence validation tests exercise the Core Data repositories against a test store.
 
 ## Planned Use Cases
 
@@ -215,15 +242,38 @@ Planned business rules:
 
 ## Meaningful Database Query
 
-One planned domain query is:
+SmartTrip includes a repository-backed query for upcoming itinerary activities:
 
-> Fetch all remaining itinerary activities for the active trip that are scheduled for today and have not yet occurred.
+> Fetch upcoming Itinerary Items for a selected Trip where the scheduled start time is at or after a supplied date, sorted chronologically.
 
-This query can support both the main itinerary interface and the Widget.
+This query is implemented in the Core Data itinerary repository using the selected Trip relationship and date/time predicates. It represents a real SmartTrip domain condition because travellers need to see the next confirmed activities for the Trip they are currently planning or travelling.
+
+## Offline and Relaunch Behaviour
+
+The core SmartTrip workflow is local-first:
+
+- Trips remain available offline.
+- Saved Places remain available offline.
+- Scheduling works offline.
+- Itinerary Items remain available offline.
+- Persisted relationships survive app termination and relaunch.
+- No network connection is required for the core planning workflow.
+
+No cloud synchronization is claimed for the current production persistence layer.
+
+## Testing Strategy
+
+SmartTrip validates persistence and business behaviour at multiple layers:
+
+- Use Case tests exercise domain rules through mock repository implementations.
+- Core Data persistence tests validate repository-backed Trip, Saved Place, and Itinerary Item persistence.
+- UI tests cover core launch and navigation behaviour.
+
+The automated suite covers valid operations, boundary conditions, typed domain errors, cross-Trip persistence isolation, duplicate prevention, and invalid scheduling behaviour.
 
 ## Development Principle
 
-SmartTrip 2.0 will follow:
+SmartTrip 2.0 follows:
 
 Views  
 → ViewModels  
@@ -232,7 +282,7 @@ Views
 → Core Data Repository  
 → Core Data
 
-Views and ViewModels will not access Core Data directly.
+Views and ViewModels do not access Core Data directly.
 
 ## Phase 2 Completion
 

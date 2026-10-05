@@ -2,6 +2,7 @@ import Foundation
 import Testing
 @testable import smarttrip2_0
 
+@MainActor
 struct SavedPlaceViewModelTests {
     @Test func clearPresentationErrorRemovesTransientAddPlaceError() {
         let trip = TestFixtures.trip()

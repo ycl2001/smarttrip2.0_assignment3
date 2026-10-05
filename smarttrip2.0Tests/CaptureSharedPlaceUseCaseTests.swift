@@ -2,6 +2,7 @@ import Foundation
 import Testing
 @testable import smarttrip2_0
 
+@MainActor
 struct CaptureSharedPlaceUseCaseTests {
     @Test func captureSharedPlaceSavesNewPlaceAsIdea() throws {
         let trip = TestFixtures.trip()
@@ -78,5 +79,25 @@ struct CaptureSharedPlaceUseCaseTests {
         #expect(savedPlaceRepository.saveCallCount == 1)
         #expect(place.tripID == tokyoTrip.id)
         #expect(savedPlaceRepository.savedPlaces.count == 2)
+    }
+
+    @Test func captureSharedPlaceRejectsMissingPlaceName() throws {
+        let trip = TestFixtures.trip()
+        let tripRepository = MockTripRepository(trips: [trip])
+        let savedPlaceRepository = MockSavedPlaceRepository()
+        let useCase = CaptureSharedPlaceUseCase(
+            tripRepository: tripRepository,
+            savedPlaceRepository: savedPlaceRepository
+        )
+
+        #expect(throws: CaptureSharedPlaceError.missingPlaceName) {
+            try useCase.execute(
+                tripID: trip.id,
+                name: "   "
+            )
+        }
+
+        #expect(savedPlaceRepository.saveCallCount == 0)
+        #expect(savedPlaceRepository.savedPlaces.isEmpty)
     }
 }
