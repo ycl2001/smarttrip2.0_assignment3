@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>SmartTrip 2.0 - Schedule Place Modal</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Custom Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            otter: {
+              DEFAULT: '#084d46',
+              dark: '#05342f',
+              light: '#029b8d',
+              surface: '#e6f3f1',
+              subtle: '#f0f8f7'
+            },
+            terra: {
+              DEFAULT: '#a4612d',
+              dark: '#321d0e',
+              light: '#c88048',
+              surface: '#f9f1eb'
+            },
+            sundown: {
+              DEFAULT: '#ffc036',
+              light: '#ffe2a3',
+              subtle: '#fff9ed'
+            },
+            stoneText: {
+              primary: '#2b2b2b',
+              secondary: '#666666',
+              muted: '#8e8e93'
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"SF Pro Display"', 'Inter', 'sans-serif']
+          },
+          boxShadow: {
+            'modal': '0 -8px 30px rgba(0, 0, 0, 0.25)',
+            'card': '0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)'
+          }
+        }
+      }
+    }
+  </script>
+<!-- Styles for Layout and iOS Specifics -->
+<style data-purpose="layout-and-ios">
+    /* Hide scrollbar for horizontal chip rows while keeping scrollability */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Smooth bounce for iOS feeling */
+    body {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-stone-900 min-h-screen flex items-end justify-center font-sans antialiased sm:p-4">
+<!-- BEGIN: ModalBackdropScrim -->
+<div aria-hidden="true" class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" data-purpose="modal-backdrop"></div>
+<!-- END: ModalBackdropScrim -->
+<!-- BEGIN: iOSModalSheet -->
+<main class="relative w-full max-w-md bg-[#f8f9fa] rounded-t-[32px] sm:rounded-[32px] overflow-hidden shadow-modal z-10 max-h-[92vh] flex flex-col transition-transform duration-300">
+<!-- Grabber Handle Bar -->
+<div class="pt-3 pb-2 flex justify-center items-center cursor-grab active:cursor-grabbing bg-white border-b border-gray-100" data-purpose="grabber-container">
+<div aria-hidden="true" class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+</div>
+<!-- BEGIN: SheetHeaderNav -->
+<header class="px-5 py-3 flex items-center justify-between bg-white border-b border-gray-100" data-purpose="modal-header">
+<button aria-label="Close modal" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-stoneText-secondary active:scale-95 transition-transform" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<div class="text-center">
+<p class="text-xs font-semibold uppercase tracking-wider text-otter">SmartTrip 2.0 Planner</p>
+<h1 class="text-sm font-bold text-stoneText-primary">Schedule Activity</h1>
+</div>
+<div class="flex items-center space-x-1">
+<button aria-label="Share place" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-stoneText-secondary active:scale-95 transition-transform" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button aria-label="Saved status" class="w-8 h-8 rounded-full bg-otter-surface flex items-center justify-center text-otter active:scale-95 transition-transform" type="button">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+<path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- END: SheetHeaderNav -->
+<!-- Scrollable Modal Content Body -->
+<div class="overflow-y-auto px-4 pt-3 pb-28 space-y-4 no-scrollbar">
+<!-- BEGIN: HeroImageCard -->
+<div class="relative rounded-2xl overflow-hidden shadow-sm aspect-[16/9] w-full" data-purpose="hero-banner">
+<img alt="Interior of TeamLab Planets Toyosu digital art exhibition in Tokyo, enchanting infinite crystal universe light room with hanging LED strands reflecting on mirrored floors and ceiling, tourists admiring lights, cinematic warm and ethereal glow, high resolution travel photography" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaetVKjd-M55ui0O9YUFw84DxrUTQ1Y3dlsxi_IP-FnEDthFnZUcG7tQRlflQjj4ABYDWwHouLiHSBN5o0zK41mVPtn81UgxuVJGoxrte4uXVXufAcP6zXVMapOxJjgISDJ-BKid3aJNtAMs7x7cpUuYL9-y8L5BR42M1d-k6bvOoVM702T5NGhDnGE3RjSKl3tyCO2vWZlsPB_orTTp0a-ayo7R7eHu8YqxOFQZFJS5ycINwmPIUV">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<!-- Overlaid Badges Top -->
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-sundown/90 backdrop-blur-md text-terra-dark shadow-sm">
+            ⭐ Shortlisted
+          </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-black/40 backdrop-blur-md text-white border border-white/20">
+            Sightseeing
+          </span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 backdrop-blur-md text-otter font-bold shadow-sm">
+            👍 4/5 votes
+          </span>
+</div>
+<!-- Place Title & Fast Details on Hero -->
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<h2 class="text-xl font-extrabold tracking-tight drop-shadow-sm">TeamLab Planets Toyosu</h2>
+<div class="flex items-center text-xs text-gray-200 mt-0.5 space-x-1">
+<svg class="w-3.5 h-3.5 text-otter-light shrink-0" fill="currentColor" viewBox="0 0 20 20">
+<path clip-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" fill-rule="evenodd"></path>
+</svg>
+<span class="truncate">Koto City, Tokyo • 15 min from Hotel</span>
+</div>
+</div>
+</div>
+<!-- END: HeroImageCard -->
+<!-- BEGIN: QuickSpecsGrid -->
+<section class="grid grid-cols-3 gap-2" data-purpose="quick-metrics">
+<div class="bg-white p-2.5 rounded-xl border border-gray-100 shadow-card flex flex-col items-center text-center">
+<span class="text-[10px] font-semibold uppercase tracking-wider text-stoneText-secondary">Duration</span>
+<span class="text-xs font-bold text-stoneText-primary mt-0.5">2.0 - 2.5 hrs</span>
+</div>
+<div class="bg-white p-2.5 rounded-xl border border-gray-100 shadow-card flex flex-col items-center text-center">
+<span class="text-[10px] font-semibold uppercase tracking-wider text-stoneText-secondary">Hours</span>
+<span class="text-xs font-bold text-stoneText-primary mt-0.5">09:00 - 22:00</span>
+</div>
+<div class="bg-white p-2.5 rounded-xl border border-gray-100 shadow-card flex flex-col items-center text-center">
+<span class="text-[10px] font-semibold uppercase tracking-wider text-stoneText-secondary">Entry</span>
+<span class="text-xs font-bold text-terra mt-0.5">Reservation Req</span>
+</div>
+</section>
+<!-- END: QuickSpecsGrid -->
+<!-- BEGIN: GroupDiscussionCard -->
+<section class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-card space-y-3" data-purpose="notes-and-votes">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="flex h-2 w-2 rounded-full bg-otter-light"></span>
+<h3 class="text-xs font-bold uppercase tracking-wider text-stoneText-primary">Crew Notes &amp; Consensus</h3>
+</div>
+<!-- Avatar Stack -->
+<div class="flex items-center -space-x-1.5" data-purpose="voters-avatar-stack">
+<div class="w-6 h-6 rounded-full ring-2 ring-white bg-otter flex items-center justify-center text-[9px] font-bold text-white">E</div>
+<div class="w-6 h-6 rounded-full ring-2 ring-white bg-terra flex items-center justify-center text-[9px] font-bold text-white">A</div>
+<div class="w-6 h-6 rounded-full ring-2 ring-white bg-sundown flex items-center justify-center text-[9px] font-bold text-terra-dark">M</div>
+<div class="w-6 h-6 rounded-full ring-2 ring-white bg-stone-700 flex items-center justify-center text-[9px] font-bold text-white">S</div>
+<span class="pl-2 text-[11px] font-medium text-stoneText-secondary">4 voted</span>
+</div>
+</div>
+<!-- Pinned Note from Elena -->
+<div class="bg-stone-50 rounded-xl p-3 border-l-4 border-otter flex items-start space-x-2.5">
+<div class="w-7 h-7 rounded-full bg-emerald-100 text-otter font-bold text-xs flex items-center justify-center shrink-0">
+            EL
+          </div>
+<div class="text-xs leading-relaxed">
+<div class="flex items-center space-x-1.5">
+<span class="font-bold text-stoneText-primary">Elena</span>
+<span class="text-[10px] text-stoneText-muted">3h ago</span>
+<span class="text-[10px] px-1.5 py-0.2 bg-emerald-50 text-otter rounded font-medium">Tips</span>
+</div>
+<p class="text-stoneText-secondary mt-0.5">
+              "Book 2 weeks in advance! Barefoot water rooms sell out rapid."
+            </p>
+</div>
+</div>
+</section>
+<!-- END: GroupDiscussionCard -->
+<!-- BEGIN: SchedulingSection -->
+<section class="bg-white p-4 rounded-2xl border border-gray-100 shadow-card space-y-4" data-purpose="schedule-picker-container">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="text-sm font-bold text-stoneText-primary">Schedule into Trip Timeline</h3>
+<p class="text-xs text-stoneText-secondary">Lock slot into group shared itinerary</p>
+</div>
+<span class="text-[11px] font-semibold text-otter bg-otter-surface px-2.5 py-1 rounded-full">Day Planning</span>
+</div>
+<!-- Day Selection Horizontal Carousel -->
+<div>
+<label class="block text-[11px] font-semibold uppercase tracking-wider text-stoneText-secondary mb-1.5">Choose Day</label>
+<div class="grid grid-cols-4 gap-2">
+<!-- Day 1 Pill -->
+<button class="py-2.5 px-2 rounded-xl border border-gray-200 text-center hover:bg-gray-50 focus:outline-none transition-all" type="button">
+<span class="block text-[10px] font-medium text-stoneText-secondary">Mon 14</span>
+<span class="block text-xs font-bold text-stoneText-primary mt-0.5">Day 1</span>
+</button>
+<!-- Day 2 Pill (Active/Selected Otter Teal) -->
+<button aria-current="date" class="py-2.5 px-2 rounded-xl bg-otter text-white text-center ring-2 ring-otter/30 shadow-sm focus:outline-none transition-all" type="button">
+<span class="block text-[10px] font-medium text-emerald-100">Tue 15</span>
+<span class="block text-xs font-bold text-white mt-0.5">Day 2</span>
+</button>
+<!-- Day 3 Pill -->
+<button class="py-2.5 px-2 rounded-xl border border-gray-200 text-center hover:bg-gray-50 focus:outline-none transition-all" type="button">
+<span class="block text-[10px] font-medium text-stoneText-secondary">Wed 16</span>
+<span class="block text-xs font-bold text-stoneText-primary mt-0.5">Day 3</span>
+</button>
+<!-- Day 4 Pill -->
+<button class="py-2.5 px-2 rounded-xl border border-gray-200 text-center hover:bg-gray-50 focus:outline-none transition-all" type="button">
+<span class="block text-[10px] font-medium text-stoneText-secondary">Thu 17</span>
+<span class="block text-xs font-bold text-stoneText-primary mt-0.5">Day 4</span>
+</button>
+</div>
+</div>
+<!-- Time Slot Selection -->
+<div class="space-y-1.5">
+<label class="block text-[11px] font-semibold uppercase tracking-wider text-stoneText-secondary">Target Time Window</label>
+<div class="grid grid-cols-2 gap-2">
+<!-- Start Time -->
+<div class="p-2.5 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-between">
+<div>
+<span class="block text-[10px] text-stoneText-muted">From</span>
+<span class="text-xs font-bold text-stoneText-primary">02:30 PM</span>
+</div>
+<svg class="w-4 h-4 text-stoneText-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<!-- End Time -->
+<div class="p-2.5 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-between">
+<div>
+<span class="block text-[10px] text-stoneText-muted">To</span>
+<span class="text-xs font-bold text-stoneText-primary">05:00 PM</span>
+</div>
+<svg class="w-4 h-4 text-stoneText-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- Smart Itinerary Fit Hint -->
+<div class="p-2.5 bg-sundown-subtle border border-sundown/40 rounded-xl flex items-center space-x-2 mt-2">
+<span class="text-sm">✨</span>
+<p class="text-[11px] text-terra-dark font-medium leading-snug">
+              Fits cleanly between <strong class="font-bold">Nishiki Market</strong> &amp; <strong class="font-bold">Tokyo Bay Sunset</strong> transit.
+            </p>
+</div>
+</div>
+<!-- Ticket Purchased Status Switch -->
+<div class="flex items-center justify-between pt-2 border-t border-gray-100" data-purpose="booking-status-toggle">
+<div class="flex items-center space-x-2.5">
+<div class="w-7 h-7 rounded-lg bg-emerald-50 text-otter flex items-center justify-center">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<p class="text-xs font-bold text-stoneText-primary">Group passes confirmed</p>
+<p class="text-[10px] text-stoneText-secondary">4 QR entry tickets attached</p>
+</div>
+</div>
+<!-- iOS Toggle Switch Style -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-10 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-otter"></div>
+</label>
+</div>
+</section>
+<!-- END: SchedulingSection -->
+</div>
+<!-- BEGIN: StickyBottomActionBar -->
+<footer class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 pb-6 flex items-center gap-2" data-purpose="bottom-action-sheet">
+<!-- Add Note / Discussion Button -->
+<button aria-label="Add note or comment" class="p-3 rounded-xl border border-gray-300 text-stoneText-primary hover:bg-gray-50 flex items-center justify-center shrink-0 active:scale-95 transition-transform" type="button">
+<svg class="w-5 h-5 text-stoneText-secondary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Primary Confirmation CTA -->
+<button class="flex-1 bg-otter hover:bg-otter-dark active:scale-[0.98] text-white py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center space-x-2 shadow-md transition-all" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Confirm to Day 2 Itinerary</span>
+</button>
+</footer>
+<!-- END: StickyBottomActionBar -->
+</main>
+<!-- END: iOSModalSheet -->
+</body></html>

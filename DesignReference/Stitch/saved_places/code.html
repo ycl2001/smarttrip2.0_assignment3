@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-lowest": "#ffffff", "border-subtle": "rgba(0, 0, 0, 0.06)", "on-tertiary-container": "#e3a81a", "on-tertiary-fixed-variant": "#5d4200", "on-background": "#1a1c1c", "background": "#f9f9f9", "outline-variant": "#bfc9c6", "tertiary-container": "#5a4000", "on-secondary-fixed-variant": "#703804", "surface-canvas": "#F8F9FA", "secondary": "#8d4e1c", "on-secondary-container": "#773e0a", "on-surface-variant": "#404947", "on-secondary": "#ffffff", "inverse-on-surface": "#f1f1f1", "surface-variant": "#e2e2e2", "surface-container-low": "#f3f3f3", "secondary-fixed": "#ffdcc6", "on-tertiary-fixed": "#271900", "error-container": "#ffdad6", "secondary-fixed-dim": "#ffb784", "surface-container": "#eeeeee", "on-error": "#ffffff", "on-primary": "#ffffff", "on-primary-fixed": "#00201c", "secondary-container": "#feac71", "on-primary-container": "#82bdb3", "primary-fixed-dim": "#96d2c8", "tertiary-fixed-dim": "#fbbc32", "surface-tint": "#2c6860", "primary": "#00352f", "on-secondary-fixed": "#301400", "outline": "#707977", "tertiary": "#3e2b00", "on-error-container": "#93000a", "primary-fixed": "#b2eee4", "surface-container-highest": "#e2e2e2", "text-primary": "#1A1D20", "text-secondary": "#6C757D", "presence-active": "#029b8d", "on-primary-fixed-variant": "#0d5049", "text-tertiary": "#9CA3AF", "inverse-surface": "#2f3131", "surface-card": "#FFFFFF", "on-tertiary": "#ffffff", "error": "#ba1a1a", "surface-dim": "#dadada", "tertiary-fixed": "#ffdea5", "surface-bright": "#f9f9f9", "surface-container-high": "#e8e8e8", "primary-container": "#084d46", "on-surface": "#1a1c1c", "inverse-primary": "#96d2c8", "surface": "#f9f9f9" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "margin": "1.25rem", "gutter": "1rem", "space-sm": "0.5rem", "margin-mobile": "1rem", "space-xl": "2rem", "space-xs": "0.25rem", "space-md": "1rem", "gutter-mobile": "0.75rem", "space-lg": "1.5rem" }, fontFamily: { "label-sm": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "display-lg": ["Inter"], "body-sm": ["Inter"] }, fontSize: { "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "500" }], "label-md": ["13px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "600" }], "headline-lg": ["28px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" }], "body-md": ["15px", { lineHeight: "20px", fontWeight: "400" }], "body-lg": ["17px", { lineHeight: "24px", fontWeight: "400" }], "headline-sm": ["17px", { lineHeight: "22px", letterSpacing: "-0.005em", fontWeight: "600" }], "display-lg": ["34px", { lineHeight: "41px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-[#F4F4F4] text-text-primary antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Otterra SmartTrip Logo" class="h-8 w-8 rounded-lg object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug9YKrkDxJX9TYrupTWLJmTHhlV2oLkppjIkfHsr2dbRNHGmPKinJorOkzvwOjV1lEnPDFBbpx9AzFXxc7zJd0YU48lJ8zeG5if1SVMWOAjk4fB3-PC6-1E044v_FBiSz1gSYrlpd57V0c0OE-ZVSSewu2SZK_ssAllhTEZIf6X8OgInaRfcvDweJXWl4USPNRJvkieFL1jtEzKYaG1K0efFpH80HmV4vn53t900RcuPuNNUo60sUDbrA"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-[#084d46] tracking-wide uppercase font-semibold">SmartTrip 2.0</span><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Saved</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span></button><div class="relative flex items-center pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYXyml_zzMPzFt36O2QRCa4Mxr3xlTqSsg6GlSCFmBE30gpIkDB8YBwXuYShvV95zlObzFKTUxHbOOcXX912uVnhxeMqrk8AlsXw7PC0vplRy6vBpCqZDfSb1c5yDx1kebT_cotc7JDQn_cFYMbG90hmwMtX_gWzooLqa0T5gNFaPm7QhGZBGs26q7jEs2ZvMEcWdYRrkOxUVTsM3ulpBK8EazZ8GYuau4OOTr0SuOBjPgoW08rCV1"><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#029b8d] ring-2 ring-surface-card"></span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-[#F4F4F4]"><div class="flex flex-col w-full pb-10">
+<!-- Search & Quick Filter Bar -->
+<div class="mx-margin-mobile mt-2 p-3 bg-surface rounded-2xl border border-[#C3C3C3]/50 shadow-sm flex flex-col gap-space-sm">
+<!-- Search Input -->
+<div class="relative w-full flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px] pointer-events-none">search</span>
+<input class="w-full h-11 pl-10 pr-10 rounded-full bg-[#F4F4F4] border border-[#C3C3C3] text-text-primary placeholder:text-text-secondary font-body-md text-[14px] focus:outline-none focus:border-[#084D46] transition-colors" placeholder="Search saved spots, notes, or tags..." type="text">
+<button aria-label="Filter Map View" class="absolute right-2.5 w-7 h-7 flex items-center justify-center rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+<!-- Lifecycle State Segmented Filter Chips -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-1"><button class="state-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#084D46] text-surface font-label-md text-label-md shadow-sm transition-all flex-shrink-0" data-filter="all"><span class="">All</span><span class="px-1.5 py-0.5 rounded-full bg-white/20 font-label-sm text-label-sm">14</span></button><button class="state-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F4F4] border border-[#C3C3C3] text-text-secondary hover:text-text-primary font-label-md text-label-md transition-all flex-shrink-0" data-filter="idea"><span class="material-symbols-outlined text-[15px] text-[#A4612D]">lightbulb</span><span class="text-text-primary">Idea</span><span class="px-1.5 py-0.5 rounded-full bg-surface border border-[#C3C3C3] font-label-sm text-label-sm text-text-primary font-semibold">6</span></button><button class="state-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F4F4] border border-[#C3C3C3] text-text-secondary hover:text-text-primary font-label-md text-label-md transition-all flex-shrink-0" data-filter="shortlisted"><span class="material-symbols-outlined text-[15px] text-[#A4612D]">star</span><span class="text-text-primary">Shortlisted</span><span class="px-1.5 py-0.5 rounded-full bg-surface border border-[#C3C3C3] font-label-sm text-label-sm text-text-primary font-semibold">5</span></button><button class="state-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F4F4] border border-[#C3C3C3] text-text-secondary hover:text-text-primary font-label-md text-label-md transition-all flex-shrink-0" data-filter="scheduled"><span class="material-symbols-outlined text-[15px] text-[#029B8D]">calendar_today</span><span class="text-text-primary">Scheduled</span><span class="px-1.5 py-0.5 rounded-full bg-surface border border-[#C3C3C3] font-label-sm text-label-sm text-text-primary font-semibold">3</span></button></div>
+<!-- Category Pills -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar pt-0.5"><button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#171717] text-surface font-label-sm text-label-sm shadow-sm flex-shrink-0 transition-all"><span class="material-symbols-outlined text-[15px]">restaurant</span><span class="">Food &amp; Drink</span></button><button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface border border-[#C3C3C3] text-text-secondary hover:text-[#084D46] font-label-sm text-label-sm flex-shrink-0 transition-colors"><span class="material-symbols-outlined text-[15px]">photo_camera</span><span class="">Sightseeing</span></button><button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface border border-[#C3C3C3] text-text-secondary hover:text-[#084D46] font-label-sm text-label-sm flex-shrink-0 transition-colors"><span class="material-symbols-outlined text-[15px]">forest</span><span class="">Nature</span></button><button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface border border-[#C3C3C3] text-text-secondary hover:text-[#084D46] font-label-sm text-label-sm flex-shrink-0 transition-colors"><span class="material-symbols-outlined text-[15px]">local_bar</span><span class="">Nightlife</span></button></div>
+</div>
+<!-- Saved Places Stream -->
+<div class="px-margin-mobile flex flex-col gap-space-md mt-1">
+<!-- Card 1: Shortlisted State -->
+<div class="place-card rounded-2xl bg-surface border border-[#C3C3C3]/60 shadow-sm overflow-hidden flex flex-col transition-transform active:scale-[0.99]" data-state="shortlisted">
+<!-- Media Header -->
+<div class="relative w-full h-44">
+<img class="w-full h-full object-cover" data-alt="Vibrant modern digital art exhibition TeamLab Planets Tokyo with mirrored water surface, glowing crystal lights hanging down, soft ambient coral reflections, travelers admiring the immersive lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_FYkKNGL22xhUP2NEpwn3-6keWrBc3YTLNF3LRmRUes72UJe0XtlVJ_5tpSNUKVAgsWYnPc7FPrWTSRhQx1j9Hg2OyejgUWS1yrUnHdPQQoCCqjAQE9UHRFI3OSAk3Q79FTIQDQSB_5Ein1XfFSdsIAwilnBm-PRB03O55025mnfeQuHuv5Ku7_lYdVBvL1omQubZoqos0OYkQnTbx3EFvcbxlTqnVXXMImV9rRiKaN9NwB1_Bh4g">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 via-transparent to-black/20"></div>
+<!-- Badges on Image -->
+<div class="absolute top-3 left-3 flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-[#a4612d] text-surface-container-lowest backdrop-blur-md font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">hotel_class</span>
+            Shortlisted
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/85 backdrop-blur-md text-on-surface font-label-sm text-label-sm">
+            Sightseeing
+          </span>
+</div>
+<button aria-label="More options" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+<!-- Image Title Overlay -->
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<div class="flex flex-col">
+<h2 class="text-surface-container-lowest font-headline-sm text-headline-sm drop-shadow-sm">TeamLab Planets Toyosu</h2>
+<p class="text-surface-variant font-body-sm text-body-sm drop-shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+              Koto City, Tokyo
+            </p>
+</div>
+<!-- Vote Meter -->
+<div class="px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-[#084d46] font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-[#029b8d]">thumb_up</span>
+            4/5 votes
+          </div>
+</div>
+</div>
+<!-- Card Body Content -->
+<div class="p-space-md flex flex-col gap-space-sm bg-surface-container-lowest">
+<!-- Social Note / Elena's Comment -->
+<div class="p-2.5 rounded-xl bg-[#F4F4F4] border border-[#C3C3C3]/50 flex items-start gap-2.5"><img class="w-6 h-6 rounded-full object-cover flex-shrink-0 mt-0.5" data-alt="Warm portrait of a smiling woman Elena wearing stylish traveler knitwear with soft natural morning lighting in Tokyo cafe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEbGCp056RFtIkGnOW9Tb67Hf0GVq-sIEhvPkFt6NHk251fcmx2HC4W-O0Viz9mHnv9E6wOU2wG25Jh_-zWsYDFRE8WrybBWHt-kAVQBH5Z7DYhbSkzhKhKhJYu26flUKoBpCoGA9CC6SwctTL6C4OZViXS3qlvxk1AouI6uCWRrAdq8IvDbhKK25d8hj5bbZng0B3RihRN12riRbl_iwhBNTU1lXEVv5yoCZxL4D6QmFdeL67POHC"><div class="flex flex-col min-w-0"><div class="flex items-center gap-1.5"><span class="font-label-sm text-label-sm text-text-primary font-semibold">Elena</span><span class="font-body-sm text-[12px] text-text-secondary">3h ago</span></div><p class="font-body-sm text-body-sm text-text-secondary">"Book 2 weeks in advance! Barefoot water rooms sell out rapid."</p></div></div>
+<!-- Action Row -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center -space-x-1.5">
+<img class="w-6 h-6 rounded-full object-cover shadow-sm" data-alt="Portrait of young traveler smiling outdoors with camera strap" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBArdrM97haArSZrDLqBvwfzSb-br9BwgkIYduKk8fco4kwDWR6kqg-J1IENAK43n6Cqq0pgDu_H-sMmegD-RatALNAve4gVb-yAU2KHN8YTEvydtx9iGBRA6GI_-l1KkXbr0bjRQoMDmydK92witQ3osSIEDJDDIGGK31PlKpobHlk0ImStOfs7Q2VdKOjg03fbcD_nI88pMGy2oana5gOEVGFogM53lMTgn5HorVZLeMbgZ3XBf0R">
+<img class="w-6 h-6 rounded-full object-cover shadow-sm" data-alt="Young man with glasses laughing in travel scene" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiCXZAzFyHyln0o2boRRqvlaonsh0cZPjwoYopcnk2_0uM7DXJC2fa9eIOzr5UTCg8U425HP4g7GenIDwWANb5XgPQ-xqoEtQ7d4SPLNYr5FZnGlneoD3VADzvo99uHBtuZkjGYDcemg40sWHuhtEpo_EPOSJLo9KsYRI6co2WIi-hZGrsZlvlOxPbkHMs6uz1NNAvcK0HeJ-FKyvRkBm6ptXEj2JQj0Xk5-hb4aYbzzL3yfUQVbLU">
+<img class="w-6 h-6 rounded-full object-cover shadow-sm" data-alt="Woman outdoors in soft afternoon sunlight enjoying view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL2SOqgg-JWEImckOTQVNcCljLfrxxOB82RltRgjrfBRzIwaYLQ9kTvjsXdcwpS78zRzKW8LArGH7MbFIpLlMORRmlIqC3DN-cN0BFieymBWy0fNe8LWN-s9YBGtCUhTr8OEnGglBqdFa1NEHkOUzYHKHzl-cmkLhdUcBnqIEECg4TV0ktjETMiLOWx1X2sbxznbBG4cVxpeyouyawOT7m8iThyGSJ6dE-OYBEl6WwvDZlhPv8ZVpW">
+<div class="w-6 h-6 rounded-full bg-[#c6fcf7] text-[#084d46] font-label-sm text-label-sm flex items-center justify-center font-bold shadow-sm">+1</div>
+</div>
+<button class="h-10 px-5 rounded-full bg-[#084D46] hover:opacity-90 text-surface font-label-md text-label-md flex items-center gap-1.5 shadow-sm active:scale-95 transition-all font-semibold"><span class="material-symbols-outlined text-[18px]">calendar_add_on</span><span class="">Schedule into Day 4</span></button>
+</div>
+</div>
+</div>
+<!-- Card 2: Idea State with Quick Voting -->
+<div class="place-card rounded-2xl bg-surface border border-[#C3C3C3]/60 shadow-sm overflow-hidden flex flex-col transition-transform active:scale-[0.99]" data-state="idea">
+<div class="relative w-full h-40">
+<img class="w-full h-full object-cover" data-alt="Atmospheric Japanese yakitori alley Omoide Yokocho at dusk with glowing red paper lanterns, charcoal smoke, cozy wooden izakaya counters, authentic Tokyo street vibe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTax4NIiS1I5Kc5ona3BA1C7vhfU0JLy0mhnmR48BfmQBack4d8sJtfqudWJrSsNMwT8WCB3Diet5VeOr6tg4zzeY6DDzkzO0zb3bPeCthzOCnMz9XoLcYT9NK29leBvDi6gztu0qXLK2o4poY_FCus0UR4wY5KyglwjUOyhvu0Czxl3F9-4xXjfdiOB09vzrCNw3dVSTJbx-J6qXuOZf-gybaisoVxX5uCrpO1jaXSF-3mVfQ9fHF">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/85 via-transparent to-black/20"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-[#ffc036] text-[#271900] backdrop-blur-md font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">lightbulb</span>
+            Idea
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/85 backdrop-blur-md text-on-surface font-label-sm text-label-sm">
+            Food &amp; Drink
+          </span>
+</div>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<div class="flex flex-col">
+<h2 class="text-surface-container-lowest font-headline-sm text-headline-sm drop-shadow-sm">Omoide Yokocho Yakitori</h2>
+<p class="text-surface-variant font-body-sm text-body-sm drop-shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">near_me</span>
+              Shinjuku • 1.2 km from Hotel
+            </p>
+</div>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm bg-surface-container-lowest">
+<!-- Idea Originator & Status -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of Alex smiling in casual denim jacket in urban street" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj6mQfE_n-LkLT6yqLtreJ_4HWyYvxzaPdDAZULj9MAn6-a8H6xsWzBwooiJrfnUS29XZl-oSvjCLHpOFO49RAB0D4moAt8x_JCR8Iy5-ZhvI70mhIEY1vJhWwff2bTvTQZWFKsbRHvcRIxLr0Z5v0QhlrNKNU5Ye4389p7P9y7R5EE-J4OSlOShZXMzTFzzwJ5ubJDsPx_44UimEv2WJ98fuZXhwHOwiVJG_N2mqt7iWdkSxIkkrr">
+<span class="font-body-sm text-body-sm text-text-secondary">Saved by <strong class="text-on-surface font-medium">Alex</strong></span>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-[#ffe2a3]/60 text-[#703804] font-medium">Needs 2 more votes</span>
+</div>
+<!-- Voting Progress Bar -->
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden flex">
+<div class="bg-[#029b8d] h-full rounded-full" style="width: 50%;"></div>
+</div>
+<!-- Interactive Voting Row -->
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-text-secondary">Cast your decision:</span>
+<div class="flex items-center gap-2"><button class="vote-btn h-9 px-3 rounded-full bg-[#F4F4F4] border border-[#C3C3C3] text-text-primary hover:border-[#084D46] hover:text-[#084D46] active:scale-95 transition-all flex items-center gap-1 text-label-md font-label-md" data-vote="up"><span class="material-symbols-outlined text-[16px]">thumb_up</span><span class="">Interested</span></button><button class="vote-btn h-9 w-9 rounded-full bg-[#F4F4F4] border border-[#C3C3C3] text-text-secondary hover:bg-error-container hover:text-on-error-container active:scale-95 transition-all flex items-center justify-center" data-vote="down"><span class="material-symbols-outlined text-[16px]">thumb_down</span></button></div>
+</div>
+</div>
+</div>
+<!-- Card 3: Scheduled State -->
+<div class="place-card rounded-2xl bg-surface border border-[#C3C3C3]/60 shadow-sm overflow-hidden flex flex-col transition-transform active:scale-[0.99]" data-state="scheduled">
+<div class="relative w-full h-36">
+<img class="w-full h-full object-cover" data-alt="Scenic endless corridor of bright vermilion torii gates at Fushimi Inari Shrine Kyoto in morning mist with peaceful sunbeams filtering through bamboo canopy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3vI759dOedN0q1ixRJloCo6BXFhiSx049eftym0l1OG0_sv1pmRUa_ZTbRNBrVkoYi-hpX5ZbtKAmXRrD1Mj9Y7Jcn0XIbkBLsY4ocpg2wSDZF2Se6jVieeOBO0BzW76lHEhq0c9kAuNQxOoik8TPyQIG8PU6vFyqvv-oSbmkkfSReIvbZdG7ZVcFGSyH1uzGDNydosJ9rUenkZmNQ027chyCmrVZ3YT8LmJPIDc3GLtQj5B5V4ue">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/85 via-transparent to-black/20"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-[#029b8d] text-surface-container-lowest font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+            Scheduled
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/85 backdrop-blur-md text-on-surface font-label-sm text-label-sm">
+            Sightseeing
+          </span>
+</div>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<div class="flex flex-col">
+<h2 class="text-surface-container-lowest font-headline-sm text-headline-sm drop-shadow-sm">Fushimi Inari Shrine</h2>
+<p class="text-surface-variant font-body-sm text-body-sm drop-shadow-sm">Kyoto Day Trip</p>
+</div>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm bg-surface-container-lowest">
+<!-- Scheduled Calendar Slot Link -->
+<a class="p-3 rounded-xl bg-[#F4F4F4] border border-[#C3C3C3]/60 hover:border-[#084D46]/40 transition-colors flex items-center justify-between group" href="#">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-[#029b8d]/15 text-[#029b8d] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Day 2 • 06:30 AM Sunrise Hike</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Locked in shared itinerary</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-0.5 transition-transform text-[20px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 4: Idea State with Distance & Notes -->
+<div class="place-card rounded-2xl bg-surface border border-[#C3C3C3]/60 shadow-sm overflow-hidden flex flex-col transition-transform active:scale-[0.99]" data-state="idea">
+<div class="relative w-full h-40">
+<img class="w-full h-full object-cover" data-alt="Dense serene green Arashiyama bamboo grove towering bamboo stalks reaching high in Kyoto early morning soft calm diffused light with tranquil path" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC89bRqMKOXZ8s8UNdMzWJ1jSyM_nPzLlKLN6HmkGQf121g6FSjB0XFds6HTgMHjEbZLU0U_7BA6129zI16lTkbZ91YQipQJxPld8zsdoU_C7ko6jD5OuPOi_lT4592Y2w2vqSPthEiY12uzexP0-XIUFlgURYqnTxGPguembhKHievCd9ryc-ZOr4DLQf81ZabuI4Y1xmezSKUIYFiW5Sf5s_Uf30-qiAemTMtr5HkgHqYzDFRQoBh">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/85 via-transparent to-black/20"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-[#ffc036] text-[#271900] backdrop-blur-md font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">lightbulb</span>
+            Idea
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/85 backdrop-blur-md text-on-surface font-label-sm text-label-sm">
+            Nature
+          </span>
+</div>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<div class="flex flex-col">
+<h2 class="text-surface-container-lowest font-headline-sm text-headline-sm drop-shadow-sm">Arashiyama Bamboo Grove</h2>
+<p class="font-body-sm text-body-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px]">map</span>
+              West Kyoto
+            </p>
+</div>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm bg-surface-container-lowest">
+<!-- Metadata Pill Tags -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-[#029b8d]">directions_walk</span>
+            35 min by train
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-[#8d4e1c]">schedule</span>
+            Best before 8 AM
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">
+          "Can combine with Monkey Park Iwatayama right across the Togetsukyo Bridge."
+        </p>
+<!-- Footer Actions -->
+<div class="flex items-center justify-between pt-1">
+<button class="h-9 px-4 rounded-full bg-surface border border-[#C3C3C3] hover:border-[#084D46] text-[#084D46] font-label-md text-label-md flex items-center gap-1.5 active:scale-95 transition-all shadow-sm font-semibold"><span class="material-symbols-outlined text-[16px] text-[#029b8d]">hotel_class</span><span class="">Promote to Shortlist</span></button>
+<div class="flex items-center gap-1">
+<button aria-label="Share place" class="w-9 h-9 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Quick-Add CTA Bar -->
+<div class="sticky bottom-4 mx-margin-mobile mt-space-lg z-30">
+<button class="w-full h-12 rounded-full bg-[#084D46] hover:opacity-90 text-surface font-label-md text-label-md shadow-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all font-semibold tracking-wide">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="">Add Place or Paste URL</span>
+</button>
+</div>
+</div>
+<script>
+  // Simple interactive filter logic for lifecycle tabs
+  const chips = document.querySelectorAll('.state-chip');
+  const cards = document.querySelectorAll('.place-card');
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      // Toggle active visual states
+      chips.forEach(c => {
+        c.classList.remove('bg-[#084d46]', 'text-surface-container-lowest', 'shadow-sm');
+        const filter = c.getAttribute('data-filter');
+        if (filter === 'all') {
+          c.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+        }
+        const badge = c.querySelector('span:last-child');
+        if (badge && filter === 'all') {
+          badge.classList.remove('bg-surface-container-lowest/20');
+          badge.classList.add('bg-surface-container-lowest', 'text-on-surface');
+        }
+      });
+
+      chip.classList.add('bg-[#084d46]', 'text-surface-container-lowest', 'shadow-sm');
+      chip.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+      const activeBadge = chip.querySelector('span:last-child');
+      if (activeBadge) {
+        activeBadge.classList.add('bg-surface-container-lowest/20');
+        activeBadge.classList.remove('bg-surface-container-lowest');
+      }
+
+      const filterValue = chip.getAttribute('data-filter');
+      cards.forEach(card => {
+        if (filterValue === 'all' || card.getAttribute('data-state') === filterValue) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Micro-interaction for vote buttons
+  document.querySelectorAll('.vote-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isUp = this.getAttribute('data-vote') === 'up';
+      if (isUp) {
+        this.classList.toggle('bg-[#029b8d]');
+        this.classList.toggle('text-surface-container-lowest');
+      } else {
+        this.classList.toggle('bg-error');
+        this.classList.toggle('text-surface-container-lowest');
+      }
+    });
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)]" data-active-classes="text-[#084d46] [&amp;&gt;div]:bg-[#084d46]/10 font-label-md"><div class="flex items-center justify-around h-16 px-space-sm"><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors group" data-path="trips" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">explore</span></div><span class="font-label-sm text-label-sm">Trips</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors group" data-path="hub" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">grid_view</span></div><span class="font-label-sm text-label-sm">Hub</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] transition-colors group text-[#084d46] [&amp;&gt;div]:bg-[#084d46]/10 font-label-md" data-path="saved" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px] fill-current">bookmark</span></div><span class="font-label-sm text-label-sm font-semibold">Saved</span></a><a class="flex flex-col items-center justify-center min-w-[64px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors group" data-path="itinerary" href="#"><div class="flex items-center justify-center w-10 h-7 rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">calendar_today</span></div><span class="font-label-sm text-label-sm">Itinerary</span></a></div></nav>
+
+
+
+</body></html>

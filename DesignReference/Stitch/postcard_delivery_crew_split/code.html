@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-on-surface": "#f1f1f1", "surface-dim": "#dadada", "secondary-fixed-dim": "#ffb784", "outline": "#707977", "on-tertiary-fixed-variant": "#5d4200", "on-secondary-container": "#773e0a", "inverse-surface": "#2f3131", "surface-container-low": "#f3f3f3", "inverse-primary": "#96d2c8", "background": "#f9f9f9", "surface-bright": "#f9f9f9", "on-tertiary-container": "#e3a81a", "on-primary-fixed": "#00201c", "on-primary-fixed-variant": "#0d5049", "primary-fixed": "#b2eee4", "secondary-fixed": "#ffdcc6", "tertiary-fixed": "#ffdea5", "on-secondary": "#ffffff", "primary": "#00352f", "on-error-container": "#93000a", "on-primary-container": "#82bdb3", "on-surface-variant": "#404947", "surface-variant": "#e2e2e2", "on-primary": "#ffffff", "outline-variant": "#bfc9c6", "secondary-container": "#feac71", "surface-container-highest": "#e2e2e2", "primary-container": "#084d46", "tertiary": "#3e2b00", "on-surface": "#1a1c1c", "on-background": "#1a1c1c", "on-secondary-fixed": "#301400", "tertiary-fixed-dim": "#fbbc32", "surface-tint": "#2c6860", "secondary": "#8d4e1c", "on-secondary-fixed-variant": "#703804", "on-tertiary": "#ffffff", "primary-fixed-dim": "#96d2c8", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "tertiary-container": "#5a4000", "surface": "#f9f9f9", "surface-container-high": "#e8e8e8", "on-error": "#ffffff", "surface-container": "#eeeeee", "error-container": "#ffdad6", "on-tertiary-fixed": "#271900" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "space-xl": "2rem", "gutter": "1rem", "margin": "1rem", "margin-desktop": "2.5rem", "gutter-desktop": "1.5rem", "space-md": "1rem" }, fontFamily: { "headline-lg-mobile": ["Inter"], "title-md": ["Inter"], "label-sm": ["Inter"], "label-md": ["Inter"], "display": ["Inter"], "headline-lg": ["Inter"], "display-mobile": ["Inter"], "caption": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Inter"] }, fontSize: { "headline-lg-mobile": ["1.625rem", { lineHeight: "2.125rem", letterSpacing: "-0.015em", fontWeight: "700" }], "title-md": ["1.125rem", { lineHeight: "1.625rem", letterSpacing: "-0.005em", fontWeight: "600" }], "label-sm": ["0.75rem", { lineHeight: "1rem", letterSpacing: "0.02em", fontWeight: "600" }], "label-md": ["0.875rem", { lineHeight: "1.25rem", letterSpacing: "0.01em", fontWeight: "600" }], "display": ["3rem", { lineHeight: "3.5rem", letterSpacing: "-0.03em", fontWeight: "800" }], "headline-lg": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em", fontWeight: "700" }], "display-mobile": ["2.25rem", { lineHeight: "2.75rem", letterSpacing: "-0.025em", fontWeight: "800" }], "caption": ["0.6875rem", { lineHeight: "0.875rem", letterSpacing: "0.02em", fontWeight: "500" }], "body-md": ["0.875rem", { lineHeight: "1.375rem", fontWeight: "400" }], "body-lg": ["1rem", { lineHeight: "1.5rem", fontWeight: "400" }], "headline-md": ["1.375rem", { lineHeight: "1.875rem", letterSpacing: "-0.01em", fontWeight: "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_2px_12px_rgba(8,77,70,0.05)]"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Go Back" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-primary-container active:scale-95 transition-transform hover:bg-surface-container" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><img alt="Brand logo. - Primary color: #084d46
+- Font: inter
+- Mode: light
+- Roundness: rounded-full
+" class="h-7 w-auto object-contain hidden sm:block" src="https://lh3.googleusercontent.com/aida/AEtjO1XTbQt0BkJaI_lRkmsQxmsyZ3C3HBuZts3NPrK2YuGlCAs43vKxrbt-FGGUDopPk7qjVnlzl7WgPmRY6PBAK265As26BsfNRAriGzezzCJlAFuz7jdZnyatSIOL0sq0SlI5x_1Nk1lOF_UXhY7j_cHxdMuUAVTIvOPbEzQOBqk6zwQKPVHhrxhZWv-qsAzcsucG1cxeG1WkVuKNeCWHqmFIsLWfSuwHxuHo4LyF5BF8ZzqdvmA5SVfOuw"></div><div class="flex-1 text-center px-space-xs truncate"><h1 class="font-title-md text-title-md text-on-surface tracking-tight truncate">Postcard Preview &amp; Send</h1></div><div class="flex items-center gap-1"><button aria-label="Contextual action" class="w-11 h-11 rounded-full flex items-center justify-center text-primary-container hover:bg-surface-container active:scale-95 transition-transform" type="button"><span class="material-symbols-outlined text-[22px]">ios_share</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full">
+<!-- Progress Stepper Tracker -->
+<div class="px-margin pt-space-md pb-space-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Step 3 of 3 • Final Review</span>
+<span class="font-label-sm text-label-sm text-primary font-bold bg-primary-fixed px-2.5 py-0.5 rounded-full">Ready to Ship</span>
+</div>
+<div class="flex items-center gap-1.5 w-full">
+<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-primary rounded-full animate-pulse"></div>
+</div>
+<div class="mt-space-md">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Postcard Dispatch &amp; Split</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Finalize recipients, print finishes, and ledger split.</p>
+</div>
+</div>
+<!-- Postcard Stack Tactile Fan-Out Preview -->
+<div class="px-margin py-space-sm">
+<div class="bg-surface-container rounded-3xl p-space-md shadow-[0_4px_20px_rgba(8,77,70,0.06)] relative overflow-hidden">
+<!-- Subtle Ambient Glow -->
+<div class="absolute -right-12 -top-12 w-44 h-44 rounded-full bg-secondary-container/20 blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-md relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">mark_email_read</span>
+<span class="font-title-md text-title-md text-on-surface">Deck Selection</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">3 Art Prints</span>
+</div>
+</div>
+<!-- Fanned Cards Stack -->
+<div class="relative h-44 w-full flex items-center justify-center my-1 select-none">
+<!-- Card 3: Mt. Fuji in Morning Mist -->
+<div class="absolute w-52 h-36 rounded-2xl overflow-hidden shadow-md -rotate-6 -translate-x-6 -translate-y-1 bg-surface-container-lowest transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="Breathtaking morning sunrise view of snow-capped Mount Fuji reflected in Lake Kawaguchiko with soft misty cherry blossom framing and warm golden dawn light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSEe5pmLC3zY7fuhWPV6EKb0kG37Jbohgpcbemb-xqV080XY1X8n_2pt69-u5WX3GB_S0wl-9hWabi6ggiS58l0DpDKVPVEOQgTs-F6HCN9kPDKPtDxU4AKwpumkGGcmQALB4rfeO00GWPUpASrdb6atZd5xmbolzEQH1mZmJpNonH82QsF2E5CvAsQtBd_ZaPVsb41PrOsKj3JD9Ddfs5DoagVhqi5Z3Sxf6srlfMPZthwyKDkT_x">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<span class="absolute bottom-2 left-2.5 font-label-sm text-label-sm text-on-primary font-medium drop-shadow">Mt. Fuji Dawn</span>
+</div>
+<!-- Card 2: Nishiki Market Ramen Bar -->
+<div class="absolute w-52 h-36 rounded-2xl overflow-hidden shadow-lg rotate-3 translate-x-4 -translate-y-0.5 bg-surface-container-lowest transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="Cozy traditional Kyoto ramen alley stall at Nishiki market with steaming tonkotsu broth bowls, wooden counter, and ambient warm paper lanterns." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEPnj_slsE8eP4s188kvAuFQn_6yZe33ROLWn1PDaH33YjTztS88LfrWWBdFBt1a2X_qmmd7Ij7poH4nglv5Z_aIvasSCTwkS0oGt6P4MvccgjP4Po_vap7jDarSoS7wj1yTG38oNd0YoiaVoE5NL-DpkFpin-XAgDLUKN9OVQ6rYfly4GHp7bI0NU-skxHhwLtfCv5qGF_yEcNQ36qRONVZujVG0HT7IVUl6e4pGSDDdrTEV_O4ke">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<span class="absolute bottom-2 left-2.5 font-label-sm text-label-sm text-on-primary font-medium drop-shadow">Nishiki Ramen</span>
+</div>
+<!-- Card 1: Bamboo Grove Crew (Top Hero) -->
+<div class="absolute w-56 h-38 rounded-2xl overflow-hidden shadow-xl -rotate-1 translate-y-2 bg-surface-container-lowest transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="Joyful group of five diverse young nomad travelers smiling and walking warmly along the towering Arashiyama bamboo forest stone path in soft filtered sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu2ZIrZF117_-HjcDSZ9SX4ru_QF8CJkv5RuEU4GH40T6V6wG9zuIQrWg0V5SENbZEpCL5RdpzdUvcrDAM5hHckUexB5bqYmdORDXQoO0Lslx40DbbS99zu2jIXGfyuFArk0qGi-udjkKyZTUjcYIqoH-rqK_dT_NWvjF1azcYrZLClE-J7AwFzclUCzmD1iEaLLUKfbwTaNMl1xFX2IZ-sYtggfLkaPU72qcRFEr9RWHrttWWhS_H">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/85 via-black/10 to-transparent"></div>
+<!-- Foil Stamp Seal Badge -->
+<div class="absolute top-2.5 right-2.5 bg-tertiary-fixed-dim/95 text-on-tertiary-fixed shadow-sm px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+<span class="font-caption text-caption font-bold tracking-wider uppercase">Gold Foil</span>
+</div>
+<div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-on-primary">
+<div>
+<p class="font-label-md text-label-md font-bold leading-tight drop-shadow">Bamboo Sanctuary</p>
+<p class="font-caption text-caption text-primary-fixed drop-shadow">Arashiyama, Kyoto</p>
+</div>
+<div class="w-7 h-7 rounded-full bg-surface-container-lowest/20 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-on-primary">graphic_eq</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Texture & Tactile Details Pill Bar -->
+<div class="mt-4 pt-3 flex items-center justify-around bg-surface-container-lowest rounded-2xl p-2.5 shadow-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[18px]">texture</span>
+<span class="font-caption text-caption font-semibold">350gsm Washi Paper</span>
+</div>
+<div class="h-3.5 w-px bg-outline-variant/60"></div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary-container text-[18px]">qr_code_2</span>
+<span class="font-caption text-caption font-semibold">Binaural Audio Note</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Delivery Timeline Callout -->
+<div class="px-margin py-space-xs">
+<div class="bg-secondary-fixed/50 rounded-2xl p-space-md flex items-start gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed-dim flex items-center justify-center flex-shrink-0 text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-secondary-fixed font-bold">Estimated Arrival: Oct 28 – Nov 2</span>
+</div>
+<p class="font-caption text-caption text-on-secondary-container mt-0.5">Printed with carbon-neutral local artisan presses in Kyoto &amp; Berlin. Real-time doorstep tracking included.</p>
+</div>
+</div>
+</div>
+<!-- Recipient Selection Section -->
+<div class="px-margin py-space-sm">
+<div class="bg-surface-container-lowest rounded-3xl p-space-md shadow-[0_4px_16px_rgba(8,77,70,0.05)]">
+<div class="flex items-center justify-between mb-space-sm">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Who gets this keepsake?</h3>
+<p class="font-caption text-caption text-on-surface-variant">4 verified travel mates in current trip</p>
+</div>
+<div class="flex items-center gap-1.5 bg-primary-fixed/40 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-primary-container text-[16px]">group</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">All 4</span>
+</div>
+</div>
+<!-- Master Group Toggle -->
+<div class="bg-surface-container-low rounded-2xl p-3 flex items-center justify-between mb-space-sm cursor-pointer" id="entire-crew-toggle-row">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">family_restroom</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Send to entire crew</p>
+<p class="font-caption text-caption text-on-surface-variant">4 printed packets (12 total postcards)</p>
+</div>
+</div>
+<!-- iOS Style Switch -->
+<button aria-checked="true" class="w-12 h-7 bg-primary-container rounded-full p-0.5 transition-colors relative" id="crew-switch" role="switch" type="button">
+<span class="w-6 h-6 bg-surface-container-lowest rounded-full block shadow-md transform translate-x-5 transition-transform" id="crew-switch-knob"></span>
+</button>
+</div>
+<!-- Address List -->
+<div class="space-y-2" id="recipient-list">
+<!-- Recipient 1 -->
+<div class="recipient-item flex items-center justify-between p-2.5 rounded-2xl bg-surface-container-low/70 transition-all">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-full bg-primary-fixed text-primary font-bold flex items-center justify-center font-label-md flex-shrink-0">
+              MK
+            </div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Marcus K.</span>
+<span class="font-caption text-caption bg-surface-variant text-on-surface-variant px-1.5 py-0.2 rounded-md">Primary</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant truncate">San Francisco, CA • USA</p>
+</div>
+</div>
+<button aria-label="Toggle Marcus recipient" class="w-6 h-6 rounded-lg bg-primary-container flex items-center justify-center text-on-primary check-toggle flex-shrink-0 ml-2" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+<!-- Recipient 2 -->
+<div class="recipient-item flex items-center justify-between p-2.5 rounded-2xl bg-surface-container-low/70 transition-all">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed text-secondary font-bold flex items-center justify-center font-label-md flex-shrink-0">
+              ER
+            </div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Elena Rostova</p>
+<p class="font-caption text-caption text-on-surface-variant truncate">Kreuzberg, Berlin • Germany</p>
+</div>
+</div>
+<button aria-label="Toggle Elena recipient" class="w-6 h-6 rounded-lg bg-primary-container flex items-center justify-center text-on-primary check-toggle flex-shrink-0 ml-2" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+<!-- Recipient 3 -->
+<div class="recipient-item flex items-center justify-between p-2.5 rounded-2xl bg-surface-container-low/70 transition-all">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed text-tertiary font-bold flex items-center justify-center font-label-md flex-shrink-0">
+              KS
+            </div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Kenji Sato</p>
+<p class="font-caption text-caption text-on-surface-variant truncate">Shibuya, Tokyo • Japan</p>
+</div>
+</div>
+<button aria-label="Toggle Kenji recipient" class="w-6 h-6 rounded-lg bg-primary-container flex items-center justify-center text-on-primary check-toggle flex-shrink-0 ml-2" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+<!-- Recipient 4 -->
+<div class="recipient-item flex items-center justify-between p-2.5 rounded-2xl bg-surface-container-low/70 transition-all">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-full bg-primary-fixed-dim text-on-primary-fixed-variant font-bold flex items-center justify-center font-label-md flex-shrink-0">
+              CB
+            </div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Chloe Bennett</p>
+<p class="font-caption text-caption text-on-surface-variant truncate">Camden, London • UK</p>
+</div>
+</div>
+<button aria-label="Toggle Chloe recipient" class="w-6 h-6 rounded-lg bg-primary-container flex items-center justify-center text-on-primary check-toggle flex-shrink-0 ml-2" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+</div>
+</div>
+<!-- Add New Custom Address Action -->
+<button class="w-full mt-3 py-2.5 px-4 rounded-2xl bg-surface-container hover:bg-surface-variant text-on-surface-variant flex items-center justify-center gap-2 active:scale-[0.99] transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary">add_location_alt</span>
+<span class="font-label-md text-label-md font-semibold text-primary">+ Add Family / Friend Address</span>
+</button>
+</div>
+</div>
+<!-- Cost Breakdown & Split Ledger Card -->
+<div class="px-margin py-space-sm mb-4">
+<div class="bg-surface-container-lowest rounded-3xl p-space-md shadow-[0_4px_16px_rgba(8,77,70,0.05)]">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">receipt_long</span>
+<h3 class="font-title-md text-title-md text-on-surface">Trip Ledger Breakdown</h3>
+</div>
+<span class="font-caption text-caption text-on-tertiary-container bg-tertiary-fixed font-bold px-2 py-0.5 rounded-full">Auto-Balanced</span>
+</div>
+<!-- Price Rows -->
+<div class="space-y-2.5 font-body-md text-body-md text-on-surface-variant">
+<div class="flex justify-between items-center">
+<span class="text-on-surface">3 Artisan Washi Postcards × 4</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">$24.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="flex items-center gap-1.5">
+<span class="">Ambient Sound QR &amp; Gold Stamps</span>
+<span class="material-symbols-outlined text-[14px] text-primary">verified</span>
+</span>
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase">Included</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="">Global Eco Shipping (4 countries)</span>
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase">Free</span>
+</div>
+<div class="flex justify-between items-center text-secondary">
+<span class="flex items-center gap-1">
+<span class="">Crew Explorer Savings (-15%)</span>
+<span class="material-symbols-outlined text-[15px]">loyalty</span>
+</span>
+<span class="font-label-md text-label-md font-bold">-$3.60</span>
+</div>
+<div class="h-px bg-surface-container-high my-2"></div>
+<div class="flex justify-between items-baseline pt-1">
+<div>
+<span class="font-title-md text-title-md text-on-surface font-bold">Trip Total</span>
+<span class="font-caption text-caption text-on-surface-variant block">Taxes and customs cleared</span>
+</div>
+<span class="font-headline-md text-headline-md text-primary font-extrabold">$20.40</span>
+</div>
+</div>
+<!-- Ledger Split Callout Banner -->
+<div class="mt-space-md bg-primary/10 rounded-2xl p-space-md flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-md text-label-md text-primary font-bold leading-tight">Split equally via Trip Ledger</p>
+<p class="font-caption text-caption text-on-surface-variant mt-0.5"><span class="font-bold text-primary">$5.10</span> charged to each of the 4 travelers</p>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-sm text-label-sm text-primary-container bg-primary-fixed px-2 py-1 rounded-full font-bold">4 Shares</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky / Bottom Floating Action Container -->
+<div class="sticky bottom-0 z-40 bg-surface/90 backdrop-blur-xl px-margin pt-space-sm pb-space-lg shadow-[0_-4px_24px_rgba(8,77,70,0.08)]">
+<div class="max-w-md mx-auto space-y-2.5"><!-- Side-by-side action buttons row -->
+<div class="flex items-center gap-2 w-full">
+  <!-- Primary Action: Send & Auto-Split -->
+  <button class="flex-[1.4] h-12 bg-primary-container hover:bg-primary active:scale-[0.98] transition-all rounded-full flex items-center justify-center gap-1.5 px-3 text-on-primary shadow-lg shadow-primary-container/25 min-w-0" id="confirm-send-btn" type="button">
+    <span class="material-symbols-outlined text-[18px] flex-shrink-0">local_post_office</span>
+    <span class="font-label-md text-label-md font-semibold truncate">Send &amp; Split</span>
+    <span class="font-label-sm text-label-sm font-bold bg-white/20 px-2 py-0.5 rounded-full flex-shrink-0">$5.10</span>
+  </button>
+  <!-- Secondary Action: Pay Full -->
+  <button class="flex-1 h-12 bg-on-surface hover:bg-black active:scale-[0.98] transition-all rounded-full flex items-center justify-center gap-1 px-3 text-on-primary shadow-sm min-w-0" type="button">
+    <span class="font-label-sm text-label-sm font-semibold truncate">Pay Full</span>
+    <span class="font-label-sm text-label-sm font-bold text-surface-dim flex-shrink-0">$20.40</span>
+  </button>
+</div>
+<!-- Trust Badges -->
+<div class="flex items-center justify-center gap-4 pt-1 text-on-surface-variant">
+  <div class="flex items-center gap-1">
+    <span class="material-symbols-outlined text-primary text-[15px]">verified_user</span>
+    <span class="font-caption text-caption">100% Happiness Print Guarantee</span>
+  </div>
+  <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+  <div class="flex items-center gap-1">
+    <span class="material-symbols-outlined text-secondary text-[15px]">eco</span>
+    <span class="font-caption text-caption">FSC Certified</span>
+  </div>
+</div></div>
+</div>
+<!-- Interactive Client-side Script -->
+<script>
+    (function initDispatchInteractivity() {
+      const crewSwitch = document.getElementById('crew-switch');
+      const knob = document.getElementById('crew-switch-knob');
+      const toggleRow = document.getElementById('entire-crew-toggle-row');
+      const toggles = document.querySelectorAll('.check-toggle');
+      let isEntireCrewActive = true;
+
+      function updateSwitchState(active) {
+        isEntireCrewActive = active;
+        crewSwitch.setAttribute('aria-checked', active ? 'true' : 'false');
+        if (active) {
+          crewSwitch.classList.replace('bg-surface-variant', 'bg-primary-container');
+          knob.classList.replace('translate-x-0.5', 'translate-x-5');
+          toggles.forEach(btn => {
+            btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+            btn.classList.add('bg-primary-container', 'text-on-primary');
+            btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span>';
+          });
+        } else {
+          crewSwitch.classList.replace('bg-primary-container', 'bg-surface-variant');
+          knob.classList.replace('translate-x-5', 'translate-x-0.5');
+        }
+      }
+
+      toggleRow.addEventListener('click', () => {
+        updateSwitchState(!isEntireCrewActive);
+      });
+
+      toggles.forEach(toggleBtn => {
+        toggleBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isChecked = toggleBtn.classList.contains('bg-primary-container');
+          if (isChecked) {
+            toggleBtn.classList.remove('bg-primary-container', 'text-on-primary');
+            toggleBtn.classList.add('bg-surface-container', 'text-on-surface-variant');
+            toggleBtn.innerHTML = '';
+            if (isEntireCrewActive) {
+              updateSwitchState(false);
+            }
+          } else {
+            toggleBtn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+            toggleBtn.classList.add('bg-primary-container', 'text-on-primary');
+            toggleBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span>';
+          }
+        });
+      });
+
+      const confirmBtn = document.getElementById('confirm-send-btn');
+      confirmBtn.addEventListener('click', () => {
+        confirmBtn.innerHTML = `
+          <div class="flex items-center justify-center gap-2 w-full py-1">
+            <span class="material-symbols-outlined animate-spin text-[22px]">progress_activity</span>
+            <span class="font-title-md text-title-md font-semibold">Creating Washi Batch &amp; Invoicing...</span>
+          </div>
+        `;
+        setTimeout(() => {
+          confirmBtn.classList.replace('bg-primary-container', 'bg-secondary');
+          confirmBtn.innerHTML = `
+            <div class="flex items-center justify-center gap-2 w-full py-1">
+              <span class="material-symbols-outlined text-[22px]">check_circle</span>
+              <span class="font-title-md text-title-md font-semibold">Dispatched to Presses! Split Sent</span>
+            </div>
+          `;
+        }, 1200);
+      });
+    })();
+  </script>
+</div></main>
+
+</body></html>
