@@ -2,6 +2,7 @@ import Foundation
 import Testing
 @testable import smarttrip2_0
 
+@MainActor
 struct CreateTripUseCaseTests {
     @Test func createTripSavesValidTrip() throws {
         let tripRepository = MockTripRepository()

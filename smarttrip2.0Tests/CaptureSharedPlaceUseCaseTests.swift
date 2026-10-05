@@ -2,6 +2,7 @@ import Foundation
 import Testing
 @testable import smarttrip2_0
 
+@MainActor
 struct CaptureSharedPlaceUseCaseTests {
     @Test func captureSharedPlaceSavesNewPlaceAsIdea() throws {
         let trip = TestFixtures.trip()

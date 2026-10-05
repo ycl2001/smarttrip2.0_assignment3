@@ -2,6 +2,7 @@ import Foundation
 import Testing
 @testable import smarttrip2_0
 
+@MainActor
 struct ScheduleSavedPlaceUseCaseTests {
     @Test func scheduleSavedPlaceCreatesItineraryItemAndMarksPlaceScheduled() throws {
         let trip = TestFixtures.trip()
