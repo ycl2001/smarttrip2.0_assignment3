@@ -11,7 +11,9 @@ import UniformTypeIdentifiers
 class ActionViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
-    private let processor: any TravelContentProcessing = TravelContentProcessor()
+    private let processor: any TravelContentProcessing = TravelContentProcessor(
+        recommendationProvider: MapKitTravelRecommendationService()
+    )
     private let formatter = TravelDiscoveryFormatter()
     private var loadTask: Task<Void, Never>?
     private var currentResult: TravelDiscoveryResult?

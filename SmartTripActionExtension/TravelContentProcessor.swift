@@ -10,7 +10,7 @@ struct TravelContentProcessor: TravelContentProcessing {
     private let recommendationProvider: any TravelRecommendationProviding
 
     init(
-        recommendationProvider: any TravelRecommendationProviding = MapKitTravelRecommendationService()
+        recommendationProvider: any TravelRecommendationProviding
     ) {
         self.recommendationProvider = recommendationProvider
     }

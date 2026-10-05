@@ -65,12 +65,36 @@
 			);
 			target = 3AAD43BC30737D1C00DEA036 /* SmartTripActionExtension */;
 		};
+		3AAD44A130739C2F00DEA036 /* Exceptions for "SmartTripActionExtension" folder in "smarttrip2.0" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ActionTravelInput.swift,
+				TravelContentProcessor.swift,
+				TravelDiscoveryFormatter.swift,
+				TravelDiscoveryResult.swift,
+				TravelRecommendationProviding.swift,
+			);
+			target = 3AB74A10305FE87600BB81A6 /* smarttrip2.0 */;
+		};
+		3AAD44A230739C2F00DEA036 /* Exceptions for "SmartTripActionExtension" folder in "smarttrip2.0Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ActionTravelInput.swift,
+				TravelContentProcessor.swift,
+				TravelDiscoveryFormatter.swift,
+				TravelDiscoveryResult.swift,
+				TravelRecommendationProviding.swift,
+			);
+			target = 3AB74A1D305FE87800BB81A6 /* smarttrip2.0Tests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3AAD43C130737D1C00DEA036 /* SmartTripActionExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				3AAD44A130739C2F00DEA036 /* Exceptions for "SmartTripActionExtension" folder in "smarttrip2.0" target */,
+				3AAD44A230739C2F00DEA036 /* Exceptions for "SmartTripActionExtension" folder in "smarttrip2.0Tests" target */,
 				3AAD43D030737D1C00DEA036 /* Exceptions for "SmartTripActionExtension" folder in "SmartTripActionExtension" target */,
 			);
 			path = SmartTripActionExtension;
