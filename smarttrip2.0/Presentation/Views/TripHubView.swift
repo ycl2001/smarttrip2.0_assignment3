@@ -182,12 +182,32 @@ struct TripHubView: View {
                     )
                 }
 
-                hubDestinationCard(
-                    title: "Itinerary",
-                    subtitle: itinerarySummary,
-                    systemImage: "calendar.badge.checkmark",
-                    tint: SmartTripColors.accent
-                )
+                if let dependencies {
+                    NavigationLink {
+                        ItineraryView(
+                            trip: trip,
+                            viewModel: dependencies.makeItineraryViewModel(
+                                tripID: trip.id
+                            )
+                        )
+                    } label: {
+                        hubDestinationCardContent(
+                            title: "Itinerary",
+                            subtitle: itinerarySummary,
+                            systemImage: "calendar.badge.checkmark",
+                            tint: SmartTripColors.accent
+                        )
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Itinerary. \(itinerarySummary)")
+                } else {
+                    hubDestinationCard(
+                        title: "Itinerary",
+                        subtitle: itinerarySummary,
+                        systemImage: "calendar.badge.checkmark",
+                        tint: SmartTripColors.accent
+                    )
+                }
             }
         }
     }

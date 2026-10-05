@@ -55,6 +55,15 @@ struct SmartTripDependencies {
             itineraryRepository: itineraryRepository
         )
     }
+
+    func makeItineraryViewModel(
+        tripID: UUID
+    ) -> ItineraryViewModel {
+        ItineraryViewModel(
+            tripID: tripID,
+            itineraryRepository: itineraryRepository
+        )
+    }
 }
 
 private struct SmartTripDependenciesKey: EnvironmentKey {
