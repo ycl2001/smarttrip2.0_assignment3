@@ -129,17 +129,14 @@ struct JourneyCapsuleView: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: SmartTripSpacing.md) {
-            EmptyStateView(
-                systemImage: "photo.stack",
-                title: "Your Journey Capsule is empty",
-                message: "Capture the places, thoughts, and moments you want to remember from this trip."
-            )
-
-            PrimaryActionButton("Capture a Moment") {
-                viewModel.clearPresentationError()
-                isShowingCaptureMoment = true
-            }
+        EmptyStateView(
+            systemImage: "photo.stack",
+            title: "No memories yet",
+            message: "Capture the places, thoughts, and moments you want to remember from this trip.",
+            actionTitle: "Capture a Moment"
+        ) {
+            viewModel.clearPresentationError()
+            isShowingCaptureMoment = true
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, SmartTripSpacing.lg)
