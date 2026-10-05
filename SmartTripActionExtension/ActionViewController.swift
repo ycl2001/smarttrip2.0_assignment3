@@ -218,12 +218,18 @@ class ActionViewController: UIViewController {
     }
 
     private func showLoadingState() {
+        currentResult = nil
+        visibleRecommendations = []
         statusLabel.text = "Preparing travel discovery..."
+        placeField.text = nil
+        locationField.text = nil
+        summaryTextView.text = nil
         placeField.isEnabled = false
         locationField.isEnabled = false
         summaryTextView.isEditable = false
         sourceLabel.text = nil
         errorLabel.isHidden = true
+        doneButton?.isEnabled = false
         renderRecommendations([])
     }
 
@@ -234,10 +240,18 @@ class ActionViewController: UIViewController {
                     from: extensionContext
                 )
                 let result = try await processor.process(input)
+                guard !Task.isCancelled, !isCompleting else {
+                    return
+                }
+
                 show(result)
             } catch is CancellationError {
                 return
             } catch {
+                guard !Task.isCancelled, !isCompleting else {
+                    return
+                }
+
                 show(error)
             }
         }
@@ -269,6 +283,9 @@ class ActionViewController: UIViewController {
         currentResult = nil
         visibleRecommendations = []
         statusLabel.text = "Nothing to process"
+        placeField.text = nil
+        locationField.text = nil
+        summaryTextView.text = nil
         errorLabel.text = localizedError?.errorDescription
             ?? "SmartTrip could not find enough travel information to prepare this content."
         errorLabel.isHidden = false
