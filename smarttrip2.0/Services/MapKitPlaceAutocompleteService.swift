@@ -5,7 +5,7 @@ import Observation
 @Observable
 final class MapKitPlaceAutocompleteService: NSObject, PlaceAutocompleteProviding {
     private let minimumQueryLength = 2
-    private static let maximumSuggestionCount = 5
+    private nonisolated static let maximumSuggestionCount = 5
     private let completer: MKLocalSearchCompleter
 
     private(set) var suggestions: [PlaceSuggestion] = []
