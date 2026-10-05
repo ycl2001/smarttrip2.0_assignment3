@@ -68,6 +68,7 @@ struct AddPlaceSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
+                        viewModel.clearPresentationError()
                         dismiss()
                     }
                 }

@@ -37,7 +37,9 @@ struct MyTripsView: View {
                 .accessibilityLabel("Create trip")
             }
         }
-        .sheet(isPresented: $isShowingCreateTrip) {
+        .sheet(isPresented: $isShowingCreateTrip, onDismiss: {
+            viewModel.clearPresentationError()
+        }) {
             CreateTripSheet(viewModel: viewModel)
         }
         .onAppear {

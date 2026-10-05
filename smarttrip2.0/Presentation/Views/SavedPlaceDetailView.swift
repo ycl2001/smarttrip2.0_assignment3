@@ -73,7 +73,9 @@ struct SavedPlaceDetailView: View {
         .background(SmartTripColors.background)
         .navigationTitle("Saved Place")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $isShowingScheduleSheet) {
+        .sheet(isPresented: $isShowingScheduleSheet, onDismiss: {
+            viewModel.clearPresentationError()
+        }) {
             SchedulePlaceSheet(
                 trip: trip,
                 place: place,

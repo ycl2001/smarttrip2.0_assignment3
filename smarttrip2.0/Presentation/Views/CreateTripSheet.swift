@@ -53,6 +53,7 @@ struct CreateTripSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
+                        viewModel.clearPresentationError()
                         dismiss()
                     }
                 }

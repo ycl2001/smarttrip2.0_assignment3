@@ -27,6 +27,9 @@ struct SavedPlacesView: View {
     @State private var viewModel: SavedPlaceViewModel
     @State private var selectedFilter = Filter.all
     @State private var isShowingAddPlace = false
+    @State private var isSelectionMode = false
+    @State private var selectedPlaceIDs = Set<UUID>()
+    @State private var isShowingBulkPlanner = false
 
     init(
         trip: Trip,
@@ -57,20 +60,65 @@ struct SavedPlacesView: View {
         .background(SmartTripColors.background.ignoresSafeArea())
         .navigationTitle("Saved Places")
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    isShowingAddPlace = true
-                } label: {
-                    Label("Add Place", systemImage: "plus")
+            ToolbarItem(placement: .topBarLeading) {
+                if isSelectionMode {
+                    Button("Cancel") {
+                        exitSelectionMode()
+                    }
+                    .accessibilityLabel("Cancel saved place selection")
                 }
-                .accessibilityLabel("Add saved place")
+            }
+
+            ToolbarItem(placement: .topBarTrailing) {
+                if isSelectionMode {
+                    Text("\(selectedPlaceIDs.count) selected")
+                        .font(SmartTripTypography.label)
+                        .foregroundStyle(SmartTripColors.textSecondary)
+                } else if !selectablePlaces.isEmpty {
+                    Button("Select") {
+                        enterSelectionMode()
+                    }
+                    .accessibilityLabel("Select saved places")
+                }
+            }
+
+            ToolbarItem(placement: .topBarTrailing) {
+                if !isSelectionMode {
+                    Button {
+                        openAddPlace()
+                    } label: {
+                        Label("Add Place", systemImage: "plus")
+                    }
+                    .accessibilityLabel("Add saved place")
+                }
             }
         }
-        .sheet(isPresented: $isShowingAddPlace) {
+        .safeAreaInset(edge: .bottom) {
+            if isSelectionMode {
+                selectionActionBar
+            }
+        }
+        .sheet(isPresented: $isShowingAddPlace, onDismiss: {
+            viewModel.clearPresentationError()
+        }) {
             AddPlaceSheet(
                 trip: trip,
                 viewModel: viewModel
             )
+        }
+        .sheet(isPresented: $isShowingBulkPlanner, onDismiss: {
+            if selectedPlaceIDs.isEmpty {
+                isSelectionMode = false
+            }
+            viewModel.clearPresentationError()
+        }) {
+            BulkScheduleView(
+                trip: trip,
+                places: selectedPlaces,
+                viewModel: viewModel
+            ) {
+                exitSelectionMode()
+            }
         }
         .onAppear {
             viewModel.loadSavedPlaces(for: trip.id)
@@ -129,7 +177,7 @@ struct SavedPlacesView: View {
                 message: "Save places you discover while planning so you can decide what belongs in your itinerary.",
                 actionTitle: "Add Place"
             ) {
-                isShowingAddPlace = true
+                openAddPlace()
             }
         } else if filteredPlaces.isEmpty {
             EmptyStateView(
@@ -140,19 +188,70 @@ struct SavedPlacesView: View {
         } else {
             LazyVStack(spacing: SmartTripSpacing.md) {
                 ForEach(filteredPlaces) { place in
-                    NavigationLink {
-                        SavedPlaceDetailView(
-                            trip: trip,
-                            place: place,
-                            viewModel: viewModel
-                        )
-                    } label: {
-                        SavedPlaceCard(place: place)
+                    if isSelectionMode {
+                        selectionRow(for: place)
+                    } else {
+                        NavigationLink {
+                            SavedPlaceDetailView(
+                                trip: trip,
+                                place: place,
+                                viewModel: viewModel
+                            )
+                        } label: {
+                            SavedPlaceCard(place: place)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
         }
+    }
+
+    private var selectionActionBar: some View {
+        VStack(spacing: SmartTripSpacing.sm) {
+            PrimaryActionButton(
+                "Plan \(selectedPlaceIDs.count) Selected Place\(selectedPlaceIDs.count == 1 ? "" : "s")",
+                systemImage: "calendar.badge.plus"
+            ) {
+                isShowingBulkPlanner = true
+            }
+            .disabled(selectedPlaceIDs.isEmpty)
+            .accessibilityLabel("Plan \(selectedPlaceIDs.count) selected saved places")
+
+            SecondaryActionButton("Cancel Selection", systemImage: "xmark", isFullWidth: true) {
+                exitSelectionMode()
+            }
+        }
+        .padding(SmartTripSpacing.md)
+        .background(.regularMaterial)
+    }
+
+    private func selectionRow(
+        for place: SavedPlace
+    ) -> some View {
+        let isEligible = place.isBulkPlanningEligible
+        let isSelected = selectedPlaceIDs.contains(place.id)
+
+        return Button {
+            guard isEligible else {
+                return
+            }
+
+            toggleSelection(for: place)
+        } label: {
+            HStack(alignment: .center, spacing: SmartTripSpacing.md) {
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(isSelected ? SmartTripColors.primary : SmartTripColors.textSecondary)
+                    .accessibilityHidden(true)
+
+                SavedPlaceCard(place: place)
+                    .opacity(isEligible ? 1 : 0.58)
+            }
+        }
+        .buttonStyle(.plain)
+        .disabled(!isEligible)
+        .accessibilityLabel(selectionAccessibilityLabel(for: place, isSelected: isSelected, isEligible: isEligible))
     }
 
     private var filteredPlaces: [SavedPlace] {
@@ -166,5 +265,61 @@ struct SavedPlacesView: View {
         case .scheduled:
             viewModel.savedPlaces.filter { $0.status == .scheduled }
         }
+    }
+
+    private var selectablePlaces: [SavedPlace] {
+        viewModel.savedPlaces.filter(\.isBulkPlanningEligible)
+    }
+
+    private var selectedPlaces: [SavedPlace] {
+        viewModel.savedPlaces
+            .filter { selectedPlaceIDs.contains($0.id) }
+            .sorted { $0.dateSaved < $1.dateSaved }
+    }
+
+    private func openAddPlace() {
+        viewModel.clearPresentationError()
+        isShowingAddPlace = true
+    }
+
+    private func enterSelectionMode() {
+        viewModel.clearPresentationError()
+        selectedPlaceIDs.removeAll()
+        isSelectionMode = true
+    }
+
+    private func exitSelectionMode() {
+        selectedPlaceIDs.removeAll()
+        isSelectionMode = false
+        isShowingBulkPlanner = false
+        viewModel.clearPresentationError()
+    }
+
+    private func toggleSelection(
+        for place: SavedPlace
+    ) {
+        if selectedPlaceIDs.contains(place.id) {
+            selectedPlaceIDs.remove(place.id)
+        } else {
+            selectedPlaceIDs.insert(place.id)
+        }
+    }
+
+    private func selectionAccessibilityLabel(
+        for place: SavedPlace,
+        isSelected: Bool,
+        isEligible: Bool
+    ) -> String {
+        if isEligible {
+            return "\(place.name), \(isSelected ? "selected" : "not selected") for planning"
+        }
+
+        return "\(place.name), \(place.status.displayTitle), not selectable for planning"
+    }
+}
+
+private extension SavedPlace {
+    var isBulkPlanningEligible: Bool {
+        status == .idea || status == .shortlisted
     }
 }

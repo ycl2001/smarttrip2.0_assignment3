@@ -66,6 +66,10 @@ final class TripViewModel {
         }
     }
 
+    func clearPresentationError() {
+        clearError()
+    }
+
     private func clearError() {
         errorMessage = nil
         recoverySuggestion = nil
