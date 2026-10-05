@@ -230,12 +230,18 @@ struct TripHubView: View {
                     tint: SmartTripColors.warmAccent
                 )
 
-                hubDestinationCard(
-                    title: "Journey Capsule",
-                    subtitle: "Memories coming soon",
-                    systemImage: "photo.on.rectangle.angled",
-                    tint: SmartTripColors.highlight
-                )
+                NavigationLink {
+                    JourneyCapsuleView(trip: trip)
+                } label: {
+                    hubDestinationCardContent(
+                        title: "Journey Capsule",
+                        subtitle: "No memories yet",
+                        systemImage: "photo.on.rectangle.angled",
+                        tint: SmartTripColors.highlight
+                    )
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Journey Capsule. No memories yet.")
             }
         }
     }
