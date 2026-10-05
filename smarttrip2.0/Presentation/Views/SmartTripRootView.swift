@@ -33,6 +33,9 @@ struct SmartTripRootView: View {
             .safeAreaInset(edge: .bottom) {
                 SmartTripBottomBar(
                     selectedPage: selectedPage,
+                    onTrips: {
+                        selectedPage = .home
+                    },
                     onSavedPlaces: {
                         selectedPage = .savedPlaces
                     },
@@ -126,6 +129,7 @@ struct SmartTripRootView: View {
 
 private struct SmartTripBottomBar: View {
     let selectedPage: SmartTripRootView.RootPage
+    let onTrips: () -> Void
     let onSavedPlaces: () -> Void
     let onCreateTrip: () -> Void
     let onCapsules: () -> Void
@@ -133,13 +137,24 @@ private struct SmartTripBottomBar: View {
     var body: some View {
         HStack(alignment: .center) {
             bottomButton(
+                title: "Trips",
+                systemImage: selectedPage == .home ? "suitcase.fill" : "suitcase",
+                isSelected: selectedPage == .home,
+                accessibilityLabel: "Trips",
+                action: onTrips
+            )
+
+            Spacer(minLength: SmartTripSpacing.xs)
+
+            bottomButton(
                 title: "Saved",
                 systemImage: selectedPage == .savedPlaces ? "bookmark.fill" : "bookmark",
                 isSelected: selectedPage == .savedPlaces,
+                accessibilityLabel: "Saved Places",
                 action: onSavedPlaces
             )
 
-            Spacer()
+            Spacer(minLength: SmartTripSpacing.xs)
 
             Button(action: onCreateTrip) {
                 Image(systemName: "plus")
@@ -154,16 +169,17 @@ private struct SmartTripBottomBar: View {
             }
             .accessibilityLabel("Create trip")
 
-            Spacer()
+            Spacer(minLength: SmartTripSpacing.xs)
 
             bottomButton(
                 title: "Capsules",
                 systemImage: selectedPage == .capsules ? "photo.on.rectangle.angled" : "photo.on.rectangle",
                 isSelected: selectedPage == .capsules,
+                accessibilityLabel: "Journey Capsules",
                 action: onCapsules
             )
         }
-        .padding(.horizontal, SmartTripSpacing.xl)
+        .padding(.horizontal, SmartTripSpacing.md)
         .padding(.top, SmartTripSpacing.sm)
         .padding(.bottom, SmartTripSpacing.sm)
         .background(.regularMaterial)
@@ -173,6 +189,7 @@ private struct SmartTripBottomBar: View {
         title: String,
         systemImage: String,
         isSelected: Bool,
+        accessibilityLabel: String,
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
@@ -184,10 +201,10 @@ private struct SmartTripBottomBar: View {
                     .font(SmartTripTypography.caption)
             }
             .foregroundStyle(isSelected ? SmartTripColors.primary : SmartTripColors.textSecondary)
-            .frame(minWidth: 86, minHeight: 54)
+            .frame(minWidth: 66, minHeight: 54)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(title == "Saved" ? "Saved Places" : "Journey Capsules")
+        .accessibilityLabel(accessibilityLabel)
     }
 }
 
