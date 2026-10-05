@@ -52,9 +52,10 @@ struct SchedulePlaceSheet: View {
 
                     scheduleForm
 
-                    PrimaryActionButton("Add to Itinerary", systemImage: "calendar.badge.checkmark") {
+                    PrimaryActionButton("Schedule Place", systemImage: "calendar.badge.checkmark") {
                         schedulePlace()
                     }
+                    .accessibilityLabel("Schedule \(place.name)")
                 }
                 .padding(SmartTripSpacing.md)
             }

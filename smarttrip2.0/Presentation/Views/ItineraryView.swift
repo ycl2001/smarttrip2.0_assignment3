@@ -55,13 +55,13 @@ struct ItineraryView: View {
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading {
-            ProgressView("Loading itinerary")
+            ProgressView("Loading your itinerary...")
                 .frame(maxWidth: .infinity, minHeight: 180)
         } else if viewModel.items.isEmpty {
             EmptyStateView(
                 systemImage: "calendar.badge.clock",
                 title: "Nothing scheduled yet",
-                message: "Schedule a saved place or add an activity later to start building your itinerary."
+                message: "Schedule a saved place to start building your trip itinerary."
             )
         } else {
             VStack(alignment: .leading, spacing: SmartTripSpacing.xl) {

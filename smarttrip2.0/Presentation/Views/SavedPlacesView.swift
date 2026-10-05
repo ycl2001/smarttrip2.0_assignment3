@@ -63,6 +63,7 @@ struct SavedPlacesView: View {
                 } label: {
                     Label("Add Place", systemImage: "plus")
                 }
+                .accessibilityLabel("Add saved place")
             }
         }
         .sheet(isPresented: $isShowingAddPlace) {
@@ -119,13 +120,13 @@ struct SavedPlacesView: View {
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading {
-            ProgressView("Loading saved places")
+            ProgressView("Loading saved places...")
                 .frame(maxWidth: .infinity, minHeight: 180)
         } else if viewModel.savedPlaces.isEmpty {
             EmptyStateView(
                 systemImage: "bookmark",
                 title: "No places saved yet",
-                message: "Save places you discover while planning so your group can decide what belongs in the itinerary.",
+                message: "Save places you discover while planning so you can decide what belongs in your itinerary.",
                 actionTitle: "Add Place"
             ) {
                 isShowingAddPlace = true

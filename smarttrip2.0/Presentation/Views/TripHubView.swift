@@ -105,7 +105,7 @@ struct TripHubView: View {
             SectionHeader("Next Up", subtitle: "Your upcoming itinerary")
 
             if viewModel?.isLoading == true {
-                ProgressView("Loading trip details")
+                ProgressView("Loading trip details...")
                     .frame(maxWidth: .infinity, minHeight: 100)
             } else if let nextItem = viewModel?.upcomingItems.first {
                 upcomingCard(nextItem)

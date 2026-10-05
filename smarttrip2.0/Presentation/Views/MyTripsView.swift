@@ -34,6 +34,7 @@ struct MyTripsView: View {
                 } label: {
                     Label("Create Trip", systemImage: "plus")
                 }
+                .accessibilityLabel("Create trip")
             }
         }
         .sheet(isPresented: $isShowingCreateTrip) {
@@ -71,13 +72,13 @@ struct MyTripsView: View {
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading {
-            ProgressView("Loading trips")
+            ProgressView("Loading your trips...")
                 .frame(maxWidth: .infinity, minHeight: 180)
         } else if viewModel.trips.isEmpty {
             EmptyStateView(
                 systemImage: "suitcase.rolling",
                 title: "No trips yet",
-                message: "Create a trip to start collecting places, planning your itinerary, and keeping your travel details together.",
+                message: "Create a trip to start collecting places and planning your itinerary.",
                 actionTitle: "Create Trip"
             ) {
                 isShowingCreateTrip = true

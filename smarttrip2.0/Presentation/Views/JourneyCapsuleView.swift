@@ -80,7 +80,7 @@ struct JourneyCapsuleView: View {
             )
             .shadow(color: SmartTripColors.warmAccent.opacity(0.18), radius: 18, x: 0, y: 10)
 
-            Text("Memory persistence is not connected yet, so this production screen intentionally shows an empty capsule instead of demo memories.")
+            Text("Photos and notes you add later will appear here for this trip.")
                 .font(SmartTripTypography.caption)
                 .foregroundStyle(SmartTripColors.textSecondary)
         }
