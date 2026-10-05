@@ -10,6 +10,8 @@ struct AddPlaceSheet: View {
     @State private var urlString = ""
     @State private var notes = ""
     @State private var localError: String?
+    @State private var placeAutocomplete = MapKitPlaceAutocompleteService()
+    @State private var isSelectingPlaceSuggestion = false
 
     var body: some View {
         NavigationStack {
@@ -41,6 +43,11 @@ struct AddPlaceSheet: View {
                             .background(fieldBackground)
                             .accessibilityLabel("Place name")
 
+                        suggestionList(
+                            suggestions: placeAutocomplete.suggestions,
+                            selectionAction: selectPlaceSuggestion
+                        )
+
                         TextField("URL optional", text: $urlString)
                             .textInputAutocapitalization(.never)
                             .keyboardType(.URL)
@@ -69,9 +76,21 @@ struct AddPlaceSheet: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         viewModel.clearPresentationError()
+                        placeAutocomplete.clearSuggestions()
                         dismiss()
                     }
                 }
+            }
+            .onChange(of: name) { _, newValue in
+                if isSelectingPlaceSuggestion {
+                    isSelectingPlaceSuggestion = false
+                    placeAutocomplete.clearSuggestions()
+                } else {
+                    placeAutocomplete.updateQuery(newValue)
+                }
+            }
+            .onDisappear {
+                placeAutocomplete.clearSuggestions()
             }
         }
     }
@@ -99,8 +118,76 @@ struct AddPlaceSheet: View {
         )
 
         if savedPlace != nil {
+            placeAutocomplete.clearSuggestions()
             dismiss()
         }
+    }
+
+    @ViewBuilder
+    private func suggestionList(
+        suggestions: [PlaceSuggestion],
+        selectionAction: @escaping (PlaceSuggestion) -> Void
+    ) -> some View {
+        if !suggestions.isEmpty {
+            VStack(spacing: 0) {
+                ForEach(suggestions) { suggestion in
+                    Button {
+                        selectionAction(suggestion)
+                    } label: {
+                        VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
+                            Text(suggestion.title)
+                                .font(SmartTripTypography.body)
+                                .foregroundStyle(SmartTripColors.textPrimary)
+
+                            if !suggestion.subtitle.isEmpty {
+                                Text(suggestion.subtitle)
+                                    .font(SmartTripTypography.caption)
+                                    .foregroundStyle(SmartTripColors.textSecondary)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, SmartTripSpacing.sm)
+                        .padding(.horizontal, SmartTripSpacing.md)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(accessibilityLabel(for: suggestion))
+
+                    if suggestion.id != suggestions.last?.id {
+                        Divider()
+                            .padding(.leading, SmartTripSpacing.md)
+                    }
+                }
+            }
+            .background(
+                RoundedRectangle(cornerRadius: SmartTripRadius.medium, style: .continuous)
+                    .fill(SmartTripColors.surface)
+                    .shadow(color: SmartTripColors.primary.opacity(0.06), radius: 10, x: 0, y: 4)
+            )
+        }
+    }
+
+    private func selectPlaceSuggestion(
+        _ suggestion: PlaceSuggestion
+    ) {
+        isSelectingPlaceSuggestion = true
+        name = displayValue(for: suggestion)
+        placeAutocomplete.clearSuggestions()
+    }
+
+    private func displayValue(
+        for suggestion: PlaceSuggestion
+    ) -> String {
+        guard !suggestion.subtitle.isEmpty else {
+            return suggestion.title
+        }
+
+        return "\(suggestion.title), \(suggestion.subtitle)"
+    }
+
+    private func accessibilityLabel(
+        for suggestion: PlaceSuggestion
+    ) -> String {
+        displayValue(for: suggestion)
     }
 
     private func parsedURL() -> URL? {
