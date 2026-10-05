@@ -38,4 +38,38 @@ struct CreateTripUseCaseTests {
         #expect(tripRepository.saveCallCount == 0)
         #expect(tripRepository.trips.isEmpty)
     }
+
+    @Test func createTripRejectsMissingTripName() {
+        let tripRepository = MockTripRepository()
+        let useCase = CreateTripUseCase(tripRepository: tripRepository)
+
+        #expect(throws: CreateTripError.missingTripName) {
+            try useCase.execute(
+                name: "   ",
+                destination: "Tokyo",
+                startDate: TestDates.december10,
+                endDate: TestDates.december15
+            )
+        }
+
+        #expect(tripRepository.saveCallCount == 0)
+        #expect(tripRepository.trips.isEmpty)
+    }
+
+    @Test func createTripRejectsMissingDestination() {
+        let tripRepository = MockTripRepository()
+        let useCase = CreateTripUseCase(tripRepository: tripRepository)
+
+        #expect(throws: CreateTripError.missingDestination) {
+            try useCase.execute(
+                name: "Tokyo Graduation Trip",
+                destination: "   ",
+                startDate: TestDates.december10,
+                endDate: TestDates.december15
+            )
+        }
+
+        #expect(tripRepository.saveCallCount == 0)
+        #expect(tripRepository.trips.isEmpty)
+    }
 }
