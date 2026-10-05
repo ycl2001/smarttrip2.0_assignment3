@@ -7,6 +7,7 @@ enum TestDates {
     static let december10 = makeDate(day: 10)
     static let december12 = makeDate(day: 12)
     static let december12At10 = makeDate(day: 12, hour: 10)
+    static let december12At18 = makeDate(day: 12, hour: 18)
     static let december15 = makeDate(day: 15)
     static let december16 = makeDate(day: 16)
     static let december16At10 = makeDate(day: 16, hour: 10)
@@ -56,6 +57,24 @@ enum TestFixtures {
             notes: "Book ahead",
             status: status,
             dateSaved: TestDates.december10
+        )
+    }
+
+    static func memory(
+        id: UUID = UUID(),
+        tripID: UUID,
+        location: String? = "Shibuya Crossing",
+        caption: String? = "Neon lights after dinner.",
+        photoIdentifier: String? = nil,
+        createdAt: Date = TestDates.december12At10
+    ) -> TripMemory {
+        TripMemory(
+            id: id,
+            tripID: tripID,
+            location: location,
+            caption: caption,
+            photoIdentifier: photoIdentifier,
+            createdAt: createdAt
         )
     }
 }

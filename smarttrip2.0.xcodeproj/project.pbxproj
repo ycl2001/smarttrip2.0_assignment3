@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3AAD43C030737D1C00DEA036 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAD43BF30737D1C00DEA036 /* UniformTypeIdentifiers.framework */; };
 		3AAD43CC30737D1C00DEA036 /* SmartTripActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3AAD43BD30737D1C00DEA036 /* SmartTripActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3AAD46633073A6A600DEA036 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAD46623073A6A600DEA036 /* UserNotifications.framework */; };
+		3AAD46653073A6A600DEA036 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAD46643073A6A600DEA036 /* UserNotificationsUI.framework */; };
+		3AAD466F3073A6A600DEA036 /* SmartTripNotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3AAD46613073A6A600DEA036 /* SmartTripNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -18,6 +21,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3AAD43BC30737D1C00DEA036;
 			remoteInfo = SmartTripActionExtension;
+		};
+		3AAD466D3073A6A600DEA036 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AB74A09305FE87600BB81A6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3AAD46603073A6A600DEA036;
+			remoteInfo = SmartTripNotificationExtension;
 		};
 		3AB74A1F305FE87800BB81A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -42,6 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				3AAD466F3073A6A600DEA036 /* SmartTripNotificationExtension.appex in Embed Foundation Extensions */,
 				3AAD43CC30737D1C00DEA036 /* SmartTripActionExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -52,6 +63,9 @@
 /* Begin PBXFileReference section */
 		3AAD43BD30737D1C00DEA036 /* SmartTripActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmartTripActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AAD43BF30737D1C00DEA036 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		3AAD46613073A6A600DEA036 /* SmartTripNotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmartTripNotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AAD46623073A6A600DEA036 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		3AAD46643073A6A600DEA036 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		3AB74A11305FE87600BB81A6 /* smarttrip2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smarttrip2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB74A1E305FE87800BB81A6 /* smarttrip2.0Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = smarttrip2.0Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB74A28305FE87800BB81A6 /* smarttrip2.0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = smarttrip2.0UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +101,27 @@
 			);
 			target = 3AB74A1D305FE87800BB81A6 /* smarttrip2.0Tests */;
 		};
+		3AAD46733073A6A600DEA036 /* Exceptions for "SmartTripNotificationExtension" folder in "SmartTripNotificationExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3AAD46603073A6A600DEA036 /* SmartTripNotificationExtension */;
+		};
+		3AAD467A3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "smarttrip2.0Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Services/JourneyCapsuleNotificationPayload.swift,
+			);
+			target = 3AB74A1D305FE87800BB81A6 /* smarttrip2.0Tests */;
+		};
+		3AAD467B3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "SmartTripNotificationExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Services/JourneyCapsuleNotificationPayload.swift,
+			);
+			target = 3AAD46603073A6A600DEA036 /* SmartTripNotificationExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -100,8 +135,20 @@
 			path = SmartTripActionExtension;
 			sourceTree = "<group>";
 		};
+		3AAD46663073A6A600DEA036 /* SmartTripNotificationExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3AAD46733073A6A600DEA036 /* Exceptions for "SmartTripNotificationExtension" folder in "SmartTripNotificationExtension" target */,
+			);
+			path = SmartTripNotificationExtension;
+			sourceTree = "<group>";
+		};
 		3AB74A13305FE87600BB81A6 /* smarttrip2.0 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3AAD467A3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "smarttrip2.0Tests" target */,
+				3AAD467B3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "SmartTripNotificationExtension" target */,
+			);
 			path = smarttrip2.0;
 			sourceTree = "<group>";
 		};
@@ -123,6 +170,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAD43C030737D1C00DEA036 /* UniformTypeIdentifiers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AAD465E3073A6A600DEA036 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AAD46653073A6A600DEA036 /* UserNotificationsUI.framework in Frameworks */,
+				3AAD46633073A6A600DEA036 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				3AAD43BF30737D1C00DEA036 /* UniformTypeIdentifiers.framework */,
+				3AAD46623073A6A600DEA036 /* UserNotifications.framework */,
+				3AAD46643073A6A600DEA036 /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,6 +223,7 @@
 				3AB74A21305FE87800BB81A6 /* smarttrip2.0Tests */,
 				3AB74A2B305FE87800BB81A6 /* smarttrip2.0UITests */,
 				3AAD43C130737D1C00DEA036 /* SmartTripActionExtension */,
+				3AAD46663073A6A600DEA036 /* SmartTripNotificationExtension */,
 				3AAD43BE30737D1C00DEA036 /* Frameworks */,
 				3AB74A12305FE87600BB81A6 /* Products */,
 			);
@@ -177,6 +236,7 @@
 				3AB74A1E305FE87800BB81A6 /* smarttrip2.0Tests.xctest */,
 				3AB74A28305FE87800BB81A6 /* smarttrip2.0UITests.xctest */,
 				3AAD43BD30737D1C00DEA036 /* SmartTripActionExtension.appex */,
+				3AAD46613073A6A600DEA036 /* SmartTripNotificationExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,6 +266,28 @@
 			productReference = 3AAD43BD30737D1C00DEA036 /* SmartTripActionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		3AAD46603073A6A600DEA036 /* SmartTripNotificationExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AAD46723073A6A600DEA036 /* Build configuration list for PBXNativeTarget "SmartTripNotificationExtension" */;
+			buildPhases = (
+				3AAD465D3073A6A600DEA036 /* Sources */,
+				3AAD465E3073A6A600DEA036 /* Frameworks */,
+				3AAD465F3073A6A600DEA036 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				3AAD46663073A6A600DEA036 /* SmartTripNotificationExtension */,
+			);
+			name = SmartTripNotificationExtension;
+			packageProductDependencies = (
+			);
+			productName = SmartTripNotificationExtension;
+			productReference = 3AAD46613073A6A600DEA036 /* SmartTripNotificationExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		3AB74A10305FE87600BB81A6 /* smarttrip2.0 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AB74A32305FE87800BB81A6 /* Build configuration list for PBXNativeTarget "smarttrip2.0" */;
@@ -219,6 +301,7 @@
 			);
 			dependencies = (
 				3AAD43CB30737D1C00DEA036 /* PBXTargetDependency */,
+				3AAD466E3073A6A600DEA036 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3AB74A13305FE87600BB81A6 /* smarttrip2.0 */,
@@ -289,6 +372,9 @@
 					3AAD43BC30737D1C00DEA036 = {
 						CreatedOnToolsVersion = 26.6;
 					};
+					3AAD46603073A6A600DEA036 = {
+						CreatedOnToolsVersion = 26.6;
+					};
 					3AB74A10305FE87600BB81A6 = {
 						CreatedOnToolsVersion = 26.6;
 					};
@@ -320,12 +406,20 @@
 				3AB74A1D305FE87800BB81A6 /* smarttrip2.0Tests */,
 				3AB74A27305FE87800BB81A6 /* smarttrip2.0UITests */,
 				3AAD43BC30737D1C00DEA036 /* SmartTripActionExtension */,
+				3AAD46603073A6A600DEA036 /* SmartTripNotificationExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3AAD43BB30737D1C00DEA036 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AAD465F3073A6A600DEA036 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,6 +457,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AAD465D3073A6A600DEA036 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3AB74A0D305FE87600BB81A6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,6 +492,11 @@
 			isa = PBXTargetDependency;
 			target = 3AAD43BC30737D1C00DEA036 /* SmartTripActionExtension */;
 			targetProxy = 3AAD43CA30737D1C00DEA036 /* PBXContainerItemProxy */;
+		};
+		3AAD466E3073A6A600DEA036 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3AAD46603073A6A600DEA036 /* SmartTripNotificationExtension */;
+			targetProxy = 3AAD466D3073A6A600DEA036 /* PBXContainerItemProxy */;
 		};
 		3AB74A20305FE87800BB81A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -450,6 +556,62 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "iosdev.smarttrip2-0.ActionExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3AAD46703073A6A600DEA036 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8JJURA358A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartTripNotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartTripNotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "iosdev.smarttrip2-0.SmartTripNotificationExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3AAD46713073A6A600DEA036 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8JJURA358A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartTripNotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartTripNotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "iosdev.smarttrip2-0.SmartTripNotificationExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -738,6 +900,15 @@
 			buildConfigurations = (
 				3AAD43CE30737D1C00DEA036 /* Debug */,
 				3AAD43CF30737D1C00DEA036 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AAD46723073A6A600DEA036 /* Build configuration list for PBXNativeTarget "SmartTripNotificationExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AAD46703073A6A600DEA036 /* Debug */,
+				3AAD46713073A6A600DEA036 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

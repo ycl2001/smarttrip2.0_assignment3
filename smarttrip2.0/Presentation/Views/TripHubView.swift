@@ -230,18 +230,32 @@ struct TripHubView: View {
                     tint: SmartTripColors.warmAccent
                 )
 
-                NavigationLink {
-                    JourneyCapsuleView(trip: trip)
-                } label: {
-                    hubDestinationCardContent(
+                if let dependencies {
+                    NavigationLink {
+                        JourneyCapsuleView(
+                            trip: trip,
+                            viewModel: dependencies.makeJourneyCapsuleViewModel(
+                                tripID: trip.id
+                            )
+                        )
+                    } label: {
+                        hubDestinationCardContent(
+                            title: "Journey Capsule",
+                            subtitle: "Capture trip memories",
+                            systemImage: "photo.on.rectangle.angled",
+                            tint: SmartTripColors.highlight
+                        )
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Journey Capsule. Capture trip memories.")
+                } else {
+                    hubDestinationCard(
                         title: "Journey Capsule",
-                        subtitle: "No memories yet",
+                        subtitle: "Capture trip memories",
                         systemImage: "photo.on.rectangle.angled",
                         tint: SmartTripColors.highlight
                     )
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Journey Capsule. No memories yet.")
             }
         }
     }

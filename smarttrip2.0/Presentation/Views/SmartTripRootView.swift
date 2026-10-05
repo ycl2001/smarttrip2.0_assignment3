@@ -14,6 +14,8 @@ struct SmartTripRootView: View {
     @State private var savedPlacesOverviewViewModel: SavedPlacesOverviewViewModel
     @State private var isShowingCreateTrip = false
     @State private var isShowingSettings = false
+    @State private var routedJourneyCapsuleTrip: Trip?
+    @State private var notificationRouter = JourneyCapsuleNotificationRouter.shared
 
     init(dependencies: SmartTripDependencies) {
         self.dependencies = dependencies
@@ -57,8 +59,38 @@ struct SmartTripRootView: View {
             .sheet(isPresented: $isShowingSettings) {
                 SettingsView()
             }
+            .navigationDestination(isPresented: isShowingRoutedJourneyCapsule) {
+                if let routedJourneyCapsuleTrip {
+                    JourneyCapsuleView(
+                        trip: routedJourneyCapsuleTrip,
+                        viewModel: dependencies.makeJourneyCapsuleViewModel(
+                            tripID: routedJourneyCapsuleTrip.id
+                        )
+                    )
+                }
+            }
+            .onAppear {
+                handlePendingJourneyCapsuleRoute()
+            }
+            .onChange(of: notificationRouter.pendingJourneyCapsuleTripID) { _, tripID in
+                guard tripID != nil else {
+                    return
+                }
+
+                handlePendingJourneyCapsuleRoute()
+            }
         }
         .tint(SmartTripColors.primary)
+    }
+
+    private var isShowingRoutedJourneyCapsule: Binding<Bool> {
+        Binding {
+            routedJourneyCapsuleTrip != nil
+        } set: { isPresented in
+            if !isPresented {
+                routedJourneyCapsuleTrip = nil
+            }
+        }
     }
 
     private var topBar: some View {
@@ -121,9 +153,26 @@ struct SmartTripRootView: View {
             )
         case .capsules:
             JourneyCapsulesOverviewView(
-                viewModel: tripViewModel
+                viewModel: tripViewModel,
+                dependencies: dependencies
             )
         }
+    }
+
+    private func handlePendingJourneyCapsuleRoute() {
+        guard let tripID = notificationRouter.consumePendingJourneyCapsuleTripID() else {
+            return
+        }
+
+        selectedPage = .capsules
+        tripViewModel.loadTrips()
+
+        guard let trip = tripViewModel.trips.first(where: { $0.id == tripID }) else {
+            routedJourneyCapsuleTrip = nil
+            return
+        }
+
+        routedJourneyCapsuleTrip = trip
     }
 }
 
