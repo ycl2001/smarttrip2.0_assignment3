@@ -5,7 +5,7 @@ import Testing
 struct JourneyCapsuleNotificationPayloadTests {
     @Test func completePayloadRoundTripsThroughUserInfo() throws {
         let tripID = try #require(UUID(uuidString: "AB98F0EB-38F5-4F82-8997-B58D87D06F6A"))
-        let payload = JourneyCapsuleNotificationPayload(
+        let payload = smarttrip2_0.JourneyCapsuleNotificationPayload(
             tripID: tripID,
             tripName: "Tokyo Trip",
             destination: "Tokyo",
@@ -13,14 +13,14 @@ struct JourneyCapsuleNotificationPayloadTests {
             promptText: "Capture today's journey."
         )
 
-        let decoded = try #require(JourneyCapsuleNotificationPayload(userInfo: payload.userInfo))
+        let decoded = smarttrip2_0.JourneyCapsuleNotificationPayload(userInfo: payload.userInfo)
 
         #expect(decoded == payload)
     }
 
     @Test func payloadOmitsMissingDestinationAndTripDay() throws {
         let tripID = try #require(UUID(uuidString: "75D83F90-7B40-481A-B3F3-86482246E31F"))
-        let payload = JourneyCapsuleNotificationPayload(
+        let payload = smarttrip2_0.JourneyCapsuleNotificationPayload(
             tripID: tripID,
             tripName: "Fiji Trip"
         )
@@ -28,14 +28,14 @@ struct JourneyCapsuleNotificationPayloadTests {
         #expect(payload.userInfo["destination"] == nil)
         #expect(payload.userInfo["tripDay"] == nil)
 
-        let decoded = try #require(JourneyCapsuleNotificationPayload(userInfo: payload.userInfo))
-        #expect(decoded.destination == nil)
-        #expect(decoded.tripDay == nil)
-        #expect(decoded.promptText == JourneyCapsuleNotificationPayload.defaultPrompt)
+        let decoded = smarttrip2_0.JourneyCapsuleNotificationPayload(userInfo: payload.userInfo)
+        #expect(decoded?.destination == nil)
+        #expect(decoded?.tripDay == nil)
+        #expect(decoded?.promptText == smarttrip2_0.JourneyCapsuleNotificationPayload.defaultPrompt)
     }
 
     @Test func malformedTripIDIsRejectedSafely() {
-        let decoded = JourneyCapsuleNotificationPayload(
+        let decoded = smarttrip2_0.JourneyCapsuleNotificationPayload(
             userInfo: [
                 "tripID": "not-a-uuid",
                 "tripName": "Tokyo Trip",
@@ -48,31 +48,27 @@ struct JourneyCapsuleNotificationPayloadTests {
 
     @Test func invalidTripDayIsTreatedAsAbsent() throws {
         let tripID = try #require(UUID(uuidString: "9E47F78F-19F5-4C41-A69B-DA173CB5042B"))
-        let decoded = try #require(
-            JourneyCapsuleNotificationPayload(
-                userInfo: [
-                    "tripID": tripID.uuidString,
-                    "tripName": "Tokyo Trip",
-                    "tripDay": 0,
-                    "promptText": "Capture today's journey."
-                ]
-            )
+        let decoded = smarttrip2_0.JourneyCapsuleNotificationPayload(
+            userInfo: [
+                "tripID": tripID.uuidString,
+                "tripName": "Tokyo Trip",
+                "tripDay": 0,
+                "promptText": "Capture today's journey."
+            ]
         )
 
-        #expect(decoded.tripDay == nil)
+        #expect(decoded?.tripDay == nil)
     }
 
     @Test func missingPromptUsesDefaultPrompt() throws {
         let tripID = try #require(UUID(uuidString: "19A5019D-4A52-4981-B788-5BDEB3DCB85E"))
-        let decoded = try #require(
-            JourneyCapsuleNotificationPayload(
-                userInfo: [
-                    "tripID": tripID.uuidString,
-                    "tripName": "Tokyo Trip"
-                ]
-            )
+        let decoded = smarttrip2_0.JourneyCapsuleNotificationPayload(
+            userInfo: [
+                "tripID": tripID.uuidString,
+                "tripName": "Tokyo Trip"
+            ]
         )
 
-        #expect(decoded.promptText == JourneyCapsuleNotificationPayload.defaultPrompt)
+        #expect(decoded?.promptText == smarttrip2_0.JourneyCapsuleNotificationPayload.defaultPrompt)
     }
 }
