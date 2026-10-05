@@ -11,20 +11,16 @@ struct ContentView: View {
     @Environment(\.smartTripDependencies) private var dependencies
 
     var body: some View {
-        NavigationStack {
-            if let dependencies {
-                MyTripsView(
-                    viewModel: dependencies.makeTripViewModel()
-                )
-            } else {
-                EmptyStateView(
-                    systemImage: "exclamationmark.triangle",
-                    title: "SmartTrip is not ready",
-                    message: "The app dependencies could not be loaded."
-                )
-            }
+        if let dependencies {
+            SmartTripRootView(dependencies: dependencies)
+        } else {
+            EmptyStateView(
+                systemImage: "exclamationmark.triangle",
+                title: "SmartTrip is not ready",
+                message: "The app dependencies could not be loaded."
+            )
+            .tint(SmartTripColors.primary)
         }
-        .tint(SmartTripColors.primary)
     }
 }
 

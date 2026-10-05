@@ -3,10 +3,14 @@ import SwiftUI
 struct MyTripsView: View {
     @Environment(\.smartTripDependencies) private var dependencies
     @State private var viewModel: TripViewModel
-    @State private var isShowingCreateTrip = false
+    let onCreateTrip: () -> Void
 
-    init(viewModel: TripViewModel) {
+    init(
+        viewModel: TripViewModel,
+        onCreateTrip: @escaping () -> Void
+    ) {
         _viewModel = State(initialValue: viewModel)
+        self.onCreateTrip = onCreateTrip
     }
 
     var body: some View {
@@ -26,22 +30,7 @@ struct MyTripsView: View {
             .padding(SmartTripSpacing.md)
         }
         .background(SmartTripColors.background.ignoresSafeArea())
-        .navigationTitle("Trips")
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    isShowingCreateTrip = true
-                } label: {
-                    Label("Create Trip", systemImage: "plus")
-                }
-                .accessibilityLabel("Create trip")
-            }
-        }
-        .sheet(isPresented: $isShowingCreateTrip, onDismiss: {
-            viewModel.clearPresentationError()
-        }) {
-            CreateTripSheet(viewModel: viewModel)
-        }
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             viewModel.loadTrips()
         }
@@ -49,11 +38,6 @@ struct MyTripsView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: SmartTripSpacing.sm) {
-            Text("SmartTrip 2.0")
-                .font(SmartTripTypography.caption)
-                .foregroundStyle(SmartTripColors.primary)
-                .textCase(.uppercase)
-
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
                     Text("My Trips")
@@ -83,7 +67,7 @@ struct MyTripsView: View {
                 message: "Create a trip to start collecting places and planning your itinerary.",
                 actionTitle: "Create Trip"
             ) {
-                isShowingCreateTrip = true
+                onCreateTrip()
             }
         } else {
             tripSections
