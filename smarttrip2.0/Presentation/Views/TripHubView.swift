@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TripHubView: View {
+    @Environment(\.smartTripDependencies) private var dependencies
+
     let trip: Trip
     let viewModel: TripHubViewModel?
 
@@ -155,12 +157,30 @@ struct TripHubView: View {
                 ],
                 spacing: SmartTripSpacing.md
             ) {
-                hubDestinationCard(
-                    title: "Saved Places",
-                    subtitle: savedPlacesSummary,
-                    systemImage: "bookmark.fill",
-                    tint: SmartTripColors.primary
-                )
+                if let dependencies {
+                    NavigationLink {
+                        SavedPlacesView(
+                            trip: trip,
+                            viewModel: dependencies.makeSavedPlaceViewModel()
+                        )
+                    } label: {
+                        hubDestinationCardContent(
+                            title: "Saved Places",
+                            subtitle: savedPlacesSummary,
+                            systemImage: "bookmark.fill",
+                            tint: SmartTripColors.primary
+                        )
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Saved Places. \(savedPlacesSummary)")
+                } else {
+                    hubDestinationCard(
+                        title: "Saved Places",
+                        subtitle: savedPlacesSummary,
+                        systemImage: "bookmark.fill",
+                        tint: SmartTripColors.primary
+                    )
+                }
 
                 hubDestinationCard(
                     title: "Itinerary",
@@ -245,6 +265,44 @@ struct TripHubView: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(title). \(subtitle)")
+    }
+
+    private func hubDestinationCardContent(
+        title: String,
+        subtitle: String,
+        systemImage: String,
+        tint: Color
+    ) -> some View {
+        VStack(alignment: .leading, spacing: SmartTripSpacing.md) {
+            Image(systemName: systemImage)
+                .font(.title2.weight(.semibold))
+                .foregroundStyle(tint)
+                .frame(width: 44, height: 44)
+                .background(
+                    Circle()
+                        .fill(tint.opacity(0.14))
+                )
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
+                Text(title)
+                    .font(SmartTripTypography.headline)
+                    .foregroundStyle(SmartTripColors.textPrimary)
+
+                Text(subtitle)
+                    .font(SmartTripTypography.caption)
+                    .foregroundStyle(SmartTripColors.textSecondary)
+                    .lineLimit(2)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(SmartTripSpacing.md)
+        .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
+        .background(
+            RoundedRectangle(cornerRadius: SmartTripRadius.large, style: .continuous)
+                .fill(SmartTripColors.surface)
+        )
     }
 
     private var savedPlacesSummary: String {
