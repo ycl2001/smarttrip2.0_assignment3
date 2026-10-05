@@ -12,6 +12,9 @@ struct PersistenceController {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
 
+        container.persistentStoreDescriptions.first?.shouldMigrateStoreAutomatically = true
+        container.persistentStoreDescriptions.first?.shouldInferMappingModelAutomatically = true
+
         container.loadPersistentStores { _, error in
             if let error {
                 fatalError("Unable to load Core Data store: \(error)")

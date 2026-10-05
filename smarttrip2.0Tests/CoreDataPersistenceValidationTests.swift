@@ -182,6 +182,7 @@ struct CoreDataPersistenceValidationTests {
         let repositories = makeRepositories()
         let trip = TestFixtures.trip()
         let place = TestFixtures.savedPlace(tripID: trip.id)
+        let memory = TestFixtures.memory(tripID: trip.id)
         let item = ItineraryItem(
             tripID: trip.id,
             sourceSavedPlaceID: place.id,
@@ -195,12 +196,71 @@ struct CoreDataPersistenceValidationTests {
         try repositories.tripRepository.saveTrip(trip)
         try repositories.savedPlaceRepository.saveSavedPlace(place)
         try repositories.itineraryRepository.saveItineraryItem(item)
+        try repositories.memoryRepository.saveMemory(memory)
         try repositories.tripRepository.deleteTrip(id: trip.id)
 
         #expect(try repositories.savedPlaceRepository.fetchSavedPlaces(for: trip.id).isEmpty)
         #expect(try repositories.itineraryRepository.fetchItineraryItems(for: trip.id).isEmpty)
+        #expect(try repositories.memoryRepository.fetchMemories(for: trip.id).isEmpty)
         #expect(try count(SavedPlaceEntity.self, in: repositories.context) == 0)
         #expect(try count(ItineraryItemEntity.self, in: repositories.context) == 0)
+        #expect(try count(MemoryEntity.self, in: repositories.context) == 0)
+    }
+
+    @Test func memoriesBelongOnlyToTheirTripAndAreReverseChronological() throws {
+        let repositories = makeRepositories()
+        let tripA = TestFixtures.trip(name: "Tokyo Trip", destination: "Tokyo")
+        let tripB = TestFixtures.trip(name: "Kyoto Trip", destination: "Kyoto")
+        let olderMemory = TestFixtures.memory(
+            tripID: tripA.id,
+            location: "Shibuya Crossing",
+            caption: "First night in Tokyo.",
+            createdAt: TestDates.december12At10
+        )
+        let newerMemory = TestFixtures.memory(
+            tripID: tripA.id,
+            location: "Ueno Park",
+            caption: "A slow evening walk.",
+            createdAt: TestDates.december12At18
+        )
+        let otherTripMemory = TestFixtures.memory(
+            tripID: tripB.id,
+            location: "Fushimi Inari",
+            caption: "Lanterns and torii gates.",
+            createdAt: TestDates.december12At10
+        )
+
+        try repositories.tripRepository.saveTrip(tripA)
+        try repositories.tripRepository.saveTrip(tripB)
+        try repositories.memoryRepository.saveMemory(olderMemory)
+        try repositories.memoryRepository.saveMemory(newerMemory)
+        try repositories.memoryRepository.saveMemory(otherTripMemory)
+
+        let tripAMemories = try repositories.memoryRepository.fetchMemories(for: tripA.id)
+        let tripBMemories = try repositories.memoryRepository.fetchMemories(for: tripB.id)
+
+        #expect(tripAMemories.map(\.id) == [newerMemory.id, olderMemory.id])
+        #expect(tripBMemories.map(\.id) == [otherTripMemory.id])
+        #expect(tripAMemories.allSatisfy { $0.tripID == tripA.id })
+    }
+
+    @Test func memoryRepositoryPersistsOptionalPhotoReferenceWithoutImageData() throws {
+        let repositories = makeRepositories()
+        let trip = TestFixtures.trip()
+        let memory = TestFixtures.memory(
+            tripID: trip.id,
+            photoIdentifier: "local-photo-001"
+        )
+
+        try repositories.tripRepository.saveTrip(trip)
+        try repositories.memoryRepository.saveMemory(memory)
+
+        let fetchedMemory = try #require(try repositories.memoryRepository.fetchMemories(for: trip.id).first)
+
+        #expect(fetchedMemory.id == memory.id)
+        #expect(fetchedMemory.location == memory.location)
+        #expect(fetchedMemory.caption == memory.caption)
+        #expect(fetchedMemory.photoIdentifier == "local-photo-001")
     }
 
     private func makeRepositories() -> RepositoryBundle {
@@ -211,7 +271,8 @@ struct CoreDataPersistenceValidationTests {
             context: context,
             tripRepository: CoreDataTripRepository(context: context),
             savedPlaceRepository: CoreDataSavedPlaceRepository(context: context),
-            itineraryRepository: CoreDataItineraryRepository(context: context)
+            itineraryRepository: CoreDataItineraryRepository(context: context),
+            memoryRepository: CoreDataMemoryRepository(context: context)
         )
     }
 
@@ -229,4 +290,5 @@ private struct RepositoryBundle {
     let tripRepository: CoreDataTripRepository
     let savedPlaceRepository: CoreDataSavedPlaceRepository
     let itineraryRepository: CoreDataItineraryRepository
+    let memoryRepository: CoreDataMemoryRepository
 }
