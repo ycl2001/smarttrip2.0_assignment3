@@ -10,6 +10,8 @@ import SwiftUI
 
 @main
 struct smarttrip2_0App: App {
+    @UIApplicationDelegateAdaptor(SmartTripNotificationDelegate.self) private var notificationDelegate
+
     private let persistenceController: PersistenceController
     private let dependencies: SmartTripDependencies
 
