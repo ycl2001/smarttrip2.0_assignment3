@@ -108,6 +108,20 @@
 			);
 			target = 3AAD46603073A6A600DEA036 /* SmartTripNotificationExtension */;
 		};
+		3AAD467A3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "smarttrip2.0Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Services/JourneyCapsuleNotificationPayload.swift,
+			);
+			target = 3AB74A1D305FE87800BB81A6 /* smarttrip2.0Tests */;
+		};
+		3AAD467B3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "SmartTripNotificationExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Services/JourneyCapsuleNotificationPayload.swift,
+			);
+			target = 3AAD46603073A6A600DEA036 /* SmartTripNotificationExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -131,6 +145,10 @@
 		};
 		3AB74A13305FE87600BB81A6 /* smarttrip2.0 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3AAD467A3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "smarttrip2.0Tests" target */,
+				3AAD467B3073AA8A00DEA036 /* Exceptions for "smarttrip2.0" folder in "SmartTripNotificationExtension" target */,
+			);
 			path = smarttrip2.0;
 			sourceTree = "<group>";
 		};
