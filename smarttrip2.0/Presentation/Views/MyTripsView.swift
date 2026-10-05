@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MyTripsView: View {
+    @Environment(\.smartTripDependencies) private var dependencies
     @State private var viewModel: TripViewModel
     @State private var isShowingCreateTrip = false
 
@@ -116,7 +117,19 @@ struct MyTripsView: View {
 
             ForEach(trips) { trip in
                 NavigationLink {
-                    TripHubView(trip: trip)
+                    if let dependencies {
+                        TripHubView(
+                            trip: trip,
+                            viewModel: dependencies.makeTripHubViewModel(
+                                tripID: trip.id
+                            )
+                        )
+                    } else {
+                        TripHubView(
+                            trip: trip,
+                            viewModel: nil
+                        )
+                    }
                 } label: {
                     TripCard(trip: trip)
                 }
