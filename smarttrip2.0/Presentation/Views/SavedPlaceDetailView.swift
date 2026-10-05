@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct SavedPlaceDetailView: View {
+    @Environment(\.dismiss) private var dismiss
+
     let trip: Trip
     let place: SavedPlace
     let viewModel: SavedPlaceViewModel
+
+    @State private var isShowingScheduleSheet = false
 
     var body: some View {
         ScrollView {
@@ -50,11 +54,18 @@ struct SavedPlaceDetailView: View {
                         message: "This place has already been added to the trip itinerary."
                     )
                 } else {
-                    EmptyStateView(
-                        systemImage: "calendar.badge.plus",
-                        title: "Ready to schedule",
-                        message: "Choose a date and time when your group is ready to commit this place to the itinerary."
-                    )
+                    VStack(spacing: SmartTripSpacing.md) {
+                        EmptyStateView(
+                            systemImage: "calendar.badge.plus",
+                            title: "Ready to schedule",
+                            message: "Choose a date and time when your group is ready to commit this place to the itinerary."
+                        )
+
+                        PrimaryActionButton("Schedule", systemImage: "calendar.badge.plus") {
+                            isShowingScheduleSheet = true
+                        }
+                        .accessibilityLabel("Schedule \(place.name)")
+                    }
                 }
             }
             .padding(SmartTripSpacing.md)
@@ -62,5 +73,14 @@ struct SavedPlaceDetailView: View {
         .background(SmartTripColors.background)
         .navigationTitle("Saved Place")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $isShowingScheduleSheet) {
+            SchedulePlaceSheet(
+                trip: trip,
+                place: place,
+                viewModel: viewModel
+            ) {
+                dismiss()
+            }
+        }
     }
 }
