@@ -27,6 +27,8 @@ struct CreateTripSheet: View {
     @State private var destination = ""
     @State private var startDate = Date()
     @State private var endDate = Date()
+    @State private var destinationAutocomplete = MapKitPlaceAutocompleteService()
+    @State private var isSelectingDestinationSuggestion = false
 
     var body: some View {
         NavigationStack {
@@ -54,9 +56,21 @@ struct CreateTripSheet: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         viewModel.clearPresentationError()
+                        destinationAutocomplete.clearSuggestions()
                         dismiss()
                     }
                 }
+            }
+            .onChange(of: destination) { _, newValue in
+                if isSelectingDestinationSuggestion {
+                    isSelectingDestinationSuggestion = false
+                    destinationAutocomplete.clearSuggestions()
+                } else {
+                    destinationAutocomplete.updateQuery(newValue)
+                }
+            }
+            .onDisappear {
+                destinationAutocomplete.clearSuggestions()
             }
         }
     }
@@ -119,6 +133,11 @@ struct CreateTripSheet: View {
                         .padding()
                         .background(fieldBackground)
                         .accessibilityLabel("Destination")
+
+                    suggestionList(
+                        suggestions: destinationAutocomplete.suggestions,
+                        selectionAction: selectDestinationSuggestion
+                    )
                 }
             }
 
@@ -238,8 +257,76 @@ struct CreateTripSheet: View {
         )
 
         if createdTrip != nil {
+            destinationAutocomplete.clearSuggestions()
             dismiss()
         }
+    }
+
+    @ViewBuilder
+    private func suggestionList(
+        suggestions: [PlaceSuggestion],
+        selectionAction: @escaping (PlaceSuggestion) -> Void
+    ) -> some View {
+        if !suggestions.isEmpty {
+            VStack(spacing: 0) {
+                ForEach(suggestions) { suggestion in
+                    Button {
+                        selectionAction(suggestion)
+                    } label: {
+                        VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
+                            Text(suggestion.title)
+                                .font(SmartTripTypography.body)
+                                .foregroundStyle(SmartTripColors.textPrimary)
+
+                            if !suggestion.subtitle.isEmpty {
+                                Text(suggestion.subtitle)
+                                    .font(SmartTripTypography.caption)
+                                    .foregroundStyle(SmartTripColors.textSecondary)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, SmartTripSpacing.sm)
+                        .padding(.horizontal, SmartTripSpacing.md)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(accessibilityLabel(for: suggestion))
+
+                    if suggestion.id != suggestions.last?.id {
+                        Divider()
+                            .padding(.leading, SmartTripSpacing.md)
+                    }
+                }
+            }
+            .background(
+                RoundedRectangle(cornerRadius: SmartTripRadius.medium, style: .continuous)
+                    .fill(SmartTripColors.surface)
+                    .shadow(color: SmartTripColors.primary.opacity(0.06), radius: 10, x: 0, y: 4)
+            )
+        }
+    }
+
+    private func selectDestinationSuggestion(
+        _ suggestion: PlaceSuggestion
+    ) {
+        isSelectingDestinationSuggestion = true
+        destination = displayValue(for: suggestion)
+        destinationAutocomplete.clearSuggestions()
+    }
+
+    private func displayValue(
+        for suggestion: PlaceSuggestion
+    ) -> String {
+        guard !suggestion.subtitle.isEmpty else {
+            return suggestion.title
+        }
+
+        return "\(suggestion.title), \(suggestion.subtitle)"
+    }
+
+    private func accessibilityLabel(
+        for suggestion: PlaceSuggestion
+    ) -> String {
+        displayValue(for: suggestion)
     }
 
     private var dateFormatter: DateFormatter {
