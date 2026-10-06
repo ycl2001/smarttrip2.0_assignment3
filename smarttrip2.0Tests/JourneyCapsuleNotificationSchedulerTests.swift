@@ -3,6 +3,7 @@ import Testing
 import UserNotifications
 @testable import smarttrip2_0
 
+@MainActor
 struct JourneyCapsuleNotificationSchedulerTests {
     @Test func reminderContentUsesJourneyCapsuleCategory() throws {
         let payload = try Self.makePayload(tripDay: 3)
