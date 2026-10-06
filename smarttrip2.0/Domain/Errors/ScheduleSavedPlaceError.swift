@@ -6,6 +6,7 @@ enum ScheduleSavedPlaceError: Error, Equatable, LocalizedError {
     case alreadyScheduled
     case outsideTripDates
     case missingSchedule
+    case persistenceFailed
 
     var errorDescription: String? {
         switch self {
@@ -19,6 +20,8 @@ enum ScheduleSavedPlaceError: Error, Equatable, LocalizedError {
             "This activity falls outside your trip dates."
         case .missingSchedule:
             "This activity needs a valid schedule."
+        case .persistenceFailed:
+            "We couldn't add this place to your itinerary. Please try again."
         }
     }
 
@@ -34,6 +37,8 @@ enum ScheduleSavedPlaceError: Error, Equatable, LocalizedError {
             "Choose a date between the trip's start and end dates."
         case .missingSchedule:
             "Choose a date and start time before adding it to the itinerary."
+        case .persistenceFailed:
+            "Try scheduling this place again."
         }
     }
 }

@@ -15,6 +15,7 @@ struct SmartTripDependencies {
         let tripRepository = CoreDataTripRepository(context: context)
         let savedPlaceRepository = CoreDataSavedPlaceRepository(context: context)
         let itineraryRepository = CoreDataItineraryRepository(context: context)
+        let schedulingRepository = CoreDataSavedPlaceSchedulingRepository(context: context)
         let memoryRepository = CoreDataMemoryRepository(context: context)
 
         self.tripRepository = tripRepository
@@ -31,7 +32,7 @@ struct SmartTripDependencies {
         self.scheduleSavedPlaceUseCase = ScheduleSavedPlaceUseCase(
             tripRepository: tripRepository,
             savedPlaceRepository: savedPlaceRepository,
-            itineraryRepository: itineraryRepository
+            schedulingRepository: schedulingRepository
         )
         self.captureJourneyMemoryUseCase = CaptureJourneyMemoryUseCase(
             tripRepository: tripRepository,
