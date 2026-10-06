@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "93691602-07A1-4425-958D-F158D62546A9",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:smarttrip2.0.xcodeproj",
+      "identifier" : "3AB74A10305FE87600BB81A6",
+      "name" : "smarttrip2.0"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:smarttrip2.0.xcodeproj",
+        "identifier" : "3AB74A1D305FE87800BB81A6",
+        "name" : "smarttrip2.0Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:smarttrip2.0.xcodeproj",
+        "identifier" : "3AB74A27305FE87800BB81A6",
+        "name" : "smarttrip2.0UITests"
+      }
+    }
+  ],
+  "version" : 1
+}
