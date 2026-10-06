@@ -61,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3AA50C593074CA4A00406C66 /* smarttrip2.0.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = smarttrip2.0.xctestplan; sourceTree = "<group>"; };
 		3AAD43BD30737D1C00DEA036 /* SmartTripActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmartTripActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AAD43BF30737D1C00DEA036 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		3AAD46613073A6A600DEA036 /* SmartTripNotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmartTripNotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +220,7 @@
 		3AB74A08305FE87600BB81A6 = {
 			isa = PBXGroup;
 			children = (
+				3AA50C593074CA4A00406C66 /* smarttrip2.0.xctestplan */,
 				3AB74A13305FE87600BB81A6 /* smarttrip2.0 */,
 				3AB74A21305FE87800BB81A6 /* smarttrip2.0Tests */,
 				3AB74A2B305FE87800BB81A6 /* smarttrip2.0UITests */,
