@@ -83,10 +83,11 @@ struct SavedPlaceViewModelTests {
     private func makeViewModel(
         trip: Trip,
         savedPlaces: [SavedPlace],
-        schedulingRepository: MockSavedPlaceSchedulingRepository = MockSavedPlaceSchedulingRepository()
+        schedulingRepository: MockSavedPlaceSchedulingRepository? = nil
     ) -> SavedPlaceViewModel {
         let tripRepository = MockTripRepository(trips: [trip])
         let savedPlaceRepository = MockSavedPlaceRepository(savedPlaces: savedPlaces)
+        let schedulingRepository = schedulingRepository ?? MockSavedPlaceSchedulingRepository()
 
         return SavedPlaceViewModel(
             captureSharedPlaceUseCase: CaptureSharedPlaceUseCase(

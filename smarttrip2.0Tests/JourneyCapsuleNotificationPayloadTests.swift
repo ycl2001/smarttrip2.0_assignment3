@@ -2,6 +2,7 @@ import Foundation
 import Testing
 @testable import smarttrip2_0
 
+@MainActor
 struct JourneyCapsuleNotificationPayloadTests {
     @Test func completePayloadRoundTripsThroughUserInfo() throws {
         let tripID = try #require(UUID(uuidString: "AB98F0EB-38F5-4F82-8997-B58D87D06F6A"))
