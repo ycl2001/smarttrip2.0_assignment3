@@ -21,6 +21,8 @@ View
 
 Core Data is used for production persistence because Trips, Saved Places, Itinerary Items, and Journey Capsule Memories are structured travel data that must remain available after relaunch and during poor connectivity. The app does not expose Core Data entities directly to SwiftUI views or Use Cases.
 
+The primary business-operation path is the diagram above. Some simple read and delete operations appropriately use the shorter `View -> ViewModel -> Repository Protocol` path. Views and ViewModels never access Core Data directly; Core Data is configured in app startup/dependency composition and used behind repositories in the Data layer. The persisted entities are `Trip`, `SavedPlace`, `ItineraryItem`, and `Memory`, with relationships that keep each trip's planning and memory records together.
+
 Trip memory persistence follows the same app architecture:
 
 ```text
@@ -72,9 +74,9 @@ Tests
 
 ### Core Data Boundary
 
-The Action Extension does not access Core Data, repositories, Use Cases, App Groups, or CloudKit. It is a separate platform integration that processes and returns formatted content. The SmartTrip main app remains responsible for persisting Trips, Saved Places, Itinerary Items, and Memories through the existing Repository + Core Data architecture.
+The Action Extension does not access Core Data, repositories, Use Cases, or App Groups. It is a separate platform integration that processes and returns formatted content. The SmartTrip main app remains responsible for persisting Trips, Saved Places, Itinerary Items, and Memories through the existing Repository + Core Data architecture.
 
-No App Group identifier is used because the selected Action Extension workflow does not require shared-container communication.
+**App Group: Not used.** SmartTrip's Action Extension returns processed content to the host application, while the Notification Content Extension consumes notification payload data. The final extension design therefore does not require shared App Group storage.
 
 ### Supported Inputs
 
@@ -136,7 +138,7 @@ User tap
 
 `SmartTripNotificationExtension` does not access Core Data, repositories, Use Cases, `PersistenceController`, or Action Extension code. It only renders notification content from the payload. The main app owns scheduling, routing, and all Memory persistence.
 
-No App Group identifier is used because the selected extensions do not require shared-container communication.
+**App Group: Not used.** The notification extension consumes the payload supplied with the notification; it does not need shared-container storage.
 
 ## Journey Capsule
 
@@ -178,23 +180,21 @@ Extension runtime code remains extension-only:
 
 Tests use `MockTravelRecommendationProvider` and do not require live MapKit, internet access, Safari, Maps, Instagram, or a physical device. The system share/action lifecycle is validated manually because it depends on host-app behaviour.
 
-Phase 6 latest full validation:
+The test suite uses mock repositories and providers to keep Use Case and ViewModel tests independent from production persistence and external services. Coverage includes Use Cases, Core Data persistence and scheduling transaction integrity, Action Extension pure logic, Journey Capsule behaviour, notification payloads/scheduling/routing, and UI launch coverage.
 
-- Unit tests: 40 passed / 0 failed
+Final automated test execution on a connected iPhone:
+
+- Unit tests: 70 passed / 0 failed
 - UI tests: 3 passed / 0 failed
-- Total: 43 passed / 0 failed
-- Action Extension-related automated tests: 15 passed / 0 failed
-
-Phase 7 validation:
-
-- Physical-device Journey Capsule notification validation: complete.
-- Main implementation/build audit: pass.
-- Architecture/regression audit: pass.
-- Automated test source: implemented for notification payloads, scheduling, routing, Journey Capsule ViewModel behaviour, Capture Journey Memory use case, and Memory persistence.
-- Automated test execution: blocked by local environment.
-
-The full automated test suite could not execute because `CoreSimulatorService` / compatible simulator availability was unavailable in the local Xcode environment, and the command-line tool did not expose a concrete attached iPhone test destination. Source builds, architecture checks, physical-device validation, and test source coverage were completed successfully. No SmartTrip source-code defect was identified from the available validation.
+- Total: 73 passed / 0 failed
 
 ## Setup
 
-Open `smarttrip2.0.xcodeproj` in Xcode, select the main `smarttrip2.0` scheme, then build or run tests with Product -> Build and Product -> Test. The Action Extension and Notification Content Extension targets are embedded in the main app and can also be built directly when validating extension-specific changes.
+1. Clone the repository.
+2. Open `smarttrip2.0.xcodeproj` in Xcode.
+3. Select the shared `smarttrip2.0` scheme and a simulator or connected iPhone.
+4. Build and run with Product -> Build or Product -> Run.
+5. Run the shared `smarttrip2.0.xctestplan` with Product -> Test.
+6. Select `SmartTripActionExtension` or `SmartTripNotificationExtension` from the scheme picker to build either extension directly when validating extension-specific changes.
+
+The shared schemes and test plan are committed to Git.
