@@ -21,6 +21,7 @@ enum ItineraryItemMapper {
         return ItineraryItem(
             id: id,
             tripID: tripID,
+            sourceSavedPlaceID: entity.value(forKey: "sourceSavedPlaceID") as? UUID,
             title: title,
             location: location,
             date: date,
@@ -42,6 +43,7 @@ enum ItineraryItemMapper {
         entity.setValue(item.startTime, forKey: "startTime")
         entity.setValue(item.endTime, forKey: "endTime")
         entity.setValue(item.notes, forKey: "notes")
+        entity.setValue(item.sourceSavedPlaceID, forKey: "sourceSavedPlaceID")
         entity.setValue(item.category.rawValue, forKey: "categoryRawValue")
     }
 

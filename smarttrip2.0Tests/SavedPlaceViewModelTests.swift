@@ -6,10 +6,7 @@ import Testing
 struct SavedPlaceViewModelTests {
     @Test func clearPresentationErrorRemovesTransientAddPlaceError() {
         let trip = TestFixtures.trip()
-        let viewModel = makeViewModel(
-            trip: trip,
-            savedPlaces: []
-        )
+        let viewModel = makeViewModel(trip: trip, savedPlaces: [])
 
         let captured = viewModel.capturePlace(
             tripID: trip.id,
@@ -25,16 +22,15 @@ struct SavedPlaceViewModelTests {
         #expect(viewModel.recoverySuggestion == nil)
     }
 
-    @Test func bulkScheduleSelectedPlacesSchedulesEachValidPlace() {
+    @Test func bulkScheduleSelectedPlacesUsesAtomicRepositoryForEachValidPlace() {
         let trip = TestFixtures.trip()
         let firstPlace = TestFixtures.savedPlace(tripID: trip.id, name: "Tsukiji Market")
         let secondPlace = TestFixtures.savedPlace(tripID: trip.id, name: "Meiji Shrine")
-        let itineraryRepository = MockItineraryRepository()
-        let savedPlaceRepository = MockSavedPlaceRepository(savedPlaces: [firstPlace, secondPlace])
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
         let viewModel = makeViewModel(
             trip: trip,
-            savedPlaceRepository: savedPlaceRepository,
-            itineraryRepository: itineraryRepository
+            savedPlaces: [firstPlace, secondPlace],
+            schedulingRepository: schedulingRepository
         )
 
         viewModel.loadSavedPlaces(for: trip.id)
@@ -49,21 +45,18 @@ struct SavedPlaceViewModelTests {
 
         #expect(result.scheduledCount == 2)
         #expect(result.failures.isEmpty)
-        #expect(itineraryRepository.saveCallCount == 2)
-        #expect(savedPlaceRepository.updateCallCount == 2)
-        #expect(savedPlaceRepository.savedPlaces.allSatisfy { $0.status == .scheduled })
+        #expect(schedulingRepository.scheduleCallCount == 2)
     }
 
-    @Test func bulkScheduleSelectedPlacesReportsPartialFailure() {
+    @Test func bulkScheduleSelectedPlacesReportsValidationFailureWithoutAtomicSave() {
         let trip = TestFixtures.trip()
         let validPlace = TestFixtures.savedPlace(tripID: trip.id, name: "Tsukiji Market")
         let invalidPlace = TestFixtures.savedPlace(tripID: trip.id, name: "After Trip Cafe")
-        let itineraryRepository = MockItineraryRepository()
-        let savedPlaceRepository = MockSavedPlaceRepository(savedPlaces: [validPlace, invalidPlace])
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
         let viewModel = makeViewModel(
             trip: trip,
-            savedPlaceRepository: savedPlaceRepository,
-            itineraryRepository: itineraryRepository
+            savedPlaces: [validPlace, invalidPlace],
+            schedulingRepository: schedulingRepository
         )
 
         viewModel.loadSavedPlaces(for: trip.id)
@@ -84,28 +77,16 @@ struct SavedPlaceViewModelTests {
         #expect(result.failures.count == 1)
         #expect(result.failures.first?.savedPlaceID == invalidPlace.id)
         #expect(result.failures.first?.message == ScheduleSavedPlaceError.outsideTripDates.localizedDescription)
-        #expect(itineraryRepository.saveCallCount == 1)
-        #expect(savedPlaceRepository.savedPlaces.first { $0.id == validPlace.id }?.status == .scheduled)
-        #expect(savedPlaceRepository.savedPlaces.first { $0.id == invalidPlace.id }?.status == .idea)
+        #expect(schedulingRepository.scheduleCallCount == 1)
     }
 
     private func makeViewModel(
         trip: Trip,
-        savedPlaces: [SavedPlace]
-    ) -> SavedPlaceViewModel {
-        makeViewModel(
-            trip: trip,
-            savedPlaceRepository: MockSavedPlaceRepository(savedPlaces: savedPlaces),
-            itineraryRepository: MockItineraryRepository()
-        )
-    }
-
-    private func makeViewModel(
-        trip: Trip,
-        savedPlaceRepository: MockSavedPlaceRepository,
-        itineraryRepository: MockItineraryRepository
+        savedPlaces: [SavedPlace],
+        schedulingRepository: MockSavedPlaceSchedulingRepository = MockSavedPlaceSchedulingRepository()
     ) -> SavedPlaceViewModel {
         let tripRepository = MockTripRepository(trips: [trip])
+        let savedPlaceRepository = MockSavedPlaceRepository(savedPlaces: savedPlaces)
 
         return SavedPlaceViewModel(
             captureSharedPlaceUseCase: CaptureSharedPlaceUseCase(
@@ -115,7 +96,7 @@ struct SavedPlaceViewModelTests {
             scheduleSavedPlaceUseCase: ScheduleSavedPlaceUseCase(
                 tripRepository: tripRepository,
                 savedPlaceRepository: savedPlaceRepository,
-                itineraryRepository: itineraryRepository,
+                schedulingRepository: schedulingRepository,
                 calendar: TestDates.calendar
             ),
             savedPlaceRepository: savedPlaceRepository

@@ -3,18 +3,18 @@ import Foundation
 struct ScheduleSavedPlaceUseCase {
     private let tripRepository: any TripRepository
     private let savedPlaceRepository: any SavedPlaceRepository
-    private let itineraryRepository: any ItineraryRepository
+    private let schedulingRepository: any SavedPlaceSchedulingRepository
     private let calendar: Calendar
 
     init(
         tripRepository: any TripRepository,
         savedPlaceRepository: any SavedPlaceRepository,
-        itineraryRepository: any ItineraryRepository,
+        schedulingRepository: any SavedPlaceSchedulingRepository,
         calendar: Calendar = .current
     ) {
         self.tripRepository = tripRepository
         self.savedPlaceRepository = savedPlaceRepository
-        self.itineraryRepository = itineraryRepository
+        self.schedulingRepository = schedulingRepository
         self.calendar = calendar
     }
 
@@ -65,18 +65,14 @@ struct ScheduleSavedPlaceUseCase {
             category: category
         )
 
-        let scheduledPlace = SavedPlace(
-            id: savedPlace.id,
-            tripID: savedPlace.tripID,
-            name: savedPlace.name,
-            url: savedPlace.url,
-            notes: savedPlace.notes,
-            status: .scheduled,
-            dateSaved: savedPlace.dateSaved
-        )
-
-        try itineraryRepository.saveItineraryItem(item)
-        try savedPlaceRepository.updateSavedPlace(scheduledPlace)
+        do {
+            try schedulingRepository.schedule(
+                savedPlaceID: savedPlace.id,
+                itineraryItem: item
+            )
+        } catch {
+            throw ScheduleSavedPlaceError.persistenceFailed
+        }
 
         return item
     }

@@ -4,17 +4,14 @@ import Testing
 
 @MainActor
 struct ScheduleSavedPlaceUseCaseTests {
-    @Test func scheduleSavedPlaceCreatesItineraryItemAndMarksPlaceScheduled() throws {
+    @Test func scheduleSavedPlaceUsesAtomicRepositoryAndPreservesSourceID() throws {
         let trip = TestFixtures.trip()
         let savedPlace = TestFixtures.savedPlace(tripID: trip.id)
-        let tripRepository = MockTripRepository(trips: [trip])
-        let savedPlaceRepository = MockSavedPlaceRepository(savedPlaces: [savedPlace])
-        let itineraryRepository = MockItineraryRepository()
-        let useCase = ScheduleSavedPlaceUseCase(
-            tripRepository: tripRepository,
-            savedPlaceRepository: savedPlaceRepository,
-            itineraryRepository: itineraryRepository,
-            calendar: TestDates.calendar
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
+        let useCase = makeUseCase(
+            trip: trip,
+            savedPlace: savedPlace,
+            schedulingRepository: schedulingRepository
         )
 
         let item = try useCase.execute(
@@ -25,24 +22,45 @@ struct ScheduleSavedPlaceUseCaseTests {
             category: .activity
         )
 
-        #expect(itineraryRepository.saveCallCount == 1)
-        #expect(savedPlaceRepository.updateCallCount == 1)
+        #expect(schedulingRepository.scheduleCallCount == 1)
+        #expect(schedulingRepository.capturedSavedPlaceID == savedPlace.id)
+        #expect(schedulingRepository.capturedItineraryItem == item)
         #expect(item.sourceSavedPlaceID == savedPlace.id)
         #expect(item.title == savedPlace.name)
-        #expect(savedPlaceRepository.lastUpdatedSavedPlace?.status == .scheduled)
     }
 
-    @Test func scheduleSavedPlaceRejectsDateOutsideTrip() throws {
+    @Test func scheduleSavedPlaceReportsTypedErrorWhenAtomicPersistenceFails() {
         let trip = TestFixtures.trip()
         let savedPlace = TestFixtures.savedPlace(tripID: trip.id)
-        let tripRepository = MockTripRepository(trips: [trip])
-        let savedPlaceRepository = MockSavedPlaceRepository(savedPlaces: [savedPlace])
-        let itineraryRepository = MockItineraryRepository()
-        let useCase = ScheduleSavedPlaceUseCase(
-            tripRepository: tripRepository,
-            savedPlaceRepository: savedPlaceRepository,
-            itineraryRepository: itineraryRepository,
-            calendar: TestDates.calendar
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
+        schedulingRepository.errorToThrow = CocoaError(.fileWriteUnknown)
+        let useCase = makeUseCase(
+            trip: trip,
+            savedPlace: savedPlace,
+            schedulingRepository: schedulingRepository
+        )
+
+        #expect(throws: ScheduleSavedPlaceError.persistenceFailed) {
+            try useCase.execute(
+                savedPlaceID: savedPlace.id,
+                tripID: trip.id,
+                scheduledDate: TestDates.december12,
+                startTime: TestDates.december12At10
+            )
+        }
+
+        #expect(schedulingRepository.scheduleCallCount == 0)
+        #expect(schedulingRepository.capturedItineraryItem == nil)
+    }
+
+    @Test func scheduleSavedPlaceRejectsDateOutsideTrip() {
+        let trip = TestFixtures.trip()
+        let savedPlace = TestFixtures.savedPlace(tripID: trip.id)
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
+        let useCase = makeUseCase(
+            trip: trip,
+            savedPlace: savedPlace,
+            schedulingRepository: schedulingRepository
         )
 
         #expect(throws: ScheduleSavedPlaceError.outsideTripDates) {
@@ -54,25 +72,20 @@ struct ScheduleSavedPlaceUseCaseTests {
             )
         }
 
-        #expect(itineraryRepository.saveCallCount == 0)
-        #expect(savedPlaceRepository.updateCallCount == 0)
-        #expect(savedPlaceRepository.savedPlaces.first?.status == .idea)
+        #expect(schedulingRepository.scheduleCallCount == 0)
     }
 
-    @Test func scheduleSavedPlaceRejectsAlreadyScheduledPlace() throws {
+    @Test func scheduleSavedPlaceRejectsAlreadyScheduledPlace() {
         let trip = TestFixtures.trip()
         let savedPlace = TestFixtures.savedPlace(
             tripID: trip.id,
             status: .scheduled
         )
-        let tripRepository = MockTripRepository(trips: [trip])
-        let savedPlaceRepository = MockSavedPlaceRepository(savedPlaces: [savedPlace])
-        let itineraryRepository = MockItineraryRepository()
-        let useCase = ScheduleSavedPlaceUseCase(
-            tripRepository: tripRepository,
-            savedPlaceRepository: savedPlaceRepository,
-            itineraryRepository: itineraryRepository,
-            calendar: TestDates.calendar
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
+        let useCase = makeUseCase(
+            trip: trip,
+            savedPlace: savedPlace,
+            schedulingRepository: schedulingRepository
         )
 
         #expect(throws: ScheduleSavedPlaceError.alreadyScheduled) {
@@ -84,7 +97,19 @@ struct ScheduleSavedPlaceUseCaseTests {
             )
         }
 
-        #expect(itineraryRepository.saveCallCount == 0)
-        #expect(savedPlaceRepository.updateCallCount == 0)
+        #expect(schedulingRepository.scheduleCallCount == 0)
+    }
+
+    private func makeUseCase(
+        trip: Trip,
+        savedPlace: SavedPlace,
+        schedulingRepository: MockSavedPlaceSchedulingRepository
+    ) -> ScheduleSavedPlaceUseCase {
+        ScheduleSavedPlaceUseCase(
+            tripRepository: MockTripRepository(trips: [trip]),
+            savedPlaceRepository: MockSavedPlaceRepository(savedPlaces: [savedPlace]),
+            schedulingRepository: schedulingRepository,
+            calendar: TestDates.calendar
+        )
     }
 }

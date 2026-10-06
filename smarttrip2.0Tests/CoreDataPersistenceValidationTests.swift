@@ -113,7 +113,7 @@ struct CoreDataPersistenceValidationTests {
         let useCase = ScheduleSavedPlaceUseCase(
             tripRepository: repositories.tripRepository,
             savedPlaceRepository: repositories.savedPlaceRepository,
-            itineraryRepository: repositories.itineraryRepository,
+            schedulingRepository: repositories.schedulingRepository,
             calendar: TestDates.calendar
         )
 
@@ -146,6 +146,88 @@ struct CoreDataPersistenceValidationTests {
         #expect(updatedPlaceB.status == .scheduled)
         #expect(tripAItems.map(\.id) == [itemA.id])
         #expect(tripBItems.map(\.id) == [itemB.id])
+        #expect(tripAItems.first?.sourceSavedPlaceID == placeA.id)
+        #expect(tripBItems.first?.sourceSavedPlaceID == placeB.id)
+    }
+
+    @Test func schedulingTransactionRollsBackOnSaveFailureAndCanRetry() throws {
+        let repositories = makeRepositories()
+        let trip = TestFixtures.trip()
+        let place = TestFixtures.savedPlace(tripID: trip.id)
+        let invalidItem = ItineraryItem(
+            tripID: trip.id,
+            sourceSavedPlaceID: place.id,
+            title: place.name,
+            location: place.name,
+            date: TestDates.december12,
+            startTime: nil,
+            category: .activity
+        )
+
+        try repositories.tripRepository.saveTrip(trip)
+        try repositories.savedPlaceRepository.saveSavedPlace(place)
+
+        #expect(throws: Error.self) {
+            try repositories.schedulingRepository.schedule(
+                savedPlaceID: place.id,
+                itineraryItem: invalidItem
+            )
+        }
+
+        #expect(try repositories.itineraryRepository.fetchItineraryItems(for: trip.id).isEmpty)
+        #expect(try repositories.savedPlaceRepository.fetchSavedPlace(id: place.id)?.status == .idea)
+
+        let validItem = ItineraryItem(
+            tripID: trip.id,
+            sourceSavedPlaceID: place.id,
+            title: place.name,
+            location: place.name,
+            date: TestDates.december12,
+            startTime: TestDates.december12At10,
+            category: .activity
+        )
+
+        try repositories.schedulingRepository.schedule(
+            savedPlaceID: place.id,
+            itineraryItem: validItem
+        )
+
+        let items = try repositories.itineraryRepository.fetchItineraryItems(for: trip.id)
+        #expect(items.map(\.id) == [validItem.id])
+        #expect(items.first?.sourceSavedPlaceID == place.id)
+        #expect(try repositories.savedPlaceRepository.fetchSavedPlace(id: place.id)?.status == .scheduled)
+    }
+
+    @Test func itineraryRepositoryRoundTripsOptionalSourceSavedPlaceID() throws {
+        let repositories = makeRepositories()
+        let trip = TestFixtures.trip()
+        let sourceSavedPlaceID = UUID()
+        let linkedItem = ItineraryItem(
+            tripID: trip.id,
+            sourceSavedPlaceID: sourceSavedPlaceID,
+            title: "TeamLab Borderless",
+            location: "Tokyo",
+            date: TestDates.december12,
+            startTime: TestDates.december12At10,
+            category: .activity
+        )
+        let standaloneItem = ItineraryItem(
+            tripID: trip.id,
+            title: "Free Walk",
+            location: "Tokyo",
+            date: TestDates.december12,
+            startTime: TestDates.december12At18,
+            category: .other
+        )
+
+        try repositories.tripRepository.saveTrip(trip)
+        try repositories.itineraryRepository.saveItineraryItem(linkedItem)
+        try repositories.itineraryRepository.saveItineraryItem(standaloneItem)
+
+        let fetchedItems = try repositories.itineraryRepository.fetchItineraryItems(for: trip.id)
+
+        #expect(fetchedItems.first(where: { $0.id == linkedItem.id })?.sourceSavedPlaceID == sourceSavedPlaceID)
+        #expect(fetchedItems.first(where: { $0.id == standaloneItem.id })?.sourceSavedPlaceID == nil)
     }
 
     @Test func schedulingOutsideTripDatesDoesNotPersistAnItineraryItemOrStatusChange() throws {
@@ -155,7 +237,7 @@ struct CoreDataPersistenceValidationTests {
         let useCase = ScheduleSavedPlaceUseCase(
             tripRepository: repositories.tripRepository,
             savedPlaceRepository: repositories.savedPlaceRepository,
-            itineraryRepository: repositories.itineraryRepository,
+            schedulingRepository: repositories.schedulingRepository,
             calendar: TestDates.calendar
         )
 
@@ -272,6 +354,7 @@ struct CoreDataPersistenceValidationTests {
             tripRepository: CoreDataTripRepository(context: context),
             savedPlaceRepository: CoreDataSavedPlaceRepository(context: context),
             itineraryRepository: CoreDataItineraryRepository(context: context),
+            schedulingRepository: CoreDataSavedPlaceSchedulingRepository(context: context),
             memoryRepository: CoreDataMemoryRepository(context: context)
         )
     }
@@ -290,5 +373,6 @@ private struct RepositoryBundle {
     let tripRepository: CoreDataTripRepository
     let savedPlaceRepository: CoreDataSavedPlaceRepository
     let itineraryRepository: CoreDataItineraryRepository
+    let schedulingRepository: CoreDataSavedPlaceSchedulingRepository
     let memoryRepository: CoreDataMemoryRepository
 }
