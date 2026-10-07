@@ -5,10 +5,12 @@ enum TestDates {
     static let calendar = Calendar(identifier: .gregorian)
 
     static let december10 = makeDate(day: 10)
+    static let december10At10 = makeDate(day: 10, hour: 10)
     static let december12 = makeDate(day: 12)
     static let december12At10 = makeDate(day: 12, hour: 10)
     static let december12At18 = makeDate(day: 12, hour: 18)
     static let december15 = makeDate(day: 15)
+    static let december15At10 = makeDate(day: 15, hour: 10)
     static let december16 = makeDate(day: 16)
     static let december16At10 = makeDate(day: 16, hour: 10)
 

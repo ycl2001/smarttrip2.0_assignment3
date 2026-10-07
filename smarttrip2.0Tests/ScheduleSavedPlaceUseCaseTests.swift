@@ -75,6 +75,42 @@ struct ScheduleSavedPlaceUseCaseTests {
         #expect(schedulingRepository.scheduleCallCount == 0)
     }
 
+    @Test func scheduleSavedPlaceAllowsTripStartDate() throws {
+        let trip = TestFixtures.trip()
+        let savedPlace = TestFixtures.savedPlace(tripID: trip.id)
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
+        let useCase = makeUseCase(trip: trip, savedPlace: savedPlace, schedulingRepository: schedulingRepository)
+
+        let item = try useCase.execute(
+            savedPlaceID: savedPlace.id,
+            tripID: trip.id,
+            scheduledDate: TestDates.december10,
+            startTime: TestDates.december10At10
+        )
+
+        #expect(schedulingRepository.scheduleCallCount == 1)
+        #expect(item.tripID == trip.id)
+        #expect(TestDates.calendar.isDate(item.date, inSameDayAs: trip.startDate))
+    }
+
+    @Test func scheduleSavedPlaceAllowsTripEndDate() throws {
+        let trip = TestFixtures.trip()
+        let savedPlace = TestFixtures.savedPlace(tripID: trip.id)
+        let schedulingRepository = MockSavedPlaceSchedulingRepository()
+        let useCase = makeUseCase(trip: trip, savedPlace: savedPlace, schedulingRepository: schedulingRepository)
+
+        let item = try useCase.execute(
+            savedPlaceID: savedPlace.id,
+            tripID: trip.id,
+            scheduledDate: TestDates.december15,
+            startTime: TestDates.december15At10
+        )
+
+        #expect(schedulingRepository.scheduleCallCount == 1)
+        #expect(item.tripID == trip.id)
+        #expect(TestDates.calendar.isDate(item.date, inSameDayAs: trip.endDate))
+    }
+
     @Test func scheduleSavedPlaceRejectsAlreadyScheduledPlace() {
         let trip = TestFixtures.trip()
         let savedPlace = TestFixtures.savedPlace(
