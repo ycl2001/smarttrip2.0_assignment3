@@ -1,5 +1,6 @@
 import CoreLocation
 import Foundation
+import MapKit
 
 @MainActor
 protocol CurrentLocationProviding: AnyObject {
@@ -65,30 +66,27 @@ final class CurrentLocationService: NSObject, CurrentLocationProviding {
     }
 
     func readablePlace(for location: CLLocation) async throws -> String {
-        let placemarks = try await CLGeocoder().reverseGeocodeLocation(location)
-        guard let placemark = placemarks.first else {
+        guard let request = MKReverseGeocodingRequest(location: location) else {
             throw CurrentLocationError.placeUnavailable
         }
 
-        let components = [
-            placemark.name,
-            placemark.locality,
-            placemark.administrativeArea,
-            placemark.country
-        ]
-        .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
-        .filter { !$0.isEmpty }
-        .reduce(into: [String]()) { result, value in
-            if !result.contains(value) {
-                result.append(value)
-            }
-        }
-
-        guard !components.isEmpty else {
+        let mapItems = try await request.mapItems
+        guard let mapItem = mapItems.first else {
             throw CurrentLocationError.placeUnavailable
         }
 
-        return components.prefix(3).joined(separator: ", ")
+        if let address = mapItem.address?.fullAddress,
+           !address.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return address
+        }
+
+        if let name = mapItem.name,
+           !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+           name.localizedCaseInsensitiveCompare("Current Location") != .orderedSame {
+            return name
+        }
+
+        throw CurrentLocationError.placeUnavailable
     }
 }
 
