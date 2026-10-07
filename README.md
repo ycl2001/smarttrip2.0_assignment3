@@ -2,6 +2,10 @@
 
 SmartTrip 2.0 is an iOS travel-planning app for travellers who collect ideas from many places, organise them by trip, turn them into itinerary plans, and preserve meaningful memories after the journey. The app keeps the core planning and memory workflow local-first with Core Data while exposing domain logic through ViewModels, Use Cases, repository protocols, and Core Data repository implementations.
 
+## Trip Invitations
+
+SmartTrip can share a Trip-specific invitation through the native iOS share sheet, including the Trip name, destination, and dates. This is an invitation-sharing handoff only: real-time multi-device collaboration and synchronization are outside the current MVP.
+
 ## Domain Context
 
 Travellers often discover useful trip information outside the planning app: a Safari article, an Apple Maps place, selected text in Notes, or a compatible social/shared URL. While travelling, they also need lightweight prompts to capture memories before details fade. SmartTrip is designed to reduce friction across the travel lifecycle: discover, plan, travel, capture, and remember.
