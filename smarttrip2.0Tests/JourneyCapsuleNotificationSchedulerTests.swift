@@ -20,21 +20,21 @@ struct JourneyCapsuleNotificationSchedulerTests {
         #expect(decoded == payload)
     }
 
-    @Test func reminderBodyIncludesTripDayWhenAvailable() throws {
+    @Test func reminderContentUsesConciseTripAndDestinationCopy() throws {
         let payload = try Self.makePayload(tripDay: 3)
         let content = JourneyCapsuleNotificationScheduler.makeContent(payload: payload)
 
-        #expect(content.title == "Capture today's journey")
-        #expect(content.subtitle == "Tokyo Trip · Day 3")
-        #expect(content.body == "You're on Day 3 of your Tokyo Trip. Add a moment to your Journey Capsule while it's still fresh.")
+        #expect(content.title == "Capture a moment")
+        #expect(content.subtitle == "Tokyo Trip · Tokyo")
+        #expect(content.body == "Add something from today to your Journey Capsule.")
     }
 
-    @Test func reminderBodyOmitsTripDayWhenUnavailable() throws {
-        let payload = try Self.makePayload(tripDay: nil)
+    @Test func reminderContentOmitsDestinationWhenUnavailable() throws {
+        let payload = try Self.makePayload(destination: nil, tripDay: nil)
         let content = JourneyCapsuleNotificationScheduler.makeContent(payload: payload)
 
-        #expect(content.subtitle == "Tokyo Trip · Tokyo")
-        #expect(content.body == "Tokyo Trip: Add a moment to your Journey Capsule while it's still fresh.")
+        #expect(content.subtitle == "Tokyo Trip")
+        #expect(content.body == "Add something from today to your Journey Capsule.")
     }
 
     @Test func pastTriggerDateIsRejected() throws {
@@ -117,12 +117,13 @@ struct JourneyCapsuleNotificationSchedulerTests {
     )
 
     private static func makePayload(
+        destination: String? = "Tokyo",
         tripDay: Int?
     ) throws -> smarttrip2_0.JourneyCapsuleNotificationPayload {
         smarttrip2_0.JourneyCapsuleNotificationPayload(
             tripID: try #require(UUID(uuidString: "AB98F0EB-38F5-4F82-8997-B58D87D06F6A")),
             tripName: "Tokyo Trip",
-            destination: "Tokyo",
+            destination: destination,
             tripDay: tripDay
         )
     }

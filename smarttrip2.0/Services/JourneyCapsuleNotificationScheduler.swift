@@ -121,7 +121,7 @@ struct JourneyCapsuleNotificationScheduler: JourneyCapsuleNotificationScheduling
         payload: JourneyCapsuleNotificationPayload
     ) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = "Capture today's journey"
+        content.title = "Capture a moment"
         content.subtitle = subtitle(for: payload)
         content.body = body(for: payload)
         content.categoryIdentifier = JourneyCapsuleNotificationContract.categoryIdentifier
@@ -141,24 +141,19 @@ struct JourneyCapsuleNotificationScheduler: JourneyCapsuleNotificationScheduling
     private static func subtitle(
         for payload: JourneyCapsuleNotificationPayload
     ) -> String {
-        if let tripDay = payload.tripDay {
-            return "\(payload.tripName) · Day \(tripDay)"
-        }
+        let tripName = payload.tripName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let displayTripName = tripName.isEmpty ? "Your Trip" : tripName
 
         if let destination = payload.destination {
-            return "\(payload.tripName) · \(destination)"
+            return "\(displayTripName) · \(destination)"
         }
 
-        return payload.tripName
+        return displayTripName
     }
 
     private static func body(
         for payload: JourneyCapsuleNotificationPayload
     ) -> String {
-        if let tripDay = payload.tripDay {
-            return "You're on Day \(tripDay) of your \(payload.tripName). \(payload.promptText)"
-        }
-
-        return "\(payload.tripName): \(payload.promptText)"
+        "Add something from today to your Journey Capsule."
     }
 }
