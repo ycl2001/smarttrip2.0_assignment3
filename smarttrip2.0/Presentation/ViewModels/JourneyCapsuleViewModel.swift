@@ -16,6 +16,7 @@ final class JourneyCapsuleViewModel {
     @ObservationIgnored private let captureJourneyMemoryUseCase: CaptureJourneyMemoryUseCase
     @ObservationIgnored private let notificationAuthorizer: any JourneyCapsuleNotificationAuthorizing
     @ObservationIgnored private let notificationScheduler: any JourneyCapsuleNotificationScheduling
+    @ObservationIgnored private let placeAutocomplete: any PlaceAutocompleteProviding
     @ObservationIgnored private let now: () -> Date
 
     init(
@@ -24,6 +25,7 @@ final class JourneyCapsuleViewModel {
         captureJourneyMemoryUseCase: CaptureJourneyMemoryUseCase,
         notificationAuthorizer: any JourneyCapsuleNotificationAuthorizing,
         notificationScheduler: any JourneyCapsuleNotificationScheduling,
+        placeAutocomplete: any PlaceAutocompleteProviding,
         now: @escaping () -> Date = Date.init
     ) {
         self.tripID = tripID
@@ -31,6 +33,7 @@ final class JourneyCapsuleViewModel {
         self.captureJourneyMemoryUseCase = captureJourneyMemoryUseCase
         self.notificationAuthorizer = notificationAuthorizer
         self.notificationScheduler = notificationScheduler
+        self.placeAutocomplete = placeAutocomplete
         self.now = now
     }
 
@@ -81,6 +84,13 @@ final class JourneyCapsuleViewModel {
 
     func clearPresentationError() {
         clearError()
+    }
+
+    func makeCaptureMomentViewModel() -> CaptureMomentViewModel {
+        CaptureMomentViewModel(
+            captureJourneyMemoryUseCase: captureJourneyMemoryUseCase,
+            placeAutocomplete: placeAutocomplete
+        )
     }
 
     @discardableResult

@@ -206,6 +206,7 @@ struct JourneyCapsuleViewModelTests {
             captureJourneyMemoryUseCase: useCase,
             notificationAuthorizer: notificationAuthorizer,
             notificationScheduler: notificationScheduler,
+            placeAutocomplete: MockPlaceAutocompleteService(),
             now: now
         )
     }

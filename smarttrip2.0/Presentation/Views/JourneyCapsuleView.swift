@@ -48,7 +48,8 @@ struct JourneyCapsuleView: View {
         .sheet(isPresented: $isShowingCaptureMoment) {
             CaptureMomentView(
                 trip: trip,
-                viewModel: viewModel
+                journeyCapsuleViewModel: viewModel,
+                viewModel: viewModel.makeCaptureMomentViewModel()
             )
         }
         .sheet(isPresented: $isShowingReminderSheet) {
@@ -401,12 +402,22 @@ private struct CaptureMomentView: View {
     @Environment(\.dismiss) private var dismiss
 
     let trip: Trip
-    @State var viewModel: JourneyCapsuleViewModel
-    @State private var location = ""
-    @State private var caption = ""
-    @State private var capturedAt = Date()
+    let journeyCapsuleViewModel: JourneyCapsuleViewModel
+    @State private var viewModel: CaptureMomentViewModel
+
+    init(
+        trip: Trip,
+        journeyCapsuleViewModel: JourneyCapsuleViewModel,
+        viewModel: CaptureMomentViewModel
+    ) {
+        self.trip = trip
+        self.journeyCapsuleViewModel = journeyCapsuleViewModel
+        _viewModel = State(initialValue: viewModel)
+    }
 
     var body: some View {
+        @Bindable var viewModel = viewModel
+
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: SmartTripSpacing.lg) {
@@ -437,6 +448,7 @@ private struct CaptureMomentView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         viewModel.clearPresentationError()
+                        viewModel.clearLocationSuggestions()
                         dismiss()
                     }
                 }
@@ -447,6 +459,9 @@ private struct CaptureMomentView: View {
                     }
                     .disabled(viewModel.isSaving)
                 }
+            }
+            .onDisappear {
+                viewModel.clearLocationSuggestions()
             }
         }
     }
@@ -471,10 +486,14 @@ private struct CaptureMomentView: View {
                     .foregroundStyle(SmartTripColors.primary)
                     .accessibilityHidden(true)
 
-                TextField("Place or location", text: $location)
+                TextField("Place or location", text: locationBinding)
                     .textFieldStyle(.plain)
                     .textInputAutocapitalization(.words)
                     .accessibilityLabel("Where were you?")
+            }
+
+            if !viewModel.locationSuggestions.isEmpty {
+                locationSuggestionList
             }
 
             Divider()
@@ -483,7 +502,7 @@ private struct CaptureMomentView: View {
                 .font(SmartTripTypography.headline)
                 .foregroundStyle(SmartTripColors.textPrimary)
 
-            TextEditor(text: $caption)
+            TextEditor(text: $viewModel.caption)
                 .font(SmartTripTypography.body)
                 .foregroundStyle(SmartTripColors.textPrimary)
                 .scrollContentBackground(.hidden)
@@ -499,7 +518,7 @@ private struct CaptureMomentView: View {
 
     private var capturedMetadata: some View {
         DatePicker(
-            selection: $capturedAt,
+            selection: $viewModel.capturedAt,
             displayedComponents: [.date, .hourAndMinute]
         ) {
             VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
@@ -507,7 +526,7 @@ private struct CaptureMomentView: View {
                     .font(SmartTripTypography.caption)
                     .foregroundStyle(SmartTripColors.textSecondary)
 
-                Text(capturedAt, format: .dateTime.day().month(.abbreviated).year().hour().minute())
+                Text(viewModel.capturedAt, format: .dateTime.day().month(.abbreviated).year().hour().minute())
                     .font(SmartTripTypography.body)
                     .foregroundStyle(SmartTripColors.textPrimary)
             }
@@ -524,8 +543,8 @@ private struct CaptureMomentView: View {
         let calendar = Calendar.current
         let tripStart = calendar.startOfDay(for: trip.startDate)
         let tripEnd = calendar.startOfDay(for: trip.endDate)
-        let capturedDay = calendar.startOfDay(for: capturedAt)
-        let dateText = capturedAt.formatted(.dateTime.day().month(.abbreviated).year())
+        let capturedDay = calendar.startOfDay(for: viewModel.capturedAt)
+        let dateText = viewModel.capturedAt.formatted(.dateTime.day().month(.abbreviated).year())
 
         guard capturedDay >= tripStart, capturedDay <= tripEnd else {
             return dateText
@@ -536,14 +555,62 @@ private struct CaptureMomentView: View {
     }
 
     private func save() {
-        guard viewModel.captureMoment(
-            location: location,
-            caption: caption,
-            capturedAt: capturedAt
-        ) != nil else {
+        guard viewModel.save(tripID: trip.id) != nil else {
             return
         }
 
+        journeyCapsuleViewModel.loadMemories()
+        viewModel.clearLocationSuggestions()
         dismiss()
+    }
+
+    private var locationBinding: Binding<String> {
+        Binding(
+            get: { viewModel.locationText },
+            set: { viewModel.updateLocationText($0) }
+        )
+    }
+
+    private var locationSuggestionList: some View {
+        VStack(spacing: 0) {
+            ForEach(viewModel.locationSuggestions) { suggestion in
+                Button {
+                    viewModel.selectLocationSuggestion(suggestion)
+                } label: {
+                    VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
+                        Text(suggestion.title)
+                            .font(SmartTripTypography.body)
+                            .foregroundStyle(SmartTripColors.textPrimary)
+
+                        if !suggestion.subtitle.isEmpty {
+                            Text(suggestion.subtitle)
+                                .font(SmartTripTypography.caption)
+                                .foregroundStyle(SmartTripColors.textSecondary)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, SmartTripSpacing.sm)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(suggestionAccessibilityLabel(for: suggestion))
+
+                if suggestion.id != viewModel.locationSuggestions.last?.id {
+                    Divider()
+                }
+            }
+        }
+        .padding(.horizontal, SmartTripSpacing.xs)
+        .background(SmartTripColors.background)
+        .clipShape(RoundedRectangle(cornerRadius: SmartTripRadius.medium, style: .continuous))
+    }
+
+    private func suggestionAccessibilityLabel(
+        for suggestion: PlaceSuggestion
+    ) -> String {
+        guard !suggestion.subtitle.isEmpty else {
+            return suggestion.title
+        }
+
+        return "\(suggestion.title), \(suggestion.subtitle)"
     }
 }

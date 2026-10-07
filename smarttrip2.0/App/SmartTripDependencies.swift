@@ -95,7 +95,8 @@ struct SmartTripDependencies {
             memoryRepository: memoryRepository,
             captureJourneyMemoryUseCase: captureJourneyMemoryUseCase,
             notificationAuthorizer: journeyCapsuleNotificationAuthorizer,
-            notificationScheduler: journeyCapsuleNotificationScheduler
+            notificationScheduler: journeyCapsuleNotificationScheduler,
+            placeAutocomplete: MapKitPlaceAutocompleteService()
         )
     }
 }
