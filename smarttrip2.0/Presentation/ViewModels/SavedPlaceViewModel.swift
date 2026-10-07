@@ -188,23 +188,20 @@ final class SavedPlaceViewModel {
     private func present(
         _ error: Error
     ) {
-        let localizedError = error as? any LocalizedError
-        errorMessage = localizedError?.errorDescription ?? error.localizedDescription
-        recoverySuggestion = localizedError?.recoverySuggestion
+        errorMessage = UserFacingErrorMapper.message(for: error, fallback: "Your saved place couldn’t be updated. Try again.")
+        recoverySuggestion = UserFacingErrorMapper.recoverySuggestion(for: error)
     }
 
     private func presentationMessage(
         for error: Error
     ) -> String {
-        let localizedError = error as? any LocalizedError
-        return localizedError?.errorDescription ?? error.localizedDescription
+        UserFacingErrorMapper.message(for: error, fallback: "Your saved place couldn’t be updated. Try again.")
     }
 
     private func presentationRecoverySuggestion(
         for error: Error
     ) -> String? {
-        let localizedError = error as? any LocalizedError
-        return localizedError?.recoverySuggestion
+        UserFacingErrorMapper.recoverySuggestion(for: error)
     }
 
     private func placeName(

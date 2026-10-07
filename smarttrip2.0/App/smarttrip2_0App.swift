@@ -25,9 +25,18 @@ struct smarttrip2_0App: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environment(\.smartTripDependencies, dependencies)
+            if persistenceController.storeLoadError == nil {
+                ContentView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .environment(\.smartTripDependencies, dependencies)
+            } else {
+                EmptyStateView(
+                    systemImage: "exclamationmark.triangle",
+                    title: "SmartTrip couldn’t access your saved data",
+                    message: "Close and reopen the app, then try again."
+                )
+                .tint(SmartTripColors.primary)
+            }
         }
     }
 }

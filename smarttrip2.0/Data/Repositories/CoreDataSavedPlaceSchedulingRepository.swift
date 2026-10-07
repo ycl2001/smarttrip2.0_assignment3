@@ -3,21 +3,21 @@ import Foundation
 
 final class CoreDataSavedPlaceSchedulingRepository: SavedPlaceSchedulingRepository {
     private let viewContext: NSManagedObjectContext
-    private let persistentStoreCoordinator: NSPersistentStoreCoordinator
+    private let persistentStoreCoordinator: NSPersistentStoreCoordinator?
 
     init(context: NSManagedObjectContext) {
-        guard let persistentStoreCoordinator = context.persistentStoreCoordinator else {
-            fatalError("The scheduling repository requires a persistent store coordinator.")
-        }
-
         self.viewContext = context
-        self.persistentStoreCoordinator = persistentStoreCoordinator
+        self.persistentStoreCoordinator = context.persistentStoreCoordinator
     }
 
     func schedule(
         savedPlaceID: UUID,
         itineraryItem: ItineraryItem
     ) throws {
+        guard let persistentStoreCoordinator else {
+            throw CoreDataRepositoryError.persistentStoreUnavailable
+        }
+
         let transactionContext = NSManagedObjectContext(
             concurrencyType: .privateQueueConcurrencyType
         )

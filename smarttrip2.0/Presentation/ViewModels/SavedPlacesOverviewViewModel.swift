@@ -61,8 +61,7 @@ final class SavedPlacesOverviewViewModel {
     private func present(
         _ error: Error
     ) {
-        let localizedError = error as? any LocalizedError
-        errorMessage = localizedError?.errorDescription ?? error.localizedDescription
-        recoverySuggestion = localizedError?.recoverySuggestion
+        errorMessage = UserFacingErrorMapper.message(for: error, fallback: "We couldn’t load your saved places. Try again.")
+        recoverySuggestion = UserFacingErrorMapper.recoverySuggestion(for: error)
     }
 }
