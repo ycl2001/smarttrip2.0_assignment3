@@ -91,20 +91,25 @@ struct JourneyCapsuleView: View {
 
                 Spacer()
 
-                SecondaryActionButton("Capture a Moment") {
-                    viewModel.clearPresentationError()
-                    isShowingCaptureMoment = true
+                Button {
+                    viewModel.clearReminderMessage()
+                    reminderDate = Date().addingTimeInterval(60 * 60)
+                    isShowingReminderSheet = true
+                } label: {
+                    Image(systemName: "bell")
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(SmartTripColors.primary)
+                        .frame(width: 44, height: 44)
+                        .background(
+                            Circle()
+                                .fill(SmartTripColors.surface)
+                        )
+                        .overlay(
+                            Circle()
+                                .stroke(SmartTripColors.primary.opacity(0.22))
+                        )
                 }
-            }
-
-            SecondaryActionButton(
-                "Remind me to capture",
-                systemImage: "bell",
-                isFullWidth: true
-            ) {
-                viewModel.clearReminderMessage()
-                reminderDate = Date().addingTimeInterval(60 * 60)
-                isShowingReminderSheet = true
+                .accessibilityLabel("Set Journey Capsule reminder")
             }
         }
     }
@@ -184,14 +189,6 @@ struct JourneyCapsuleView: View {
                     .accessibilityLabel(memoryAccessibilityLabel(for: memory))
                 }
 
-                Button {
-                    viewModel.clearPresentationError()
-                    isShowingCaptureMoment = true
-                } label: {
-                    captureTile
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Capture a Moment")
             }
         }
     }
@@ -200,42 +197,10 @@ struct JourneyCapsuleView: View {
         EmptyStateView(
             systemImage: "photo.stack",
             title: "No memories yet",
-            message: "Capture the places, thoughts, and moments you want to remember from this trip.",
-            actionTitle: "Capture a Moment"
-        ) {
-            viewModel.clearPresentationError()
-            isShowingCaptureMoment = true
-        }
+            message: "Capture the places, thoughts, and moments you want to remember from this trip."
+        )
         .frame(maxWidth: .infinity)
         .padding(.vertical, SmartTripSpacing.lg)
-    }
-
-    private var captureTile: some View {
-        VStack(spacing: SmartTripSpacing.md) {
-            Image(systemName: "plus")
-                .font(.title.weight(.semibold))
-                .foregroundStyle(SmartTripColors.primary)
-                .frame(width: 48, height: 48)
-                .background(
-                    Circle()
-                        .fill(SmartTripColors.primary.opacity(0.12))
-                )
-
-            Text("Capture")
-                .font(SmartTripTypography.headline)
-                .foregroundStyle(SmartTripColors.textPrimary)
-
-            Text("Add a fresh moment")
-                .font(SmartTripTypography.caption)
-                .foregroundStyle(SmartTripColors.textSecondary)
-        }
-        .frame(maxWidth: .infinity, minHeight: 230)
-        .padding(SmartTripSpacing.md)
-        .background(
-            RoundedRectangle(cornerRadius: SmartTripRadius.large, style: .continuous)
-                .strokeBorder(style: StrokeStyle(lineWidth: 1.5, dash: [6, 6]))
-                .foregroundStyle(SmartTripColors.divider)
-        )
     }
 
     private var memoryCountText: String {
