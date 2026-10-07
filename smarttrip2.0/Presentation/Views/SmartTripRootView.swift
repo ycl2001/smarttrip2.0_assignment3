@@ -57,7 +57,7 @@ struct SmartTripRootView: View {
                 CreateTripSheet(viewModel: tripViewModel)
             }
             .sheet(isPresented: $isShowingSettings) {
-                SettingsView()
+                SettingsView(currentLocation: dependencies.currentLocationService)
             }
             .navigationDestination(isPresented: isShowingRoutedJourneyCapsule) {
                 if let routedJourneyCapsuleTrip {

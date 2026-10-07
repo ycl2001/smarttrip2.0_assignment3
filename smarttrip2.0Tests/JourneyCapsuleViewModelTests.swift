@@ -207,6 +207,7 @@ struct JourneyCapsuleViewModelTests {
             notificationAuthorizer: notificationAuthorizer,
             notificationScheduler: notificationScheduler,
             placeAutocomplete: MockPlaceAutocompleteService(),
+            currentLocation: MockCurrentLocationService(),
             now: now
         )
     }

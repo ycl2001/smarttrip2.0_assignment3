@@ -17,6 +17,7 @@ final class JourneyCapsuleViewModel {
     @ObservationIgnored private let notificationAuthorizer: any JourneyCapsuleNotificationAuthorizing
     @ObservationIgnored private let notificationScheduler: any JourneyCapsuleNotificationScheduling
     @ObservationIgnored private let placeAutocomplete: any PlaceAutocompleteProviding
+    @ObservationIgnored private let currentLocation: any CurrentLocationProviding
     @ObservationIgnored private let now: () -> Date
 
     init(
@@ -26,6 +27,7 @@ final class JourneyCapsuleViewModel {
         notificationAuthorizer: any JourneyCapsuleNotificationAuthorizing,
         notificationScheduler: any JourneyCapsuleNotificationScheduling,
         placeAutocomplete: any PlaceAutocompleteProviding,
+        currentLocation: any CurrentLocationProviding,
         now: @escaping () -> Date = Date.init
     ) {
         self.tripID = tripID
@@ -34,6 +36,7 @@ final class JourneyCapsuleViewModel {
         self.notificationAuthorizer = notificationAuthorizer
         self.notificationScheduler = notificationScheduler
         self.placeAutocomplete = placeAutocomplete
+        self.currentLocation = currentLocation
         self.now = now
     }
 
@@ -89,7 +92,8 @@ final class JourneyCapsuleViewModel {
     func makeCaptureMomentViewModel() -> CaptureMomentViewModel {
         CaptureMomentViewModel(
             captureJourneyMemoryUseCase: captureJourneyMemoryUseCase,
-            placeAutocomplete: placeAutocomplete
+            placeAutocomplete: placeAutocomplete,
+            currentLocation: currentLocation
         )
     }
 

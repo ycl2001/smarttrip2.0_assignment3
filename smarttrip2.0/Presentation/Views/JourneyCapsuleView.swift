@@ -510,6 +510,30 @@ private struct CaptureMomentView: View {
                     .accessibilityLabel("Where were you?")
             }
 
+            Button {
+                Task {
+                    await viewModel.useCurrentLocation()
+                }
+            } label: {
+                Label(
+                    viewModel.isUsingCurrentLocation ? "Finding your location…" : "Use My Current Location",
+                    systemImage: "location.fill"
+                )
+                .font(SmartTripTypography.caption)
+                .frame(minHeight: 44)
+            }
+            .contentShape(Rectangle())
+            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+            .disabled(viewModel.isUsingCurrentLocation)
+            .foregroundStyle(SmartTripColors.primary)
+            .accessibilityLabel("Use My Current Location")
+
+            if let locationMessage = viewModel.locationMessage {
+                Text(locationMessage)
+                    .font(SmartTripTypography.caption)
+                    .foregroundStyle(SmartTripColors.textSecondary)
+            }
+
             if !viewModel.locationSuggestions.isEmpty {
                 locationSuggestionList
             }

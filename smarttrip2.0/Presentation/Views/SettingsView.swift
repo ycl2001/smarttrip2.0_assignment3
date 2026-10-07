@@ -1,3 +1,4 @@
+import CoreLocation
 import SwiftUI
 import UIKit
 import UserNotifications
@@ -7,6 +8,7 @@ struct SettingsView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var notificationPermission = NotificationPermissionStatus.loading
+    let currentLocation: any CurrentLocationProviding
 
     var body: some View {
         NavigationStack {
@@ -80,14 +82,7 @@ struct SettingsView: View {
     private var privacyAndDataSection: some View {
         Section("Privacy & Data") {
             NavigationLink {
-                SettingsInformationView(
-                    title: "Location & Maps",
-                    introduction: "SmartTrip uses MapKit to suggest places while you type.",
-                    points: [
-                        "Place suggestions are available when creating a Trip, adding a Saved Place, or capturing a Journey Capsule Memory.",
-                        "SmartTrip does not request your device location permission in the current MVP."
-                    ]
-                )
+                LocationAndMapsSettingsView(currentLocation: currentLocation)
             } label: {
                 SettingsStatusRow(
                     title: "Location & Maps",
@@ -191,6 +186,67 @@ struct SettingsView: View {
         Task {
             await UIApplication.shared.open(url)
         }
+    }
+}
+
+private struct LocationAndMapsSettingsView: View {
+    @Environment(\.scenePhase) private var scenePhase
+    let currentLocation: any CurrentLocationProviding
+    @State private var status: CLAuthorizationStatus = .notDetermined
+
+    var body: some View {
+        Form {
+            Section("Location") {
+                HStack {
+                    Text("Location Access")
+                    Spacer()
+                    Text(statusText)
+                        .foregroundStyle(.secondary)
+                }
+                Text("SmartTrip only accesses your location when you choose \"Use My Current Location.\"")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+
+                if status == .denied {
+                    Button("Open iOS Settings") { openAppSettings() }
+                        .foregroundStyle(SmartTripColors.primary)
+                } else if status == .notDetermined {
+                    Text("Location permission is requested from Capture a Moment, not from Settings.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            Section("Maps") {
+                LabeledContent("Place Suggestions", value: "Apple MapKit")
+                Text("Used when searching for destinations, Saved Places, and Journey Capsule locations. Manual entry remains available without location permission.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .navigationTitle("Location & Maps")
+        .navigationBarTitleDisplayMode(.inline)
+        .task { status = currentLocation.authorizationStatus }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { status = currentLocation.authorizationStatus }
+        }
+    }
+
+    private var statusText: String {
+        switch status {
+        case .notDetermined: "Not Requested"
+        case .authorizedWhenInUse: "While Using"
+        case .denied: "Off"
+        case .restricted: "Restricted"
+        case .authorizedAlways: "Allowed"
+        @unknown default: "Off"
+        }
+    }
+
+    @MainActor
+    private func openAppSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        Task { await UIApplication.shared.open(url) }
     }
 }
 

@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 import Testing
 @testable import smarttrip2_0
@@ -82,13 +83,75 @@ struct CaptureMomentViewModelTests {
         #expect(viewModel.errorMessage == nil)
     }
 
+    @Test func currentLocationPopulatesAnEditablePlaceName() async {
+        let location = MockCurrentLocationService()
+        location.location = CLLocation(latitude: -45.0312, longitude: 168.6626)
+        location.placeName = "Queenstown, New Zealand"
+        let viewModel = makeViewModel(
+            placeAutocomplete: MockPlaceAutocompleteService(),
+            currentLocation: location
+        )
+
+        await viewModel.useCurrentLocation()
+        viewModel.updateLocationText("Queenstown Gardens")
+
+        #expect(viewModel.locationText == "Queenstown Gardens")
+    }
+
+    @Test func notDeterminedLocationRequestsWhenInUseThenPopulatesPlace() async {
+        let location = MockCurrentLocationService(authorizationStatus: .notDetermined)
+        location.authorizationStatusAfterRequest = .authorizedWhenInUse
+        location.location = CLLocation(latitude: -45.0312, longitude: 168.6626)
+        location.placeName = "Queenstown, New Zealand"
+        let viewModel = makeViewModel(
+            placeAutocomplete: MockPlaceAutocompleteService(),
+            currentLocation: location
+        )
+
+        await viewModel.useCurrentLocation()
+
+        #expect(location.authorizationRequestCount == 1)
+        #expect(viewModel.locationText == "Queenstown, New Zealand")
+    }
+
+    @Test func unavailableLocationShowsGuidanceWithoutBlockingManualEntry() async {
+        let location = MockCurrentLocationService()
+        let viewModel = makeViewModel(
+            placeAutocomplete: MockPlaceAutocompleteService(),
+            currentLocation: location
+        )
+
+        await viewModel.useCurrentLocation()
+        viewModel.updateLocationText("Queenstown")
+
+        #expect(viewModel.locationMessage == "We couldn't determine your current location. Try again or enter the place manually.")
+        #expect(viewModel.locationText == "Queenstown")
+    }
+
+    @Test func deniedLocationKeepsManualMemorySavingAvailable() throws {
+        let location = MockCurrentLocationService(authorizationStatus: .denied)
+        let trip = TestFixtures.trip()
+        let viewModel = makeViewModel(
+            trip: trip,
+            placeAutocomplete: MockPlaceAutocompleteService(),
+            currentLocation: location
+        )
+        viewModel.updateLocationText("Queenstown")
+        viewModel.caption = "Manual entry still works."
+
+        let memory = try #require(viewModel.save(tripID: trip.id))
+        #expect(memory.location == "Queenstown")
+    }
+
     private func makeViewModel(
         trip: Trip? = nil,
         memoryRepository: MockMemoryRepository? = nil,
-        placeAutocomplete: MockPlaceAutocompleteService
+        placeAutocomplete: MockPlaceAutocompleteService,
+        currentLocation: MockCurrentLocationService? = nil
     ) -> CaptureMomentViewModel {
         let trip = trip ?? TestFixtures.trip()
         let memoryRepository = memoryRepository ?? MockMemoryRepository()
+        let currentLocation = currentLocation ?? MockCurrentLocationService()
         let useCase = CaptureJourneyMemoryUseCase(
             tripRepository: MockTripRepository(trips: [trip]),
             memoryRepository: memoryRepository
@@ -96,7 +159,8 @@ struct CaptureMomentViewModelTests {
 
         return CaptureMomentViewModel(
             captureJourneyMemoryUseCase: useCase,
-            placeAutocomplete: placeAutocomplete
+            placeAutocomplete: placeAutocomplete,
+            currentLocation: currentLocation
         )
     }
 }
