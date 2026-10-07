@@ -39,6 +39,22 @@ struct CreateTripUseCaseTests {
         #expect(tripRepository.trips.isEmpty)
     }
 
+    @Test func createTripAllowsOneDayTrip() throws {
+        let tripRepository = MockTripRepository()
+        let useCase = CreateTripUseCase(tripRepository: tripRepository)
+
+        let trip = try useCase.execute(
+            name: "Tokyo Day Trip",
+            destination: "Tokyo",
+            startDate: TestDates.december10,
+            endDate: TestDates.december10
+        )
+
+        #expect(tripRepository.saveCallCount == 1)
+        #expect(trip.startDate == trip.endDate)
+        #expect(tripRepository.lastSavedTrip == trip)
+    }
+
     @Test func createTripRejectsMissingTripName() {
         let tripRepository = MockTripRepository()
         let useCase = CreateTripUseCase(tripRepository: tripRepository)
