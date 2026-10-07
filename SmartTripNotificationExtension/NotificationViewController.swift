@@ -94,7 +94,57 @@ private struct JourneyCapsuleReminderDisplayContent {
     init(
         payload: JourneyCapsuleNotificationPayload?
     ) {
-        context = payload?.destination.map { "Today in \($0)" }
+        if let destination = payload?.destination {
+            let placeDescription = [payload?.tripName, destination]
+                .compactMap { $0 }
+                .joined(separator: " ")
+            context = "Today in \(destination) \(Self.emoji(for: placeDescription))"
+        } else {
+            context = nil
+        }
         prompt = "Save a place, thought, or moment while it's still fresh."
+    }
+
+    private static func emoji(
+        for placeDescription: String
+    ) -> String {
+        let description = placeDescription.lowercased()
+
+        if containsAny(
+            ["fast food", "burger", "fries", "mcdonald", "kfc", "subway", "pizza"],
+            in: description
+        ) {
+            return "🍔 🍟"
+        }
+
+        if containsAny(
+            ["dining", "restaurant", "bistro", "brasserie", "wine", "tasting"],
+            in: description
+        ) {
+            return "🥂"
+        }
+
+        if containsAny(
+            ["hike", "trail", "mountain", "national park", "forest", "alps", "peak", "waterfall"],
+            in: description
+        ) {
+            return "🏔️ 🌿"
+        }
+
+        if containsAny(
+            ["beach", "coast", "bay", "island", "reef", "ocean", "sea"],
+            in: description
+        ) {
+            return "🌊 🏖️"
+        }
+
+        return "✈️"
+    }
+
+    private static func containsAny(
+        _ keywords: [String],
+        in description: String
+    ) -> Bool {
+        keywords.contains { description.contains($0) }
     }
 }
