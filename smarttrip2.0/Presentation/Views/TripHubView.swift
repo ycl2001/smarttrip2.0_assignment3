@@ -223,12 +223,18 @@ struct TripHubView: View {
                 ],
                 spacing: SmartTripSpacing.md
             ) {
-                hubDestinationCard(
-                    title: "Members",
-                    subtitle: "Manage travellers later",
-                    systemImage: "person.2.fill",
-                    tint: SmartTripColors.warmAccent
-                )
+                NavigationLink {
+                    TripMembersView(trip: trip)
+                } label: {
+                    hubDestinationCardContent(
+                        title: "Members",
+                        subtitle: "Invite people to this trip",
+                        systemImage: "person.2.fill",
+                        tint: SmartTripColors.warmAccent
+                    )
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Members. Invite people to this trip.")
 
                 if let dependencies {
                     NavigationLink {
@@ -266,45 +272,36 @@ struct TripHubView: View {
         systemImage: String,
         tint: Color
     ) -> some View {
-        NavigationLink {
-            HubPlaceholderView(
-                title: title,
-                message: "\(title) will be implemented in the next Phase 4 workflow steps."
-            )
-        } label: {
-            VStack(alignment: .leading, spacing: SmartTripSpacing.md) {
-                Image(systemName: systemImage)
-                    .font(.title2.weight(.semibold))
-                    .foregroundStyle(tint)
-                    .frame(width: 44, height: 44)
-                    .background(
-                        Circle()
-                            .fill(tint.opacity(0.14))
-                    )
-                    .accessibilityHidden(true)
+        VStack(alignment: .leading, spacing: SmartTripSpacing.md) {
+            Image(systemName: systemImage)
+                .font(.title2.weight(.semibold))
+                .foregroundStyle(tint)
+                .frame(width: 44, height: 44)
+                .background(
+                    Circle()
+                        .fill(tint.opacity(0.14))
+                )
+                .accessibilityHidden(true)
 
-                VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
-                    Text(title)
-                        .font(SmartTripTypography.headline)
-                        .foregroundStyle(SmartTripColors.textPrimary)
+            VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
+                Text(title)
+                    .font(SmartTripTypography.headline)
+                    .foregroundStyle(SmartTripColors.textPrimary)
 
-                    Text(subtitle)
-                        .font(SmartTripTypography.caption)
-                        .foregroundStyle(SmartTripColors.textSecondary)
-                        .lineLimit(2)
-                }
-
-                Spacer(minLength: 0)
+                Text(subtitle)
+                    .font(SmartTripTypography.caption)
+                    .foregroundStyle(SmartTripColors.textSecondary)
+                    .lineLimit(2)
             }
-            .padding(SmartTripSpacing.md)
-            .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
-            .background(
-                RoundedRectangle(cornerRadius: SmartTripRadius.large, style: .continuous)
-                    .fill(SmartTripColors.surface)
-            )
+
+            Spacer(minLength: 0)
         }
-        .buttonStyle(.plain)
-        .accessibilityLabel("\(title). \(subtitle)")
+        .padding(SmartTripSpacing.md)
+        .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
+        .background(
+            RoundedRectangle(cornerRadius: SmartTripRadius.large, style: .continuous)
+                .fill(SmartTripColors.surface)
+        )
     }
 
     private func hubDestinationCardContent(
@@ -411,22 +408,5 @@ struct TripHubView: View {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter
-    }
-}
-
-private struct HubPlaceholderView: View {
-    let title: String
-    let message: String
-
-    var body: some View {
-        EmptyStateView(
-            systemImage: "sparkles",
-            title: title,
-            message: message
-        )
-        .padding(SmartTripSpacing.md)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SmartTripColors.background)
-        .navigationTitle(title)
     }
 }
