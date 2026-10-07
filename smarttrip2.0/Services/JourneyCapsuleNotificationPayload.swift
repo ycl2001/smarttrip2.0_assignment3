@@ -2,6 +2,7 @@ import Foundation
 
 enum JourneyCapsuleNotificationContract {
     static let categoryIdentifier = "JOURNEY_CAPSULE_REMINDER"
+    static let openJourneyCapsuleActionIdentifier = "OPEN_JOURNEY_CAPSULE"
 }
 
 struct JourneyCapsuleNotificationPayload: Equatable {

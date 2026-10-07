@@ -14,10 +14,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     @IBOutlet var label: UILabel?
 
     private let brandLabel = UILabel()
-    private let titleLabel = UILabel()
-    private let tripContextLabel = UILabel()
+    private let contextLabel = UILabel()
     private let promptLabel = UILabel()
-    private let destinationLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,43 +38,31 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                 : UIColor(red: 0.96, green: 0.98, blue: 0.97, alpha: 1.0)
         }
 
-        brandLabel.font = .systemFont(ofSize: 12, weight: .bold)
+        brandLabel.font = .systemFont(ofSize: 11, weight: .bold)
         brandLabel.textColor = UIColor(red: 0.09, green: 0.42, blue: 0.38, alpha: 1.0)
-        brandLabel.text = "SMARTTRIP"
+        brandLabel.text = "JOURNEY CAPSULE"
         brandLabel.adjustsFontForContentSizeCategory = true
 
-        titleLabel.font = .preferredFont(forTextStyle: .headline)
-        titleLabel.textColor = .label
-        titleLabel.adjustsFontForContentSizeCategory = true
-        titleLabel.numberOfLines = 1
+        contextLabel.font = .preferredFont(forTextStyle: .subheadline)
+        contextLabel.textColor = .secondaryLabel
+        contextLabel.adjustsFontForContentSizeCategory = true
+        contextLabel.numberOfLines = 1
 
-        tripContextLabel.font = .preferredFont(forTextStyle: .subheadline)
-        tripContextLabel.textColor = .secondaryLabel
-        tripContextLabel.adjustsFontForContentSizeCategory = true
-        tripContextLabel.numberOfLines = 1
-
-        promptLabel.font = .preferredFont(forTextStyle: .body)
+        promptLabel.font = .preferredFont(forTextStyle: .subheadline)
         promptLabel.textColor = .label
         promptLabel.adjustsFontForContentSizeCategory = true
-        promptLabel.numberOfLines = 3
-
-        destinationLabel.font = .preferredFont(forTextStyle: .caption1)
-        destinationLabel.textColor = UIColor(red: 0.52, green: 0.30, blue: 0.15, alpha: 1.0)
-        destinationLabel.adjustsFontForContentSizeCategory = true
-        destinationLabel.numberOfLines = 1
+        promptLabel.numberOfLines = 2
 
         let stackView = UIStackView(
             arrangedSubviews: [
                 brandLabel,
-                titleLabel,
-                tripContextLabel,
-                promptLabel,
-                destinationLabel
+                contextLabel,
+                promptLabel
             ]
         )
         stackView.axis = .vertical
         stackView.alignment = .fill
-        stackView.spacing = 6
+        stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(stackView)
@@ -84,44 +70,81 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 14),
-            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -14)
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 12),
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -12)
         ])
 
-        preferredContentSize = CGSize(width: 0, height: 164)
+        preferredContentSize = CGSize(width: 0, height: 96)
         apply(displayContent: JourneyCapsuleReminderDisplayContent(payload: nil))
     }
 
     private func apply(
         displayContent: JourneyCapsuleReminderDisplayContent
     ) {
-        titleLabel.text = displayContent.title
-        tripContextLabel.text = displayContent.tripContext
+        contextLabel.text = displayContent.context
+        contextLabel.isHidden = displayContent.context == nil
         promptLabel.text = displayContent.prompt
-        destinationLabel.text = displayContent.destination
-        destinationLabel.isHidden = displayContent.destination == nil
     }
 }
 
 private struct JourneyCapsuleReminderDisplayContent {
-    let title: String
-    let tripContext: String
+    let context: String?
     let prompt: String
-    let destination: String?
 
     init(
         payload: JourneyCapsuleNotificationPayload?
     ) {
-        title = "Capture today's journey"
-        prompt = payload?.promptText ?? JourneyCapsuleNotificationPayload.defaultPrompt
-        destination = payload?.destination
-
-        let tripName = payload?.tripName ?? "Your Trip"
-
-        if let tripDay = payload?.tripDay {
-            tripContext = "\(tripName) · Day \(tripDay)"
+        if let destination = payload?.destination {
+            let placeDescription = [payload?.tripName, destination]
+                .compactMap { $0 }
+                .joined(separator: " ")
+            context = "Today in \(destination) \(Self.emoji(for: placeDescription))"
         } else {
-            tripContext = tripName
+            context = nil
         }
+        prompt = "Save a place, thought, or moment while it's still fresh."
+    }
+
+    private static func emoji(
+        for placeDescription: String
+    ) -> String {
+        let description = placeDescription.lowercased()
+
+        if containsAny(
+            ["fast food", "burger", "fries", "mcdonald", "kfc", "subway", "pizza"],
+            in: description
+        ) {
+            return "🍔 🍟"
+        }
+
+        if containsAny(
+            ["dining", "restaurant", "bistro", "brasserie", "wine", "tasting"],
+            in: description
+        ) {
+            return "🥂"
+        }
+
+        if containsAny(
+            ["hike", "trail", "mountain", "national park", "forest", "alps", "peak", "waterfall"],
+            in: description
+        ) {
+            return "🏔️ 🌿"
+        }
+
+        if containsAny(
+            ["beach", "coast", "bay", "island", "reef", "ocean", "sea"],
+            in: description
+        ) {
+            return "🌊 🏖️"
+        }
+
+        return "✈️"
+    }
+
+    private static func containsAny(
+        _ keywords: [String],
+        in description: String
+    ) -> Bool {
+        keywords.contains { description.contains($0) }
     }
 }

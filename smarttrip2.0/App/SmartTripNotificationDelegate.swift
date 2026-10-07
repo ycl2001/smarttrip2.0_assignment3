@@ -9,7 +9,22 @@ final class SmartTripNotificationDelegate: NSObject, UIApplicationDelegate, UNUs
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
+        notificationCenter.setNotificationCategories([
+            UNNotificationCategory(
+                identifier: JourneyCapsuleNotificationContract.categoryIdentifier,
+                actions: [
+                    UNNotificationAction(
+                        identifier: JourneyCapsuleNotificationContract.openJourneyCapsuleActionIdentifier,
+                        title: "Open Journey Capsule",
+                        options: [.foreground]
+                    )
+                ],
+                intentIdentifiers: [],
+                options: []
+            )
+        ])
         return true
     }
 
