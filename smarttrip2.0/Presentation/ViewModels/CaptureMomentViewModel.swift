@@ -1,7 +1,8 @@
+import CoreLocation
 import Foundation
 import Observation
 
-@Observable
+@MainActor @Observable
 final class CaptureMomentViewModel {
     var locationText = ""
     var caption = ""
@@ -9,9 +10,12 @@ final class CaptureMomentViewModel {
     var isSaving = false
     var errorMessage: String?
     var recoverySuggestion: String?
+    var locationMessage: String?
+    var isUsingCurrentLocation = false
 
     @ObservationIgnored private let captureJourneyMemoryUseCase: CaptureJourneyMemoryUseCase
     @ObservationIgnored private let placeAutocomplete: any PlaceAutocompleteProviding
+    @ObservationIgnored private let currentLocation: any CurrentLocationProviding
 
     var locationSuggestions: [PlaceSuggestion] {
         Array(placeAutocomplete.suggestions.prefix(3))
@@ -19,10 +23,12 @@ final class CaptureMomentViewModel {
 
     init(
         captureJourneyMemoryUseCase: CaptureJourneyMemoryUseCase,
-        placeAutocomplete: any PlaceAutocompleteProviding
+        placeAutocomplete: any PlaceAutocompleteProviding,
+        currentLocation: any CurrentLocationProviding
     ) {
         self.captureJourneyMemoryUseCase = captureJourneyMemoryUseCase
         self.placeAutocomplete = placeAutocomplete
+        self.currentLocation = currentLocation
     }
 
     func updateLocationText(
@@ -41,6 +47,40 @@ final class CaptureMomentViewModel {
 
     func clearLocationSuggestions() {
         placeAutocomplete.clearSuggestions()
+    }
+
+    func useCurrentLocation() async {
+        guard !isUsingCurrentLocation else {
+            return
+        }
+
+        isUsingCurrentLocation = true
+        locationMessage = nil
+        defer { isUsingCurrentLocation = false }
+
+        if currentLocation.authorizationStatus == .notDetermined {
+            await currentLocation.requestWhenInUseAuthorization()
+        }
+
+        switch currentLocation.authorizationStatus {
+        case .denied, .restricted, .notDetermined:
+            locationMessage = "Location access is off. You can enter a place manually or enable location in Settings."
+            return
+        case .authorizedWhenInUse, .authorizedAlways:
+            break
+        @unknown default:
+            locationMessage = "We couldn't determine your current location. Try again or enter the place manually."
+            return
+        }
+
+        do {
+            let location = try await currentLocation.currentLocation()
+            let place = try await currentLocation.readablePlace(for: location)
+            locationText = place
+            placeAutocomplete.clearSuggestions()
+        } catch {
+            locationMessage = "We couldn't determine your current location. Try again or enter the place manually."
+        }
     }
 
     @discardableResult

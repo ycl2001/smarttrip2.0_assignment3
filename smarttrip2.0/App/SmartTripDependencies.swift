@@ -12,6 +12,7 @@ struct SmartTripDependencies {
     let captureJourneyMemoryUseCase: CaptureJourneyMemoryUseCase
     let journeyCapsuleNotificationAuthorizer: any JourneyCapsuleNotificationAuthorizing
     let journeyCapsuleNotificationScheduler: any JourneyCapsuleNotificationScheduling
+    let currentLocationService: any CurrentLocationProviding
 
     init(context: NSManagedObjectContext) {
         let tripRepository = CoreDataTripRepository(context: context)
@@ -21,6 +22,7 @@ struct SmartTripDependencies {
         let memoryRepository = CoreDataMemoryRepository(context: context)
         let journeyCapsuleNotificationAuthorizer = JourneyCapsuleNotificationAuthorizer()
         let journeyCapsuleNotificationScheduler = JourneyCapsuleNotificationScheduler()
+        let currentLocationService = CurrentLocationService()
 
         self.tripRepository = tripRepository
         self.savedPlaceRepository = savedPlaceRepository
@@ -44,6 +46,7 @@ struct SmartTripDependencies {
         )
         self.journeyCapsuleNotificationAuthorizer = journeyCapsuleNotificationAuthorizer
         self.journeyCapsuleNotificationScheduler = journeyCapsuleNotificationScheduler
+        self.currentLocationService = currentLocationService
     }
 
     func makeTripViewModel() -> TripViewModel {
@@ -96,7 +99,8 @@ struct SmartTripDependencies {
             captureJourneyMemoryUseCase: captureJourneyMemoryUseCase,
             notificationAuthorizer: journeyCapsuleNotificationAuthorizer,
             notificationScheduler: journeyCapsuleNotificationScheduler,
-            placeAutocomplete: MapKitPlaceAutocompleteService()
+            placeAutocomplete: MapKitPlaceAutocompleteService(),
+            currentLocation: currentLocationService
         )
     }
 }

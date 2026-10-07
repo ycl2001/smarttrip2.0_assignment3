@@ -57,7 +57,7 @@ struct SmartTripRootView: View {
                 CreateTripSheet(viewModel: tripViewModel)
             }
             .sheet(isPresented: $isShowingSettings) {
-                SettingsView()
+                SettingsView(currentLocation: dependencies.currentLocationService)
             }
             .navigationDestination(isPresented: isShowingRoutedJourneyCapsule) {
                 if let routedJourneyCapsuleTrip {
@@ -254,41 +254,5 @@ private struct SmartTripBottomBar: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(accessibilityLabel)
-    }
-}
-
-private struct SettingsView: View {
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: SmartTripSpacing.lg) {
-                VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
-                    Text("Settings")
-                        .font(SmartTripTypography.display)
-                        .foregroundStyle(SmartTripColors.textPrimary)
-
-                    Text("SmartTrip preferences and account settings will live here as the app grows.")
-                        .font(SmartTripTypography.body)
-                        .foregroundStyle(SmartTripColors.textSecondary)
-                }
-
-                SectionHeader("App", subtitle: "SmartTrip 2.0")
-
-                Spacer()
-            }
-            .padding(SmartTripSpacing.md)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(SmartTripColors.background)
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        dismiss()
-                    }
-                }
-            }
-        }
     }
 }
