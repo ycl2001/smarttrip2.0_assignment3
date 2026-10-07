@@ -9,6 +9,37 @@ protocol JourneyCapsuleNotificationScheduling {
     ) async throws -> String
 }
 
+protocol JourneyCapsuleNotificationAuthorizing {
+    func requestAuthorization() async throws -> Bool
+}
+
+struct JourneyCapsuleNotificationAuthorizer: JourneyCapsuleNotificationAuthorizing {
+    private let notificationCenter: UNUserNotificationCenter
+
+    init(
+        notificationCenter: UNUserNotificationCenter = .current()
+    ) {
+        self.notificationCenter = notificationCenter
+    }
+
+    func requestAuthorization() async throws -> Bool {
+        let settings = await notificationCenter.notificationSettings()
+
+        switch settings.authorizationStatus {
+        case .authorized, .provisional, .ephemeral:
+            return true
+        case .denied:
+            return false
+        case .notDetermined:
+            return try await notificationCenter.requestAuthorization(
+                options: [.alert, .badge, .sound]
+            )
+        @unknown default:
+            return false
+        }
+    }
+}
+
 enum JourneyCapsuleNotificationSchedulingError: LocalizedError, Equatable {
     case invalidTriggerDate
 

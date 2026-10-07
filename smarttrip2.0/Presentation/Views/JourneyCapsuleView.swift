@@ -4,6 +4,8 @@ struct JourneyCapsuleView: View {
     let trip: Trip
     @State private var viewModel: JourneyCapsuleViewModel
     @State private var isShowingCaptureMoment = false
+    @State private var isShowingReminderSheet = false
+    @State private var reminderDate = Date().addingTimeInterval(60 * 60)
 
     init(
         trip: Trip,
@@ -49,6 +51,19 @@ struct JourneyCapsuleView: View {
                 viewModel: viewModel
             )
         }
+        .sheet(isPresented: $isShowingReminderSheet) {
+            reminderSheet
+        }
+        .alert(
+            "Journey Capsule reminder",
+            isPresented: reminderMessageIsPresented
+        ) {
+            Button("OK") {
+                viewModel.clearReminderMessage()
+            }
+        } message: {
+            Text(viewModel.reminderMessage ?? "")
+        }
         .onAppear {
             viewModel.loadMemories()
         }
@@ -81,8 +96,61 @@ struct JourneyCapsuleView: View {
                     isShowingCaptureMoment = true
                 }
             }
+
+            SecondaryActionButton(
+                "Remind me to capture",
+                systemImage: "bell",
+                isFullWidth: true
+            ) {
+                viewModel.clearReminderMessage()
+                reminderDate = Date().addingTimeInterval(60 * 60)
+                isShowingReminderSheet = true
+            }
         }
-        .accessibilityElement(children: .combine)
+    }
+
+    private var reminderSheet: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    DatePicker(
+                        "Date and time",
+                        selection: $reminderDate,
+                        in: Date()...,
+                        displayedComponents: [.date, .hourAndMinute]
+                    )
+                } footer: {
+                    Text("We'll remind you to capture a moment from \(trip.name).")
+                }
+            }
+            .navigationTitle("Remind me to capture")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        isShowingReminderSheet = false
+                    }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Set Reminder") {
+                        Task {
+                            let didSchedule = await viewModel.scheduleReminder(
+                                for: trip,
+                                at: reminderDate
+                            )
+                            isShowingReminderSheet = false
+
+                            if !didSchedule {
+                                return
+                            }
+                        }
+                    }
+                    .disabled(viewModel.isSchedulingReminder)
+                }
+            }
+        }
+        .interactiveDismissDisabled(viewModel.isSchedulingReminder)
     }
 
     @ViewBuilder
@@ -177,6 +245,17 @@ struct JourneyCapsuleView: View {
         default:
             "\(viewModel.memories.count) memories"
         }
+    }
+
+    private var reminderMessageIsPresented: Binding<Bool> {
+        Binding(
+            get: { viewModel.reminderMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.clearReminderMessage()
+                }
+            }
+        )
     }
 
     private var dateRangeText: String {
