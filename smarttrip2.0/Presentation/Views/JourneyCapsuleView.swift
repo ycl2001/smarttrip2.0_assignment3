@@ -421,7 +421,7 @@ private struct CaptureMomentView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: SmartTripSpacing.lg) {
-                    tripContext
+                    captureHeader
 
                     Text("What do you want to remember?")
                         .font(SmartTripTypography.title)
@@ -477,6 +477,24 @@ private struct CaptureMomentView: View {
                 .font(SmartTripTypography.body)
                 .foregroundStyle(SmartTripColors.textSecondary)
         }
+    }
+
+    private var captureHeader: some View {
+        HStack(alignment: .top, spacing: SmartTripSpacing.md) {
+            tripContext
+
+            Spacer(minLength: SmartTripSpacing.sm)
+
+            PixelTravelStamp(
+                destination: stampDestination,
+                date: viewModel.capturedAt
+            )
+        }
+    }
+
+    private var stampDestination: String {
+        let destination = trip.destination.trimmingCharacters(in: .whitespacesAndNewlines)
+        return destination.isEmpty ? "Journey Capsule" : destination
     }
 
     private var captureCard: some View {
@@ -612,5 +630,116 @@ private struct CaptureMomentView: View {
         }
 
         return "\(suggestion.title), \(suggestion.subtitle)"
+    }
+}
+
+private struct PixelTravelStamp: View {
+    let destination: String
+    let date: Date
+
+    private let stampColor = SmartTripColors.primary.opacity(0.26)
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 5) {
+            stamp
+            cancellationMarks
+        }
+        .rotationEffect(.degrees(-6))
+        .accessibilityHidden(true)
+    }
+
+    private var stamp: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(spacing: 5) {
+                PixelSuitcase(color: stampColor)
+                    .frame(width: 18, height: 18)
+
+                Text("SMARTTRIP")
+                    .font(.system(size: 8, weight: .bold, design: .monospaced))
+                    .tracking(0.4)
+            }
+
+            Text(destination.uppercased())
+                .font(.system(size: 9, weight: .bold, design: .monospaced))
+                .lineLimit(1)
+
+            Text(date.formatted(.dateTime.day(.twoDigits).month(.abbreviated).year()).uppercased())
+                .font(.system(size: 7, weight: .medium, design: .monospaced))
+                .lineLimit(1)
+        }
+        .foregroundStyle(stampColor)
+        .padding(8)
+        .background(PixelStampBorder(color: stampColor))
+    }
+
+    private var cancellationMarks: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            ForEach(0..<3, id: \.self) { row in
+                HStack(spacing: 2) {
+                    ForEach(0..<(row == 1 ? 4 : 3), id: \.self) { _ in
+                        Rectangle()
+                            .fill(stampColor)
+                            .frame(width: 3, height: 3)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct PixelSuitcase: View {
+    let color: Color
+
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            Rectangle()
+                .fill(color)
+                .frame(width: 18, height: 12)
+
+            Rectangle()
+                .fill(color)
+                .frame(width: 8, height: 3)
+                .offset(y: -12)
+
+            HStack {
+                Rectangle()
+                    .fill(SmartTripColors.surface)
+                    .frame(width: 2, height: 3)
+                Spacer()
+                Rectangle()
+                    .fill(SmartTripColors.surface)
+                    .frame(width: 2, height: 3)
+            }
+            .padding(.horizontal, 4)
+            .padding(.bottom, 4)
+        }
+    }
+}
+
+private struct PixelStampBorder: View {
+    let color: Color
+
+    var body: some View {
+        GeometryReader { proxy in
+            let pixel: CGFloat = 3
+            let width = proxy.size.width
+            let height = proxy.size.height
+
+            ZStack(alignment: .topLeading) {
+                Rectangle().fill(color).frame(width: width - (pixel * 2), height: pixel).offset(x: pixel)
+                Rectangle().fill(color).frame(width: width - (pixel * 2), height: pixel).offset(x: pixel, y: height - pixel)
+                Rectangle().fill(color).frame(width: pixel, height: height - (pixel * 2)).offset(y: pixel)
+                Rectangle().fill(color).frame(width: pixel, height: height - (pixel * 2)).offset(x: width - pixel, y: pixel)
+
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(x: pixel)
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(y: pixel)
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(x: width - (pixel * 2), y: 0)
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(x: width - pixel, y: pixel)
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(x: pixel, y: height - pixel)
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(y: height - (pixel * 2))
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(x: width - (pixel * 2), y: height - pixel)
+                Rectangle().fill(color).frame(width: pixel, height: pixel).offset(x: width - pixel, y: height - (pixel * 2))
+            }
+        }
     }
 }
