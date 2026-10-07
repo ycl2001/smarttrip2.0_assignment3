@@ -408,38 +408,29 @@ private struct CaptureMomentView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextField("Place or location", text: $location)
-                        .textInputAutocapitalization(.words)
-                        .accessibilityLabel("Where were you?")
+            ScrollView {
+                VStack(alignment: .leading, spacing: SmartTripSpacing.lg) {
+                    tripContext
 
-                    TextEditor(text: $caption)
-                        .frame(minHeight: 112)
-                        .accessibilityLabel("What do you want to remember?")
-                } header: {
-                    Text("Moment")
-                } footer: {
-                    Text("Photo capture is deferred until SmartTrip has a dedicated image storage flow.")
-                }
+                    Text("What do you want to remember?")
+                        .font(SmartTripTypography.title)
+                        .foregroundStyle(SmartTripColors.textPrimary)
 
-                Section("Date") {
-                    DatePicker(
-                        "Captured at",
-                        selection: $capturedAt,
-                        displayedComponents: [.date, .hourAndMinute]
-                    )
-                }
+                    captureCard
 
-                if let errorMessage = viewModel.errorMessage {
-                    Section {
+                    capturedMetadata
+
+                    if let errorMessage = viewModel.errorMessage {
                         ErrorBanner(
                             title: errorMessage,
                             recoverySuggestion: viewModel.recoverySuggestion
                         )
                     }
                 }
+                .padding(SmartTripSpacing.md)
             }
+            .background(SmartTripColors.background.ignoresSafeArea())
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Capture a Moment")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -458,6 +449,90 @@ private struct CaptureMomentView: View {
                 }
             }
         }
+    }
+
+    private var tripContext: some View {
+        VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
+            Text(trip.destination)
+                .font(SmartTripTypography.caption)
+                .foregroundStyle(SmartTripColors.primary)
+                .textCase(.uppercase)
+
+            Text(tripDayAndDateText)
+                .font(SmartTripTypography.body)
+                .foregroundStyle(SmartTripColors.textSecondary)
+        }
+    }
+
+    private var captureCard: some View {
+        VStack(alignment: .leading, spacing: SmartTripSpacing.md) {
+            HStack(spacing: SmartTripSpacing.sm) {
+                Image(systemName: "mappin.and.ellipse")
+                    .foregroundStyle(SmartTripColors.primary)
+                    .accessibilityHidden(true)
+
+                TextField("Place or location", text: $location)
+                    .textFieldStyle(.plain)
+                    .textInputAutocapitalization(.words)
+                    .accessibilityLabel("Where were you?")
+            }
+
+            Divider()
+
+            Text("What made today memorable?")
+                .font(SmartTripTypography.headline)
+                .foregroundStyle(SmartTripColors.textPrimary)
+
+            TextEditor(text: $caption)
+                .font(SmartTripTypography.body)
+                .foregroundStyle(SmartTripColors.textPrimary)
+                .scrollContentBackground(.hidden)
+                .frame(minHeight: 124)
+                .accessibilityLabel("What do you want to remember?")
+        }
+        .padding(SmartTripSpacing.md)
+        .background(
+            RoundedRectangle(cornerRadius: SmartTripRadius.large, style: .continuous)
+                .fill(SmartTripColors.surface)
+        )
+    }
+
+    private var capturedMetadata: some View {
+        DatePicker(
+            selection: $capturedAt,
+            displayedComponents: [.date, .hourAndMinute]
+        ) {
+            VStack(alignment: .leading, spacing: SmartTripSpacing.xs) {
+                Text("Captured")
+                    .font(SmartTripTypography.caption)
+                    .foregroundStyle(SmartTripColors.textSecondary)
+
+                Text(capturedAt, format: .dateTime.day().month(.abbreviated).year().hour().minute())
+                    .font(SmartTripTypography.body)
+                    .foregroundStyle(SmartTripColors.textPrimary)
+            }
+        }
+        .datePickerStyle(.compact)
+        .padding(SmartTripSpacing.md)
+        .background(
+            RoundedRectangle(cornerRadius: SmartTripRadius.medium, style: .continuous)
+                .fill(SmartTripColors.surface)
+        )
+    }
+
+    private var tripDayAndDateText: String {
+        let calendar = Calendar.current
+        let tripStart = calendar.startOfDay(for: trip.startDate)
+        let tripEnd = calendar.startOfDay(for: trip.endDate)
+        let capturedDay = calendar.startOfDay(for: capturedAt)
+        let dateText = capturedAt.formatted(.dateTime.day().month(.abbreviated).year())
+
+        guard capturedDay >= tripStart, capturedDay <= tripEnd else {
+            return dateText
+        }
+
+        let day = (calendar.dateComponents([.day], from: tripStart, to: capturedDay).day ?? 0) + 1
+        return "Day \(day) · \(dateText)"
     }
 
     private func save() {
